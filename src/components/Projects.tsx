@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { PROJECTS } from '../data';
 import { Project } from '../types';
-import { ExternalLink, Calendar, Hourglass, Layers, X, ArrowRight } from 'lucide-react';
+import { ExternalLink, Hourglass, Layers, X, ArrowRight, Check, TrendingUp, Globe } from 'lucide-react';
 
 export default function Projects() {
   const container = useRef<HTMLDivElement>(null);
@@ -11,6 +11,20 @@ export default function Projects() {
   
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'fullstack' | 'ecommerce' | 'frontend' | 'design'>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [previewLoaded, setPreviewLoaded] = useState(false);
+
+  // Close on Escape + lock body scroll while the modal is open
+  useEffect(() => {
+    if (!selectedProject) return;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedProject]);
 
   // Filter projects based on state
   const filteredProjects = PROJECTS.filter((proj) => {
@@ -54,6 +68,7 @@ export default function Projects() {
 
   // Custom modal open/close animations using GSAP
   const openModal = (proj: Project) => {
+    setPreviewLoaded(false);
     setSelectedProject(proj);
     // Let state update then animate (using a safe timeout or immediate execution)
     setTimeout(() => {
@@ -195,106 +210,168 @@ export default function Projects() {
 
         {/* Project Detailed Modal */}
         {selectedProject && (
-          <div className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md">
-            <div className="modal-content relative w-full max-w-3xl overflow-hidden rounded-2xl glass bg-zinc-950/90 shadow-2xl">
-              
+          <div
+            className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 md:p-6 backdrop-blur-md"
+            onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
+          >
+            <div className="modal-content relative w-full max-w-5xl overflow-hidden rounded-2xl glass bg-zinc-950/95 shadow-2xl">
+
               {/* Close Button */}
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/80 text-zinc-400 transition-colors hover:text-white border border-white/5"
+                title="Cerrar (Esc)"
+                className="absolute top-3.5 right-3.5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/80 text-zinc-400 transition-colors hover:text-white border border-white/10"
               >
                 <X className="h-4 w-4" />
               </button>
 
-              <div className="grid md:grid-cols-12 h-full max-h-[85vh] overflow-y-auto">
-                {/* Modal Left / Top: Banner Image */}
-                <div className="md:col-span-5 relative h-48 md:h-full bg-[#030303]">
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-zinc-950 via-transparent to-transparent" />
+              <div className="grid md:grid-cols-12 max-h-[88vh] md:max-h-[85vh] overflow-y-auto md:overflow-hidden">
+
+                {/* Left: Live demo preview (desktop) / image (mobile) */}
+                <div className="md:col-span-5 relative bg-[#030303] md:max-h-[85vh] flex flex-col border-b md:border-b-0 md:border-r border-white/5">
+                  {/* Browser chrome bar */}
+                  <div className="hidden md:flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-zinc-900/60">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+                    <div className="ml-2 flex-1 truncate rounded-md bg-black/40 border border-white/5 px-3 py-1 font-mono text-[10px] text-zinc-500">
+                      stonydev.com{selectedProject.demoUrl ?? ''}
+                    </div>
+                  </div>
+
+                  {selectedProject.demoUrl ? (
+                    <>
+                      {/* Scaled live iframe (desktop only) */}
+                      <div className="relative hidden md:block flex-1 min-h-[380px] overflow-hidden">
+                        {!previewLoaded && (
+                          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#030303]">
+                            <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500/30 border-t-blue-400" />
+                            <span className="text-[10px] uppercase tracking-widest text-zinc-500">Cargando demo en vivo…</span>
+                          </div>
+                        )}
+                        <iframe
+                          src={selectedProject.demoUrl}
+                          title={`Demo — ${selectedProject.title}`}
+                          onLoad={() => setPreviewLoaded(true)}
+                          className="absolute top-0 left-0 origin-top-left border-0"
+                          style={{ width: '285%', height: '285%', transform: 'scale(0.351)' }}
+                        />
+                        {/* Click-through overlay to open the real demo */}
+                        <a
+                          href={selectedProject.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/preview absolute inset-0 z-10 flex items-end justify-center bg-transparent transition-colors hover:bg-black/30"
+                        >
+                          <span className="mb-4 flex translate-y-2 items-center gap-2 rounded-full bg-white px-4 py-2 font-sans text-xs font-bold text-black opacity-0 shadow-xl transition-all group-hover/preview:translate-y-0 group-hover/preview:opacity-100">
+                            <ExternalLink className="h-3.5 w-3.5" />
+                            Abrir demo completa
+                          </span>
+                        </a>
+                        <div className="pointer-events-none absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-black/70 border border-white/10 px-3 py-1 backdrop-blur-md">
+                          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                          <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-300">Demo en vivo</span>
+                        </div>
+                      </div>
+                      {/* Mobile: static image linking to demo */}
+                      <a href={selectedProject.demoUrl} target="_blank" rel="noopener noreferrer" className="relative block h-44 md:hidden">
+                        <img src={selectedProject.image} alt={selectedProject.title} referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+                        <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold text-black">
+                          <ExternalLink className="h-3 w-3" /> Ver demo
+                        </span>
+                      </a>
+                    </>
+                  ) : (
+                    <div className="relative h-44 md:h-full md:flex-1">
+                      <img src={selectedProject.image} alt={selectedProject.title} referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-zinc-950 via-transparent to-transparent" />
+                    </div>
+                  )}
                 </div>
 
-                {/* Modal Right / Bottom: Project Details */}
-                <div className="md:col-span-7 p-6 md:p-8 flex flex-col justify-between">
-                  <div>
-                    <span className="text-[10px] font-bold tracking-wider text-blue-400 uppercase">
-                      Estudio de caso interactivo
+                {/* Right: Project details */}
+                <div className="md:col-span-7 p-6 md:p-8 md:max-h-[85vh] md:overflow-y-auto">
+                  {/* Category + meta chips */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-blue-300">
+                      {selectedProject.category === 'ecommerce' ? 'Comercio Electrónico' : selectedProject.category === 'fullstack' ? 'Software SaaS' : selectedProject.category === 'frontend' ? 'Website' : 'Interactivo / UI'}
                     </span>
-                    <h3 className="mt-1 font-sans text-2xl font-black text-white">
-                      {selectedProject.title}
-                    </h3>
-                    
-                    {/* Key stats row */}
-                    <div className="mt-4 flex flex-wrap gap-4 border-y border-white/5 py-3">
-                      <div className="flex items-center gap-1.5 text-xs text-zinc-400">
-                        <Hourglass className="h-3.5 w-3.5 text-zinc-500" />
-                        <span>Duración: <strong className="text-white">{selectedProject.duration}</strong></span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-xs text-zinc-400">
-                        <Layers className="h-3.5 w-3.5 text-zinc-500" />
-                        <span>Arquitectura: <strong className="text-white">Escalable</strong></span>
-                      </div>
-                    </div>
+                    <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-zinc-400">
+                      <Hourglass className="h-3 w-3" /> Entrega en {selectedProject.duration}
+                    </span>
+                    <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-zinc-400">
+                      <Layers className="h-3 w-3" /> {selectedProject.techStack.length} tecnologías
+                    </span>
+                  </div>
 
-                    <p className="mt-4 text-sm leading-relaxed text-zinc-300">
-                      {selectedProject.details}
+                  <h3 className="mt-3 font-sans text-2xl md:text-[1.7rem] leading-tight font-black text-white">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-400">{selectedProject.description}</p>
+
+                  {/* ROI callout — the sales argument */}
+                  <div className="mt-5 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] p-4">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
+                        <TrendingUp className="h-4 w-4" />
+                      </span>
+                      <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">Por qué este nicho rinde</h4>
+                    </div>
+                    <p className="mt-2.5 text-[13px] leading-relaxed text-emerald-50/80">
+                      {(() => { const t = selectedProject.details.replace(/^Por qué este nicho:\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); })()}
                     </p>
+                  </div>
 
-                    {/* Features list */}
-                    <div className="mt-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Funcionalidades Clave</h4>
-                      <ul className="mt-2.5 grid gap-2">
-                        {selectedProject.features.map((feat, index) => (
-                          <li key={index} className="flex items-start gap-2 text-xs text-zinc-300">
-                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Tech tag list */}
-                    <div className="mt-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Stack Tecnológico</h4>
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {selectedProject.techStack.map((tech, index) => (
-                          <span
-                            key={index}
-                            className="rounded-md bg-white/5 px-2.5 py-1 text-[10px] font-medium text-zinc-300 border border-white/5"
-                          >
-                            {tech}
+                  {/* Features grid */}
+                  <div className="mt-6">
+                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">Qué incluye</h4>
+                    <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
+                      {selectedProject.features.map((feat, index) => (
+                        <li key={index} className="flex items-start gap-2.5 rounded-lg border border-white/5 bg-white/[0.03] p-3 text-xs leading-relaxed text-zinc-300">
+                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
+                            <Check className="h-2.5 w-2.5" strokeWidth={3.5} />
                           </span>
-                        ))}
-                      </div>
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Tech stack */}
+                  <div className="mt-6">
+                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">Stack tecnológico</h4>
+                    <div className="mt-2.5 flex flex-wrap gap-1.5">
+                      {selectedProject.techStack.map((tech, index) => (
+                        <span key={index} className="rounded-md bg-white/5 px-2.5 py-1 font-mono text-[10px] font-medium text-zinc-300 border border-white/5">
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
 
                   {/* Actions footer */}
-                  <div className="mt-8 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+                  <div className="mt-7 flex flex-col sm:flex-row gap-3 border-t border-white/5 pt-5">
                     <button
                       onClick={() => {
                         closeModal();
                         document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
                       }}
-                      className="rounded-full bg-white px-5 py-2.5 font-sans text-xs font-bold text-zinc-950 transition-all hover:bg-blue-500 hover:text-white"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-sans text-xs font-bold text-zinc-950 transition-all hover:bg-blue-500 hover:text-white"
                     >
-                      Solicitar proyecto similar
+                      Quiero uno para mi negocio
+                      <ArrowRight className="h-3.5 w-3.5" />
                     </button>
                     <a
                       href={selectedProject.demoUrl ?? 'https://stonydev.com'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 font-sans text-xs font-bold text-blue-300 hover:bg-blue-500/20 hover:text-white transition-colors"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-3 font-sans text-xs font-bold text-blue-300 hover:bg-blue-500/20 hover:text-white transition-colors"
                     >
-                      <ExternalLink className="h-4 w-4" />
-                      <span>Ver demo en vivo</span>
+                      <Globe className="h-4 w-4" />
+                      Ver demo en vivo
                     </a>
                   </div>
-
                 </div>
               </div>
 
