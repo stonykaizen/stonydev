@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import Team from './components/Team';
 import Projects from './components/Projects';
 import TechStack from './components/TechStack';
 import BudgetCalculator from './components/BudgetCalculator';
@@ -63,7 +64,10 @@ export default function App() {
         {/* 2. Services / Soluciones */}
         <Services />
 
-        {/* 3. Case Studies / Showcase */}
+        {/* 3. El Estudio / Socios */}
+        <Team />
+
+        {/* 4. Case Studies / Showcase */}
         <Projects />
 
         {/* 4. Tech Stack / Experiencia */}

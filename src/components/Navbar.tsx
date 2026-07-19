@@ -55,14 +55,20 @@ export default function Navbar() {
             >
               Servicios
             </button>
-            <button 
-              onClick={() => scrollToSection('proyectos')} 
+            <button
+              onClick={() => scrollToSection('equipo')}
+              className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
+            >
+              Equipo
+            </button>
+            <button
+              onClick={() => scrollToSection('proyectos')}
               className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
             >
               Proyectos
             </button>
-            <button 
-              onClick={() => scrollToSection('tecnologias')} 
+            <button
+              onClick={() => scrollToSection('tecnologias')}
               className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
             >
               Tecnologías
@@ -112,6 +118,12 @@ export default function Navbar() {
                 className="text-left font-sans text-base font-medium text-zinc-300 hover:text-blue-400"
               >
                 Servicios
+              </button>
+              <button
+                onClick={() => scrollToSection('equipo')}
+                className="text-left font-sans text-base font-medium text-zinc-300 hover:text-blue-400"
+              >
+                Equipo
               </button>
               <button
                 onClick={() => scrollToSection('proyectos')}

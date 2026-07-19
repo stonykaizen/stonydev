@@ -141,7 +141,7 @@ export default function Hero() {
           
           <div className="hero-badge mx-auto lg:mx-0 mb-6 flex max-w-fit items-center gap-2.5 rounded-full glass px-4 py-1.5 text-xs font-semibold backdrop-blur-md">
             <div className="nav-dot animate-pulse" />
-            <span className="text-[10px] uppercase tracking-widest font-semibold text-blue-400">GSAP Motion Expert</span>
+            <span className="text-[10px] uppercase tracking-widest font-semibold text-blue-400">Estudio de Desarrollo Web · Uruguay</span>
           </div>
 
           <h1 className="mb-6 overflow-hidden text-5xl font-extrabold tracking-tighter text-white sm:text-6xl md:text-7xl leading-[0.9]">
@@ -152,7 +152,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-desc mb-8 max-w-xl text-base text-slate-400 sm:text-lg leading-relaxed">
-            En <span className="font-bold text-white">stonydev.com</span> transformamos ideas complejas en interfaces dinámicas, fluidas e interactivas creadas con <span className="font-bold text-blue-400">GSAP</span> para cautivar a tus usuarios.
+            Somos <span className="font-bold text-white">stonydev.com</span>, un estudio de cuatro socios que cubre todo el ciclo: <span className="font-bold text-purple-400">UX/UI</span>, <span className="font-bold text-amber-400">datos</span>, <span className="font-bold text-emerald-400">backend</span> y <span className="font-bold text-blue-400">fullstack con automatizaciones</span>.
           </p>
 
           <div className="flex flex-col flex-wrap justify-center gap-4 sm:flex-row lg:justify-start">
@@ -175,8 +175,8 @@ export default function Hero() {
           {/* Social Proof metrics configured with theme's metrics layout */}
           <div className="hero-desc mt-12 grid grid-cols-3 gap-6 border-t border-white/5 pt-8 text-left max-w-md mx-auto lg:mx-0">
             <div className="p-4 glass flex flex-col gap-1">
-              <span className="text-2xl font-bold text-white">05+</span>
-              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Años Exp.</span>
+              <span className="text-2xl font-bold text-white">04</span>
+              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Socios</span>
             </div>
             <div className="p-4 glass flex flex-col gap-1">
               <span className="text-2xl font-bold text-white">50+</span>
