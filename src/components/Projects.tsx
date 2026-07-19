@@ -108,13 +108,14 @@ export default function Projects() {
         <div className="projects-header text-center mb-12">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-blue-400 shadow-blue-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">PORTAFOLIO DE TRABAJO</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">NICHOS DE ALTO RETORNO</span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
-            Proyectos Destacados
+            Proyectos que se pagan solos
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            Una colección selecta de aplicaciones web que combinan diseño visual de vanguardia con desarrollo técnico impecable.
+            Conceptos de ejemplo en nichos donde la web genera retorno con mínima inversión publicitaria:
+            negocios de ticket alto o clientela recurrente, donde el SEO local y WhatsApp convierten la demanda que ya existe.
           </p>
         </div>
 

@@ -62,71 +62,105 @@ export const SERVICES: Service[] = [
 export const PROJECTS: Project[] = [
   {
     id: '1',
-    title: 'Nova - eCommerce de Moda Premium',
-    description: 'Tienda de alta gama con carga instantánea, transiciones GSAP líquidas y personalizador de prendas en tiempo real.',
-    category: 'ecommerce',
-    tags: ['Next.js', 'GSAP', 'Tailwind CSS', 'Stripe'],
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800',
-    details: 'Nova es un concepto de tienda en línea de lujo donde cada animación acompaña el viaje del comprador. Diseñada para priorizar la fluidez visual, reduciendo las fricciones de carga tradicionales.',
+    title: 'Clínica Dental Sonrisa — Turnos que se llenan solos',
+    description: 'Sitio para clínica odontológica orientado a tratamientos de ticket alto (implantes, ortodoncia) captados por SEO local, sin pauta.',
+    category: 'frontend',
+    tags: ['SEO Local', 'WhatsApp', 'React', 'Ticket Alto'],
+    image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800',
+    details: 'Por qué este nicho: un solo implante o tratamiento de ortodoncia captado por Google paga el sitio completo. La demanda ya existe ("dentista cerca de mí") — no hay que crearla con publicidad, solo capturarla con SEO local y convertirla con reserva inmediata por WhatsApp.',
     features: [
-      'Transiciones de página fluidas sin recarga de pantalla',
-      'Visualizador interactivo de tallas y colores',
-      'Pasarela de pago Stripe integrada en entorno seguro',
-      'Dashboard del cliente para rastreo de compras'
+      'Landing por tratamiento (implantes, ortodoncia, blanqueamiento) para posicionar cada búsqueda',
+      'Botón de turno directo por WhatsApp con mensaje precargado',
+      'Integración con Google Business Profile y reseñas',
+      'Schema.org de negocio médico local para destacar en Maps'
     ],
-    techStack: ['Next.js', 'React', 'GSAP', 'Tailwind CSS', 'Framer Motion', 'Stripe API'],
-    duration: '6 semanas'
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'GSAP', 'Schema.org', 'WhatsApp API'],
+    duration: '2 semanas'
   },
   {
     id: '2',
-    title: 'Krypton - Dashboard Analytics Web3',
-    description: 'Dashboard financiero de alta fidelidad que visualiza flujos de liquidez, analíticas de portafolio e interacciones blockchain.',
+    title: 'Cabañas del Río — Reservas directas sin comisiones',
+    description: 'Motor de reservas propio para complejo turístico: cada reserva directa ahorra el 15-25% que se llevan Booking y Airbnb.',
     category: 'fullstack',
-    tags: ['React', 'D3.js', 'TypeScript', 'Tailwind'],
-    image: 'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&q=80&w=800',
-    details: 'Un centro financiero interactivo que procesa grandes volúmenes de datos. Las animaciones GSAP se sincronizan con las actualizaciones en vivo para ofrecer una experiencia intuitiva al usuario.',
+    tags: ['Booking Engine', 'Node.js', 'MercadoPago', 'Cero Comisión'],
+    image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&q=80&w=800',
+    details: 'Por qué este nicho: los complejos ya pagan hasta un cuarto de su facturación en comisiones de portales. Un motor de reservas propio se amortiza en pocas reservas y el huésped que ya conoce el lugar reserva directo — retorno inmediato sin gastar un peso en publicidad.',
     features: [
-      'Gráficos dinámicos con renderizado interactivo',
-      'Actualización en tiempo real de cotizaciones',
-      'Exportación de informes analíticos en PDF y CSV',
-      'Tematización personalizada de contraste alto'
+      'Calendario de disponibilidad en tiempo real con señas por MercadoPago',
+      'Recordatorios y confirmaciones automáticas por WhatsApp/email',
+      'Galería inmersiva con tour visual de cada cabaña',
+      'Panel de gestión de tarifas por temporada'
     ],
-    techStack: ['React', 'TypeScript', 'D3.js', 'Tailwind CSS', 'GSAP', 'Node.js'],
-    duration: '8 semanas'
-  },
-  {
-    id: '3',
-    title: 'Aura - CMS para Creadores de Contenido',
-    description: 'Plataforma headless autogestionable con editor visual interactivo en tiempo real y optimización de SEO automatizada.',
-    category: 'frontend',
-    tags: ['React', 'GSAP', 'Tailwind CSS', 'Vite'],
-    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800',
-    details: 'Una herramienta ágil para redactores y diseñadores que simplifica la creación de blogs y landings de manera visual, con soporte completo para metaetiquetas dinámicas.',
-    features: [
-      'Editor drag-and-drop con previsualización fidedigna',
-      'Exportación instantánea a estáticos HTML/Markdown',
-      'Sugerencias inteligentes de palabras clave',
-      'Gestor de assets multimedia integrado'
-    ],
-    techStack: ['React', 'Vite', 'GSAP', 'Tailwind CSS', 'LocalForage'],
+    techStack: ['React', 'Node.js', 'PostgreSQL', 'MercadoPago API', 'GSAP', 'Resend'],
     duration: '4 semanas'
   },
   {
-    id: '4',
-    title: 'Zenith - App de Bienestar Colectivo',
-    description: 'Aplicación web progresiva (PWA) de mindfulness con temporizadores inmersivos y audio sintetizado espacialmente.',
+    id: '3',
+    title: 'Barbería Norte — Agenda online con clientes recurrentes',
+    description: 'Agenda self-service con recordatorios automáticos: menos huecos, menos ausencias y clientes que vuelven todos los meses.',
     category: 'design',
-    tags: ['PWA', 'React', 'Web Audio API', 'GSAP'],
-    image: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=800',
-    details: 'Zenith combina ritmos respiratorios guiados visualmente mediante círculos interactivos en GSAP con paisajes sonoros personalizados en base al estado de ánimo del usuario.',
+    tags: ['Agenda Online', 'PWA', 'Recurrencia', 'Recordatorios'],
+    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=800',
+    details: 'Por qué este nicho: el cliente de barbería vuelve cada 3-4 semanas — el valor está en la recurrencia, no en captar tráfico nuevo. Con agenda online y recordatorios automáticos se reducen las ausencias y se llenan los huecos, todo con la clientela que ya existe: inversión publicitaria cero.',
     features: [
-      'Ciclos de respiración sincronizados con transiciones de color',
-      'Motor de sonido interactivo mediante Web Audio API',
-      'Soporte completo sin conexión (Service Worker)',
-      'Registro histórico y racha de hábitos'
+      'Reserva de turno en 3 toques desde el celular (PWA instalable)',
+      'Recordatorio automático 24h antes que reduce ausencias',
+      'Perfil por barbero con horarios y servicios propios',
+      'Historial de cortes y re-reserva en un toque'
     ],
-    techStack: ['React', 'GSAP', 'Tailwind CSS', 'Web Audio API', 'Workbox PWA'],
-    duration: '5 semanas'
+    techStack: ['React', 'PWA', 'Tailwind CSS', 'GSAP', 'Node.js', 'Twilio/WhatsApp'],
+    duration: '3 semanas'
+  },
+  {
+    id: '4',
+    title: 'Corralón Central — Catálogo B2B con pedidos por WhatsApp',
+    description: 'Catálogo online para clientes de obra que repiten pedido todas las semanas: ticket alto y recurrente, sin un peso de pauta.',
+    category: 'ecommerce',
+    tags: ['B2B', 'Catálogo', 'WhatsApp', 'Pedidos Recurrentes'],
+    image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800',
+    details: 'Por qué este nicho: el corralón ya tiene la clientela — constructores que piden todas las semanas por teléfono. Digitalizar el pedido (catálogo + carrito que se envía por WhatsApp) baja la fricción, aumenta el ticket promedio y fideliza al cliente de obra sin necesidad de captar tráfico pago.',
+    features: [
+      'Catálogo con precios por volumen y stock visible',
+      'Carrito que genera el pedido armado directo al WhatsApp del vendedor',
+      'Lista de "pedido habitual" para repetir compras en un toque',
+      'Panel simple para actualizar precios y stock sin conocimientos técnicos'
+    ],
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'WhatsApp API', 'SQLite'],
+    duration: '3 semanas'
+  },
+  {
+    id: '5',
+    title: 'Estudio Jurídico Ferreira — Leads de altísimo valor',
+    description: 'Sitio institucional para estudio jurídico: una sola consulta captada por Google puede pagar el sitio varias veces.',
+    category: 'frontend',
+    tags: ['SEO Local', 'Leads', 'Autoridad', 'Ticket Alto'],
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800',
+    details: 'Por qué este nicho: los servicios jurídicos tienen el lead más caro del mercado publicitario — pero quien busca "abogado laboral" en Google ya necesita uno ahora. Un sitio con autoridad, casos de éxito y consulta directa captura esa demanda orgánica sin competir en subastas de anuncios.',
+    features: [
+      'Página por área de práctica (laboral, civil, familia) para SEO específico',
+      'Formulario de consulta breve + WhatsApp directo con abogado',
+      'Sección de casos y artículos que construyen autoridad orgánica',
+      'Schema.org LegalService para resultados enriquecidos en Google'
+    ],
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'GSAP', 'Schema.org', 'Resend'],
+    duration: '2 semanas'
+  },
+  {
+    id: '6',
+    title: 'Veterinaria del Este — Recordatorios que generan visitas',
+    description: 'Plataforma con historial de mascotas y recordatorios de vacunas: cada aviso automático es una consulta que vuelve sola.',
+    category: 'fullstack',
+    tags: ['Recordatorios', 'CRM', 'Recurrencia', 'WhatsApp'],
+    image: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80&w=800',
+    details: 'Por qué este nicho: cada mascota necesita vacunas y controles todos los años, pero la mayoría de los dueños simplemente se olvida. Un recordatorio automático por WhatsApp en la fecha justa trae la visita sin ningún costo de captación — ingresos recurrentes activados por software, no por publicidad.',
+    features: [
+      'Ficha e historial clínico digital por mascota',
+      'Recordatorios automáticos de vacunas y antiparasitarios por WhatsApp',
+      'Agenda de turnos online con urgencias destacadas',
+      'Reportes de visitas recurrentes generadas por recordatorio'
+    ],
+    techStack: ['React', 'Node.js', 'PostgreSQL', 'WhatsApp API', 'Tailwind CSS', 'GSAP'],
+    duration: '4 semanas'
   }
 ];
 
