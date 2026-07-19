@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudio Jurídico Ferreira & Asoc. — Abogados en Colonia</title>
+<meta name="description" content="Estudio jurídico en Colonia: derecho laboral, civil, familia y notarial. Consulta inicial sin costo por WhatsApp o formulario.">
+<meta name="theme-color" content="#1e2a3a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⚖️</text></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LegalService","name":"Estudio Jurídico Ferreira & Asociados","address":{"@type":"PostalAddress","addressRegion":"Colonia","addressCountry":"UY"},"telephone":"+59899000005","areaServed":"Colonia, Uruguay"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#1e2a3a; --navy-d:#141d29; --gold:#b08d3e; --paper:#faf9f6; --line:#e7e2d8; --dim:#5f6b7a; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; background:var(--paper); color:#2a2f38; line-height:1.7; }
+  h1,h2,h3 { font-family:'Cormorant Garamond',serif; color:var(--navy); font-weight:700; }
+  header { position:sticky; top:0; z-index:20; background:rgba(250,249,246,.94); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding:16px 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .brand { font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.25rem; color:var(--navy); }
+  .brand em { color:var(--gold); font-style:normal; }
+  nav a { color:var(--dim); text-decoration:none; margin-left:22px; font-size:.9rem; }
+  nav a:hover { color:var(--navy); }
+  .cta { background:var(--navy); color:#fff !important; padding:.6em 1.4em; border-radius:4px; font-weight:600; }
+  .hero { background:linear-gradient(120deg,var(--navy-d),var(--navy) 60%,#2a3b52); color:#fff; padding:90px 5vw; }
+  .hero .wrap { display:grid; grid-template-columns:1.2fr 1fr; gap:44px; align-items:center; }
+  .kicker { text-transform:uppercase; letter-spacing:.24em; font-size:.7rem; font-weight:600; color:var(--gold); }
+  .hero h1 { color:#fff; font-size:clamp(2.2rem,4.8vw,3.6rem); line-height:1.12; margin:.3em 0 .4em; }
+  .hero p { color:#c3ccd8; max-width:52ch; margin-bottom:1.8em; }
+  .btn { display:inline-block; background:var(--gold); color:#fff; font-weight:600; padding:.85em 2em; border-radius:4px; text-decoration:none; letter-spacing:.02em; transition:filter .15s; }
+  .btn:hover { filter:brightness(1.1); }
+  .btn.line { background:transparent; border:1px solid rgba(255,255,255,.35); margin-left:10px; }
+  .hero img { width:100%; border-radius:6px; aspect-ratio:4/5; object-fit:cover; box-shadow:0 30px 70px rgba(0,0,0,.4); }
+  .trust { display:flex; gap:34px; margin-top:34px; flex-wrap:wrap; }
+  .trust div b { display:block; font-family:'Cormorant Garamond',serif; font-size:1.9rem; color:var(--gold); }
+  .trust div span { font-size:.8rem; color:#9fabbb; }
+  section { padding:76px 5vw; }
+  .wrap { max-width:1080px; margin:auto; }
+  h2 { font-size:clamp(1.8rem,3.4vw,2.5rem); margin:.25em 0 .9em; }
+  .areas { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+  .area { background:#fff; border:1px solid var(--line); border-top:3px solid var(--gold); padding:28px; transition:transform .2s, box-shadow .2s; }
+  .area:hover { transform:translateY(-4px); box-shadow:0 20px 44px rgba(30,42,58,.12); }
+  .area .em { font-size:1.7rem; }
+  .area h3 { font-size:1.35rem; margin:.4em 0 .2em; }
+  .area p { font-size:.9rem; color:var(--dim); }
+  .area a { display:inline-block; margin-top:12px; color:var(--gold); font-weight:600; font-size:.85rem; text-decoration:none; }
+  .cases { background:var(--navy); color:#fff; }
+  .cases h2 { color:#fff; }
+  .case-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
+  .case { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:6px; padding:26px; }
+  .case .tag { font-size:.7rem; text-transform:uppercase; letter-spacing:.16em; color:var(--gold); font-weight:600; }
+  .case p { font-size:.92rem; color:#c3ccd8; margin-top:10px; font-style:italic; }
+  .case b { display:block; margin-top:14px; font-size:.85rem; color:#fff; }
+  .consulta .wrap { display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start; }
+  .form { background:#fff; border:1px solid var(--line); border-radius:8px; padding:30px; }
+  .form label { display:block; font-size:.8rem; font-weight:600; color:var(--navy); margin:14px 0 5px; }
+  .form input, .form select, .form textarea { width:100%; border:1px solid var(--line); border-radius:5px; padding:11px 13px; font-family:inherit; font-size:.9rem; background:var(--paper); }
+  .form textarea { min-height:100px; resize:vertical; }
+  .form button { margin-top:18px; width:100%; background:var(--navy); color:#fff; border:0; border-radius:5px; padding:.95em; font-weight:600; font-size:.95rem; cursor:pointer; transition:background .15s; }
+  .form button:hover { background:var(--navy-d); }
+  .ok { display:none; margin-top:14px; background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; border-radius:6px; padding:12px 16px; font-size:.88rem; }
+  .side h3 { font-size:1.4rem; margin-bottom:.4em; }
+  .side p { color:var(--dim); font-size:.95rem; margin-bottom:1.2em; }
+  .side .item { display:flex; gap:14px; margin-bottom:18px; align-items:flex-start; }
+  .side .item .em { font-size:1.3rem; }
+  .side .item b { color:var(--navy); font-size:.92rem; display:block; }
+  .side .item span { font-size:.85rem; color:var(--dim); }
+  .wa-btn { display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; font-weight:700; padding:.85em 1.7em; border-radius:99px; text-decoration:none; }
+  footer { background:var(--navy-d); color:#9fabbb; text-align:center; padding:30px 5vw; font-size:.85rem; }
+  footer a { color:var(--gold); text-decoration:none; }
+  .wsp-float { position:fixed; right:20px; bottom:20px; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; font-size:1.6rem; box-shadow:0 10px 26px rgba(0,0,0,.28); z-index:30; text-decoration:none; }
+  .demo-tag { position:fixed; left:14px; bottom:14px; background:#0f172a; color:#fff; font-size:.7rem; padding:6px 12px; border-radius:99px; z-index:30; opacity:.85; }
+  .rv { opacity:0; transform:translateY(24px); transition:.7s cubic-bezier(.22,1,.36,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (max-width:880px){ .hero .wrap,.consulta .wrap{grid-template-columns:1fr} nav a:not(.cta){display:none} .hero img{display:none} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">⚖️ Ferreira <em>&</em> Asociados</div>
+  <nav>
+    <a href="#areas">Áreas</a>
+    <a href="#casos">Casos</a>
+    <a href="#consulta">Consulta</a>
+    <a class="cta" href="#consulta">Consulta sin costo</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Estudio jurídico · Colonia · desde 1998</span>
+      <h1>La tranquilidad de saber que su caso está en buenas manos</h1>
+      <p>Más de 25 años defendiendo los derechos de trabajadores, familias y empresas del departamento. La primera consulta es sin costo y con total confidencialidad.</p>
+      <a class="btn" href="#consulta">Solicitar consulta</a>
+      <a class="btn line" href="#areas">Ver áreas de práctica</a>
+      <div class="trust">
+        <div><b>+1.400</b><span>casos resueltos</span></div>
+        <div><b>25 años</b><span>de trayectoria</span></div>
+        <div><b>92%</b><span>de resultados favorables</span></div>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=700" alt="Estudio jurídico">
+  </div>
+</section>
+
+<section id="areas">
+  <div class="wrap">
+    <span class="kicker">Áreas de práctica</span>
+    <h2>¿En qué podemos ayudarle?</h2>
+    <div class="areas">
+      <div class="area rv"><span class="em">👷</span><h3>Derecho Laboral</h3><p>Despidos, créditos laborales, accidentes de trabajo y acoso. Cobramos al resultado: si usted no cobra, nosotros tampoco.</p><a href="#consulta">Consultar mi caso →</a></div>
+      <div class="area rv"><span class="em">👪</span><h3>Familia</h3><p>Divorcios, tenencias, pensiones alimenticias y violencia doméstica, con la sensibilidad que estos temas requieren.</p><a href="#consulta">Consultar mi caso →</a></div>
+      <div class="area rv"><span class="em">🏠</span><h3>Civil y Contratos</h3><p>Arrendamientos, deudas, daños y perjuicios, sucesiones y todo conflicto entre particulares o con empresas.</p><a href="#consulta">Consultar mi caso →</a></div>
+      <div class="area rv"><span class="em">📜</span><h3>Notarial</h3><p>Compraventas, certificaciones, poderes y sociedades con escribana integrada al estudio.</p><a href="#consulta">Consultar mi caso →</a></div>
+      <div class="area rv"><span class="em">🚗</span><h3>Accidentes de Tránsito</h3><p>Reclamos a seguros y responsables por lesiones y daños materiales. Evaluación gratuita del monto reclamable.</p><a href="#consulta">Consultar mi caso →</a></div>
+      <div class="area rv"><span class="em">🏢</span><h3>Empresas</h3><p>Asesoramiento permanente a comercios y pymes: contratos, laboral patronal y recupero de deudas.</p><a href="#consulta">Consultar mi caso →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="casos" class="cases">
+  <div class="wrap">
+    <span class="kicker">Resultados</span>
+    <h2>Casos recientes</h2>
+    <div class="case-grid">
+      <div class="case rv"><span class="tag">Laboral</span><p>"Trabajador rural despedido sin causa tras 12 años: obtuvimos el cobro íntegro de la indemnización más daños, en 4 meses."</p><b>Sentencia favorable · 2026</b></div>
+      <div class="case rv"><span class="tag">Familia</span><p>"Régimen de tenencia compartida acordado en mediación, evitando un juicio de años para ambas partes."</p><b>Acuerdo homologado · 2025</b></div>
+      <div class="case rv"><span class="tag">Tránsito</span><p>"Reclamo a aseguradora por lesiones en ruta 1: indemnización tres veces mayor a la oferta inicial de la compañía."</p><b>Acuerdo extrajudicial · 2025</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="consulta" class="consulta">
+  <div class="wrap">
+    <div class="side">
+      <span class="kicker">Primera consulta sin costo</span>
+      <h2>Cuéntenos su caso</h2>
+      <p>Complete el formulario o escríbanos directo por WhatsApp. Un abogado del área correspondiente le responde dentro de las 24 horas hábiles.</p>
+      <div class="item"><span class="em">🔒</span><div><b>Confidencialidad absoluta</b><span>Su consulta está protegida por el secreto profesional desde el primer mensaje.</span></div></div>
+      <div class="item"><span class="em">⏱️</span><div><b>Respuesta en 24 hs</b><span>Evaluamos su caso y le decimos con honestidad si conviene accionar.</span></div></div>
+      <div class="item"><span class="em">🤝</span><div><b>Honorarios claros</b><span>En laboral y tránsito trabajamos al resultado. En el resto, presupuesto por escrito.</span></div></div>
+      <a class="wa-btn" href="https://wa.me/59899000005?text=Hola%2C%20quiero%20hacer%20una%20consulta%20legal" target="_blank" rel="noopener">💬 Consultar por WhatsApp</a>
+    </div>
+    <form class="form" id="form">
+      <label>Nombre completo</label>
+      <input required placeholder="Su nombre">
+      <label>Teléfono</label>
+      <input required placeholder="099 000 000">
+      <label>Área de consulta</label>
+      <select><option>Laboral</option><option>Familia</option><option>Civil y contratos</option><option>Notarial</option><option>Accidentes de tránsito</option><option>Empresas</option></select>
+      <label>Describa brevemente su situación</label>
+      <textarea placeholder="Cuéntenos qué pasó..."></textarea>
+      <button type="submit">Enviar consulta</button>
+      <div class="ok" id="ok">✅ Consulta recibida. Un abogado del área se comunicará dentro de las próximas 24 horas hábiles. <em>(Demo: en producción llega por email y WhatsApp al estudio.)</em></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  © 2026 Estudio Jurídico Ferreira & Asociados · 18 de Julio 890, Colonia — Sitio demo por <a href="https://stonydev.com" target="_blank" rel="noopener">StonyDev</a>
+</footer>
+
+<a class="wsp-float" href="https://wa.me/59899000005?text=Hola%2C%20quiero%20hacer%20una%20consulta%20legal" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<div class="demo-tag">DEMO · stonydev.com</div>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el,i){ el.style.transitionDelay=(i%3)*90+'ms'; io.observe(el); });
+  document.getElementById('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('ok').style.display = 'block';
+    this.querySelector('button').textContent = '✅ Enviada';
+  });
+})();
+</script>
+</body>
+</html>

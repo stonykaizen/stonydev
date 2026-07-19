@@ -75,7 +75,8 @@ export const PROJECTS: Project[] = [
       'Schema.org de negocio médico local para destacar en Maps'
     ],
     techStack: ['React', 'Vite', 'Tailwind CSS', 'GSAP', 'Schema.org', 'WhatsApp API'],
-    duration: '2 semanas'
+    duration: '2 semanas',
+    demoUrl: '/demos/dental/'
   },
   {
     id: '2',
@@ -92,7 +93,8 @@ export const PROJECTS: Project[] = [
       'Panel de gestión de tarifas por temporada'
     ],
     techStack: ['React', 'Node.js', 'PostgreSQL', 'MercadoPago API', 'GSAP', 'Resend'],
-    duration: '4 semanas'
+    duration: '4 semanas',
+    demoUrl: '/demos/cabanas/'
   },
   {
     id: '3',
@@ -109,7 +111,8 @@ export const PROJECTS: Project[] = [
       'Historial de cortes y re-reserva en un toque'
     ],
     techStack: ['React', 'PWA', 'Tailwind CSS', 'GSAP', 'Node.js', 'Twilio/WhatsApp'],
-    duration: '3 semanas'
+    duration: '3 semanas',
+    demoUrl: '/demos/barberia/'
   },
   {
     id: '4',
@@ -126,7 +129,8 @@ export const PROJECTS: Project[] = [
       'Panel simple para actualizar precios y stock sin conocimientos técnicos'
     ],
     techStack: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'WhatsApp API', 'SQLite'],
-    duration: '3 semanas'
+    duration: '3 semanas',
+    demoUrl: '/demos/corralon/'
   },
   {
     id: '5',
@@ -143,7 +147,8 @@ export const PROJECTS: Project[] = [
       'Schema.org LegalService para resultados enriquecidos en Google'
     ],
     techStack: ['React', 'Vite', 'Tailwind CSS', 'GSAP', 'Schema.org', 'Resend'],
-    duration: '2 semanas'
+    duration: '2 semanas',
+    demoUrl: '/demos/juridico/'
   },
   {
     id: '6',
@@ -160,7 +165,8 @@ export const PROJECTS: Project[] = [
       'Reportes de visitas recurrentes generadas por recordatorio'
     ],
     techStack: ['React', 'Node.js', 'PostgreSQL', 'WhatsApp API', 'Tailwind CSS', 'GSAP'],
-    duration: '4 semanas'
+    duration: '4 semanas',
+    demoUrl: '/demos/veterinaria/'
   }
 ];
 

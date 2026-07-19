@@ -285,10 +285,10 @@ export default function Projects() {
                       Solicitar proyecto similar
                     </button>
                     <a
-                      href="https://stonydev.com"
+                      href={selectedProject.demoUrl ?? 'https://stonydev.com'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-sans text-xs font-bold text-zinc-400 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 font-sans text-xs font-bold text-blue-300 hover:bg-blue-500/20 hover:text-white transition-colors"
                     >
                       <ExternalLink className="h-4 w-4" />
                       <span>Ver demo en vivo</span>

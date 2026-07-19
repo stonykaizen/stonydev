@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cabañas del Río — Escapadas en Colonia, reserva directa</title>
+<meta name="description" content="Cabañas frente al río en Colonia. Reservá directo sin comisiones: calendario online, seña por MercadoPago y confirmación inmediata.">
+<meta name="theme-color" content="#1a2e1f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🌲</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --pine:#1a2e1f; --moss:#3f6212; --sand:#f5f1e8; --gold:#ca8a04; --line:#e4ddcd; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; background:var(--sand); color:#2d2a24; line-height:1.65; }
+  h1,h2,h3 { font-family:'Playfair Display',serif; color:var(--pine); }
+  header { position:sticky; top:0; z-index:20; background:rgba(245,241,232,.93); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding:14px 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .brand { font-family:'Playfair Display',serif; font-weight:800; font-size:1.15rem; color:var(--pine); }
+  nav a { color:#57534e; text-decoration:none; margin-left:20px; font-size:.9rem; }
+  nav a:hover { color:var(--moss); }
+  .cta { background:var(--pine); color:#fff !important; padding:.6em 1.4em; border-radius:99px; font-weight:600; }
+  .hero { position:relative; min-height:78vh; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; background:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&q=80&w=1600') center/cover; }
+  .hero::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(15,25,15,.35),rgba(15,25,15,.65)); }
+  .hero > div { position:relative; z-index:2; max-width:760px; padding:0 5vw; }
+  .hero h1 { color:#fff; font-size:clamp(2.2rem,5.5vw,4rem); line-height:1.08; margin-bottom:.4em; text-shadow:0 4px 30px rgba(0,0,0,.4); }
+  .hero p { font-size:1.1rem; opacity:.94; margin-bottom:1.5em; }
+  .btn { display:inline-block; background:#fff; color:var(--pine); font-weight:700; padding:.9em 2.2em; border-radius:99px; text-decoration:none; transition:transform .15s; }
+  .btn:hover { transform:translateY(-2px); }
+  .btn.gold { background:var(--gold); color:#fff; margin-left:10px; }
+  .noOTA { position:relative; z-index:2; margin-top:22px; display:inline-block; background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(6px); border-radius:99px; padding:8px 18px; font-size:.82rem; }
+  section { padding:70px 5vw; }
+  .wrap { max-width:1100px; margin:auto; }
+  .kicker { text-transform:uppercase; letter-spacing:.2em; font-size:.72rem; font-weight:700; color:var(--moss); }
+  h2 { font-size:clamp(1.7rem,3.2vw,2.4rem); margin:.3em 0 1em; }
+  .cab-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
+  .cab { background:#fff; border:1px solid var(--line); border-radius:20px; overflow:hidden; transition:transform .2s, box-shadow .2s; }
+  .cab:hover { transform:translateY(-5px); box-shadow:0 22px 50px rgba(26,46,31,.18); }
+  .cab img { width:100%; height:200px; object-fit:cover; }
+  .cab .body { padding:20px 22px 24px; }
+  .cab h3 { font-size:1.25rem; }
+  .cab .meta { color:#78716c; font-size:.85rem; margin:4px 0 10px; }
+  .cab .price { font-weight:800; color:var(--pine); font-size:1.05rem; }
+  .cab .price small { color:#78716c; font-weight:400; }
+  .amen { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .amen span { background:var(--sand); border:1px solid var(--line); border-radius:99px; padding:4px 10px; font-size:.72rem; color:#57534e; }
+  .booking { background:#fff; border:1px solid var(--line); border-radius:24px; padding:34px; display:grid; grid-template-columns:1.1fr 1fr; gap:36px; }
+  .cal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .cal-head b { font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--pine); }
+  .cal { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .cal .dow { font-size:.68rem; text-transform:uppercase; color:#a8a29e; text-align:center; padding-bottom:4px; }
+  .day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:.85rem; background:var(--sand); border:1px solid var(--line); cursor:pointer; user-select:none; transition:.15s; }
+  .day.off { opacity:.28; cursor:default; text-decoration:line-through; }
+  .day.sel { background:var(--pine); color:#fff; border-color:var(--pine); }
+  .day.range { background:#d9e7d0; border-color:#b5cba6; }
+  .day:not(.off):not(.sel):hover { border-color:var(--moss); }
+  .sum { border-top:1px dashed var(--line); margin-top:16px; padding-top:14px; font-size:.92rem; color:#57534e; display:flex; flex-direction:column; gap:6px; }
+  .sum .tot { font-weight:800; color:var(--pine); font-size:1.15rem; }
+  .mp { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; border:0; background:#009ee3; color:#fff; font-weight:700; font-size:.95rem; padding:.95em; border-radius:14px; cursor:pointer; margin-top:14px; transition:filter .15s; }
+  .mp:hover { filter:brightness(1.08); }
+  .mp:disabled { background:#cbd5e1; cursor:not-allowed; }
+  .note { font-size:.78rem; color:#a8a29e; text-align:center; margin-top:10px; }
+  .save { background:var(--pine); color:#f5f1e8; }
+  .save .wrap { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+  .save h2 { color:#fff; }
+  .save .big { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5vw,3.6rem); color:var(--gold); }
+  .save p { opacity:.85; }
+  footer { background:#11190f; color:rgba(255,255,255,.7); text-align:center; padding:28px 5vw; font-size:.85rem; }
+  footer a { color:#a3e635; text-decoration:none; }
+  .wsp-float { position:fixed; right:20px; bottom:20px; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; font-size:1.6rem; box-shadow:0 10px 26px rgba(0,0,0,.3); z-index:30; text-decoration:none; }
+  .demo-tag { position:fixed; left:14px; bottom:14px; background:#0f172a; color:#fff; font-size:.7rem; padding:6px 12px; border-radius:99px; z-index:30; opacity:.85; }
+  .rv { opacity:0; transform:translateY(24px); transition:.7s cubic-bezier(.22,1,.36,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (max-width:860px){ .booking,.save .wrap{grid-template-columns:1fr} nav a:not(.cta){display:none} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">🌲 Cabañas del Río</div>
+  <nav>
+    <a href="#cabanas">Cabañas</a>
+    <a href="#reservar">Disponibilidad</a>
+    <a href="#directo">Por qué directo</a>
+    <a class="cta" href="#reservar">Reservar</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <span class="kicker" style="color:#d9f99d">Colonia · Uruguay</span>
+    <h1>Desconectá frente al río, reservá sin comisiones</h1>
+    <p>Cinco cabañas de madera y piedra sobre la costa. Reservás directo con nosotros: mejor precio garantizado y confirmación al instante.</p>
+    <a class="btn" href="#reservar">Ver disponibilidad</a>
+    <a class="btn gold" href="#cabanas">Conocer las cabañas</a>
+    <div class="noOTA">💚 Reserva directa = <b>hasta 20% más barato</b> que en portales</div>
+  </div>
+</section>
+
+<section id="cabanas">
+  <div class="wrap">
+    <span class="kicker">Alojamiento</span>
+    <h2>Nuestras cabañas</h2>
+    <div class="cab-grid">
+      <div class="cab rv">
+        <img src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&q=80&w=800" alt="Cabaña El Sauce">
+        <div class="body">
+          <h3>El Sauce</h3><div class="meta">2 personas · 1 dormitorio · vista al río</div>
+          <div class="price">$U 3.200 <small>/ noche · directo</small></div>
+          <div class="amen"><span>🔥 Estufa a leña</span><span>🛁 Jacuzzi</span><span>📶 Starlink</span></div>
+        </div>
+      </div>
+      <div class="cab rv">
+        <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80&w=800" alt="Cabaña La Costa">
+        <div class="body">
+          <h3>La Costa</h3><div class="meta">4 personas · 2 dormitorios · parrillero propio</div>
+          <div class="price">$U 4.600 <small>/ noche · directo</small></div>
+          <div class="amen"><span>🍖 Parrillero</span><span>❄️ AA</span><span>🐕 Pet friendly</span></div>
+        </div>
+      </div>
+      <div class="cab rv">
+        <img src="https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?auto=format&fit=crop&q=80&w=800" alt="Cabaña El Monte">
+        <div class="body">
+          <h3>El Monte</h3><div class="meta">6 personas · 3 dormitorios · ideal familias</div>
+          <div class="price">$U 5.900 <small>/ noche · directo</small></div>
+          <div class="amen"><span>🏊 Piscina</span><span>🍳 Cocina completa</span><span>🔥 Fogón</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reservar" style="background:#fff">
+  <div class="wrap">
+    <span class="kicker">Reserva online</span>
+    <h2>Elegí tus fechas</h2>
+    <div class="booking" style="background:var(--sand)">
+      <div>
+        <div class="cal-head"><b>Agosto 2026</b><span style="font-size:.8rem;color:#78716c">⬤ libre &nbsp;·&nbsp; tachado ocupado</span></div>
+        <div class="cal" id="cal"></div>
+      </div>
+      <div>
+        <h3 style="font-size:1.3rem">Tu estadía</h3>
+        <div class="sum">
+          <span>Cabaña: <b>La Costa</b> (4 personas)</span>
+          <span id="fechas">Fechas: <b>elegí entrada y salida</b></span>
+          <span id="noches">Noches: <b>—</b></span>
+          <span class="tot" id="total">Total: —</span>
+          <span style="font-size:.8rem;color:#78716c">Seña del 30% para confirmar · saldo al llegar</span>
+        </div>
+        <button class="mp" id="pagar" disabled>💳 Señar con MercadoPago</button>
+        <div class="note">Demo: el pago es simulado. En producción se integra Checkout Pro de MercadoPago.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="directo" class="save">
+  <div class="wrap">
+    <div>
+      <span class="kicker" style="color:#d9f99d">La cuenta es simple</span>
+      <h2>Reservar directo nos deja darte mejor precio</h2>
+      <p>Los portales cobran entre 15% y 25% de comisión por cada reserva. Cuando reservás directo, ese margen queda entre vos y nosotros: vos pagás menos, nosotros invertimos más en las cabañas.</p>
+    </div>
+    <div style="text-align:center">
+      <div class="big" id="ahorro">$U 940</div>
+      <p>ahorro promedio por estadía de 2 noches<br>reservando directo en lugar de un portal</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Cabañas del Río · Ruta 1 km 154, Colonia, Uruguay — Sitio demo por <a href="https://stonydev.com" target="_blank" rel="noopener">StonyDev</a>
+</footer>
+
+<a class="wsp-float" href="https://wa.me/59899000002?text=Hola%2C%20quiero%20consultar%20disponibilidad%20en%20Caba%C3%B1as%20del%20R%C3%ADo" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<div class="demo-tag">DEMO · stonydev.com</div>
+
+<script>
+(function(){
+  // Reveal
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el,i){ el.style.transitionDelay=(i%3)*90+'ms'; io.observe(el); });
+
+  // Booking calendar (August 2026: 31 days, starts Saturday)
+  var cal = document.getElementById('cal');
+  ['L','M','M','J','V','S','D'].forEach(function(d){ var e=document.createElement('div'); e.className='dow'; e.textContent=d; cal.appendChild(e); });
+  var occupied = [1,2,8,9,14,15,16,22,23,29,30];
+  var firstDow = 5; // Aug 1 2026 = Saturday (index 5, Monday-first)
+  for (var i=0;i<firstDow;i++){ var pad=document.createElement('div'); cal.appendChild(pad); }
+  var sel = [];
+  var PRICE = 4600;
+  function paint(){
+    document.querySelectorAll('.day').forEach(function(d){
+      var n = +d.dataset.n;
+      d.classList.remove('sel','range');
+      if (sel.length && (n===sel[0] || n===sel[1])) d.classList.add('sel');
+      if (sel.length===2 && n>sel[0] && n<sel[1]) d.classList.add('range');
+    });
+    var f=document.getElementById('fechas'), no=document.getElementById('noches'), t=document.getElementById('total'), btn=document.getElementById('pagar');
+    if (sel.length===2){
+      var nights = sel[1]-sel[0];
+      f.innerHTML = 'Fechas: <b>'+sel[0]+' al '+sel[1]+' de agosto</b>';
+      no.innerHTML = 'Noches: <b>'+nights+'</b>';
+      t.textContent = 'Total: $U '+(nights*PRICE).toLocaleString('es-UY')+' · seña $U '+Math.round(nights*PRICE*0.3).toLocaleString('es-UY');
+      btn.disabled = false;
+    } else {
+      f.innerHTML = 'Fechas: <b>'+(sel.length===1 ? 'entrada '+sel[0]+' — elegí salida' : 'elegí entrada y salida')+'</b>';
+      no.innerHTML = 'Noches: <b>—</b>'; t.textContent = 'Total: —'; btn.disabled = true;
+    }
+  }
+  for (var n=1;n<=31;n++){
+    (function(n){
+      var d=document.createElement('div'); d.className='day'; d.dataset.n=n; d.textContent=n;
+      if (occupied.indexOf(n)>=0) d.classList.add('off');
+      else d.addEventListener('click', function(){
+        if (sel.length!==1) sel=[n];
+        else if (n>sel[0]) {
+          var blocked = occupied.some(function(o){ return o>sel[0] && o<n; });
+          if (blocked) { sel=[n]; } else sel=[sel[0],n];
+        } else sel=[n];
+        paint();
+      });
+      cal.appendChild(d);
+    })(n);
+  }
+  paint();
+  document.getElementById('pagar').addEventListener('click', function(){
+    this.textContent = '✅ Reserva señada — ¡te esperamos!';
+    this.style.background = '#16a34a';
+    this.disabled = true;
+  });
+})();
+</script>
+</body>
+</html>

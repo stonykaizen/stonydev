@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corralón Central — Pedidos de obra por WhatsApp</title>
+<meta name="description" content="Materiales de construcción en Colonia. Armá tu pedido online con precios por volumen y envialo directo al WhatsApp de tu vendedor.">
+<meta name="theme-color" content="#111827">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🧱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Archivo:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --yellow:#facc15; --ink:#111827; --paper:#f9fafb; --line:#e5e7eb; --dim:#6b7280; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; background:var(--paper); color:#1f2937; line-height:1.6; }
+  h1,h2,h3 { font-family:'Archivo',sans-serif; }
+  header { position:sticky; top:0; z-index:20; background:var(--ink); color:#fff; padding:12px 4vw; display:flex; justify-content:space-between; align-items:center; }
+  .brand { font-family:'Archivo',sans-serif; font-weight:900; font-size:1.1rem; display:flex; align-items:center; gap:8px; }
+  .brand em { color:var(--yellow); font-style:normal; }
+  .cart-btn { position:relative; background:var(--yellow); color:var(--ink); border:0; font-weight:800; padding:.6em 1.3em; border-radius:99px; cursor:pointer; font-size:.9rem; }
+  .cart-btn b { background:var(--ink); color:#fff; border-radius:99px; padding:2px 8px; margin-left:6px; font-size:.78rem; }
+  .hero { background:linear-gradient(100deg,var(--ink) 55%,#1f2937); color:#fff; padding:56px 4vw; }
+  .hero .wrap { display:grid; grid-template-columns:1.2fr 1fr; gap:30px; align-items:center; }
+  .kicker { text-transform:uppercase; letter-spacing:.2em; font-size:.72rem; font-weight:800; color:var(--yellow); }
+  .hero h1 { font-size:clamp(1.9rem,4.5vw,3.1rem); line-height:1.05; margin:.3em 0 .4em; }
+  .hero p { color:#d1d5db; max-width:52ch; }
+  .hero img { width:100%; border-radius:16px; aspect-ratio:16/10; object-fit:cover; border:3px solid var(--yellow); }
+  .hero .pill { display:inline-block; background:rgba(250,204,21,.15); border:1px solid rgba(250,204,21,.4); color:var(--yellow); border-radius:99px; padding:7px 16px; font-size:.8rem; margin-top:16px; font-weight:700; }
+  .wrap { max-width:1150px; margin:auto; }
+  section { padding:54px 4vw; }
+  h2 { font-size:clamp(1.5rem,3vw,2.1rem); color:var(--ink); margin-bottom:.7em; }
+  .cats { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .cat { border:1px solid var(--line); background:#fff; border-radius:99px; padding:9px 18px; font-size:.85rem; cursor:pointer; font-weight:600; color:var(--dim); transition:.15s; }
+  .cat.sel { background:var(--ink); color:var(--yellow); border-color:var(--ink); }
+  .prods { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px; }
+  .prod { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-direction:column; transition:box-shadow .2s, transform .2s; }
+  .prod:hover { box-shadow:0 14px 34px rgba(17,24,39,.1); transform:translateY(-3px); }
+  .prod .em { font-size:2rem; }
+  .prod h3 { font-size:1rem; margin:8px 0 2px; color:var(--ink); }
+  .prod .unit { font-size:.78rem; color:var(--dim); }
+  .prod .price { font-family:'Archivo',sans-serif; font-weight:900; font-size:1.2rem; color:var(--ink); margin:8px 0 2px; }
+  .prod .vol { font-size:.72rem; color:#16a34a; font-weight:700; margin-bottom:10px; }
+  .qty { display:flex; align-items:center; gap:10px; margin-top:auto; }
+  .qty button { width:34px; height:34px; border-radius:10px; border:1px solid var(--line); background:#fff; font-size:1.1rem; font-weight:800; cursor:pointer; color:var(--ink); }
+  .qty button:hover { background:var(--yellow); border-color:var(--yellow); }
+  .qty span { min-width:26px; text-align:center; font-weight:800; }
+  .habitual { background:#fff; border:2px dashed var(--yellow); border-radius:18px; padding:22px 24px; margin-bottom:26px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  .habitual b { color:var(--ink); }
+  .habitual button { background:var(--ink); color:var(--yellow); border:0; border-radius:99px; padding:.7em 1.5em; font-weight:800; cursor:pointer; }
+  .cart-panel { position:fixed; right:0; top:0; bottom:0; width:min(420px,100vw); background:#fff; z-index:40; box-shadow:-18px 0 50px rgba(0,0,0,.2); transform:translateX(105%); transition:transform .3s cubic-bezier(.22,1,.36,1); display:flex; flex-direction:column; }
+  .cart-panel.open { transform:none; }
+  .cart-head { padding:18px 22px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; background:var(--ink); color:#fff; }
+  .cart-body { flex:1; overflow-y:auto; padding:16px 22px; }
+  .cart-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line); font-size:.9rem; gap:10px; }
+  .cart-row .n { flex:1; }
+  .cart-row .x { color:#dc2626; cursor:pointer; font-weight:800; }
+  .cart-foot { padding:18px 22px; border-top:1px solid var(--line); }
+  .cart-tot { display:flex; justify-content:space-between; font-family:'Archivo',sans-serif; font-weight:900; font-size:1.15rem; margin-bottom:12px; color:var(--ink); }
+  .wa-send { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; background:#25D366; color:#fff; font-weight:800; padding:.95em; border-radius:14px; text-decoration:none; font-size:.95rem; }
+  .wa-send.dis { opacity:.4; pointer-events:none; }
+  .note { font-size:.75rem; color:var(--dim); text-align:center; margin-top:10px; }
+  .b2b { background:var(--ink); color:#e5e7eb; }
+  .b2b h2 { color:#fff; }
+  .b2b .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  .b2b .f { background:#1f2937; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:22px; }
+  .b2b .f .em { font-size:1.6rem; }
+  .b2b .f h3 { color:var(--yellow); font-size:1.05rem; margin:8px 0 4px; }
+  .b2b .f p { font-size:.85rem; color:#9ca3af; }
+  footer { background:#0b0f19; color:#9ca3af; text-align:center; padding:26px 4vw; font-size:.85rem; }
+  footer a { color:var(--yellow); text-decoration:none; }
+  .demo-tag { position:fixed; left:14px; bottom:14px; background:#0f172a; color:#fff; font-size:.7rem; padding:6px 12px; border-radius:99px; z-index:30; opacity:.85; }
+  @media (max-width:860px){ .hero .wrap{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">🧱 CORRALÓN <em>CENTRAL</em></div>
+  <button class="cart-btn" id="openCart">🛒 Mi pedido <b id="count">0</b></button>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Materiales de construcción · Colonia</span>
+      <h1>Armá el pedido online, recibilo en la obra</h1>
+      <p>Precios por volumen para clientes de obra, stock real y entrega en el día dentro del departamento. El pedido sale armado directo al WhatsApp de tu vendedor de siempre.</p>
+      <div class="pill">🚚 Entrega gratis en pedidos mayores a $U 15.000</div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=900" alt="Herramientas y materiales">
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="habitual">
+      <div>📋 <b>¿Siempre pedís lo mismo?</b> Cargá tu pedido habitual de obra en un toque: portland, arena y ladrillos.</div>
+      <button id="loadHabitual">Cargar pedido habitual</button>
+    </div>
+    <h2>Catálogo</h2>
+    <div class="cats" id="cats"></div>
+    <div class="prods" id="prods"></div>
+  </div>
+</section>
+
+<section class="b2b">
+  <div class="wrap">
+    <span class="kicker">Cuenta de obra</span>
+    <h2>Pensado para el que construye</h2>
+    <div class="grid">
+      <div class="f"><span class="em">🏗️</span><h3>Precios por volumen</h3><p>Escala de descuentos automática: a más cantidad, mejor precio por unidad.</p></div>
+      <div class="f"><span class="em">🔁</span><h3>Pedido habitual</h3><p>Tu lista de siempre guardada: repetís el pedido semanal en un toque.</p></div>
+      <div class="f"><span class="em">📱</span><h3>Directo a tu vendedor</h3><p>El pedido llega armado al WhatsApp de tu vendedor asignado, sin intermediarios.</p></div>
+      <div class="f"><span class="em">🚚</span><h3>Entrega en el día</h3><p>Pedidos antes de las 11:00 se entregan la misma tarde en obra.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Corralón Central · Ruta 50 km 2, Colonia — Lun a Vie 7–18 · Sáb 7–12 · Sitio demo por <a href="https://stonydev.com" target="_blank" rel="noopener">StonyDev</a>
+</footer>
+
+<!-- Cart panel -->
+<div class="cart-panel" id="cart">
+  <div class="cart-head"><b>🛒 Mi pedido</b><button id="closeCart" style="background:none;border:0;color:#fff;font-size:1.3rem;cursor:pointer">✕</button></div>
+  <div class="cart-body" id="cartBody"><p style="color:var(--dim);font-size:.9rem">Todavía no agregaste materiales.</p></div>
+  <div class="cart-foot">
+    <div class="cart-tot"><span>Total</span><span id="cartTotal">$U 0</span></div>
+    <a class="wa-send dis" id="waSend" target="_blank" rel="noopener">💬 Enviar pedido por WhatsApp</a>
+    <div class="note">Demo: en producción el pedido también queda registrado en el panel del corralón.</div>
+  </div>
+</div>
+<div class="demo-tag">DEMO · stonydev.com</div>
+
+<script>
+(function(){
+  var CATALOG = [
+    { cat:'Áridos y cemento', items:[
+      { id:'portland', em:'🏭', n:'Portland ANCAP 25 kg', u:'bolsa', p:315, vol:'−5% desde 50 bolsas' },
+      { id:'arena', em:'⏳', n:'Arena fina', u:'m³', p:1450, vol:'−8% desde 5 m³' },
+      { id:'pedregullo', em:'🪨', n:'Pedregullo', u:'m³', p:1690, vol:'−8% desde 5 m³' },
+    ]},
+    { cat:'Ladrillos y bloques', items:[
+      { id:'ladrillo', em:'🧱', n:'Ladrillo de campo', u:'unidad', p:11, vol:'−10% desde 1.000 u.' },
+      { id:'ticholo', em:'🧱', n:'Ticholo 8×18×25', u:'unidad', p:26, vol:'−7% desde 500 u.' },
+      { id:'bloque', em:'⬜', n:'Bloque vibrado 12 cm', u:'unidad', p:38, vol:'−7% desde 300 u.' },
+    ]},
+    { cat:'Hierro', items:[
+      { id:'hierro8', em:'🔩', n:'Hierro tratado Ø8 (12 m)', u:'barra', p:410, vol:'−6% desde 40 barras' },
+      { id:'hierro10', em:'🔩', n:'Hierro tratado Ø10 (12 m)', u:'barra', p:630, vol:'−6% desde 40 barras' },
+      { id:'malla', em:'🕸️', n:'Malla electrosoldada 15×15', u:'panel', p:1890, vol:'−5% desde 10 paneles' },
+    ]},
+    { cat:'Terminaciones', items:[
+      { id:'arenapor', em:'🪣', n:'Arena y portland (mezcla lista) 25 kg', u:'bolsa', p:265, vol:'−5% desde 40 bolsas' },
+      { id:'ceramica', em:'◻️', n:'Cerámica de piso 45×45', u:'m²', p:520, vol:'−10% desde 60 m²' },
+      { id:'pintura', em:'🎨', n:'Pintura látex interior 20 L', u:'balde', p:2990, vol:'−8% desde 5 baldes' },
+    ]},
+  ];
+  var cart = {};
+  var curCat = 0;
+
+  var catsEl = document.getElementById('cats'), prodsEl = document.getElementById('prods');
+  CATALOG.forEach(function(c, i){
+    var b = document.createElement('button'); b.className = 'cat' + (i===0?' sel':''); b.textContent = c.cat;
+    b.addEventListener('click', function(){ curCat = i; document.querySelectorAll('.cat').forEach(function(q){q.classList.remove('sel');}); b.classList.add('sel'); renderProds(); });
+    catsEl.appendChild(b);
+  });
+
+  function renderProds(){
+    prodsEl.innerHTML = '';
+    CATALOG[curCat].items.forEach(function(it){
+      var d = document.createElement('div'); d.className = 'prod';
+      d.innerHTML = '<span class="em">'+it.em+'</span><h3>'+it.n+'</h3><div class="unit">por '+it.u+'</div>'+
+        '<div class="price">$U '+it.p.toLocaleString('es-UY')+'</div><div class="vol">'+it.vol+'</div>'+
+        '<div class="qty"><button data-a="-">−</button><span>'+(cart[it.id]?cart[it.id].q:0)+'</span><button data-a="+">+</button></div>';
+      var span = d.querySelector('span:not(.em)') || d.querySelectorAll('span')[1];
+      d.querySelectorAll('.qty button').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var q = (cart[it.id] ? cart[it.id].q : 0) + (btn.dataset.a === '+' ? 1 : -1);
+          if (q <= 0) delete cart[it.id]; else cart[it.id] = { n: it.n, p: it.p, u: it.u, q: q };
+          d.querySelector('.qty span').textContent = q > 0 ? q : 0;
+          renderCart();
+        });
+      });
+      prodsEl.appendChild(d);
+    });
+  }
+  renderProds();
+
+  document.getElementById('loadHabitual').addEventListener('click', function(){
+    cart = { portland:{n:'Portland ANCAP 25 kg',p:315,u:'bolsa',q:30}, arena:{n:'Arena fina',p:1450,u:'m³',q:3}, ladrillo:{n:'Ladrillo de campo',p:11,u:'unidad',q:500} };
+    renderProds(); renderCart(); openCart();
+  });
+
+  var panel = document.getElementById('cart');
+  function openCart(){ panel.classList.add('open'); }
+  document.getElementById('openCart').addEventListener('click', openCart);
+  document.getElementById('closeCart').addEventListener('click', function(){ panel.classList.remove('open'); });
+
+  function renderCart(){
+    var body = document.getElementById('cartBody'), keys = Object.keys(cart);
+    var count = 0, total = 0;
+    body.innerHTML = keys.length ? '' : '<p style="color:#6b7280;font-size:.9rem">Todavía no agregaste materiales.</p>';
+    keys.forEach(function(k){
+      var it = cart[k]; count += it.q; total += it.q * it.p;
+      var row = document.createElement('div'); row.className = 'cart-row';
+      row.innerHTML = '<span class="n">'+it.n+'<br><small style="color:#6b7280">'+it.q+' '+it.u+(it.q>1?'s':'')+' × $U '+it.p.toLocaleString('es-UY')+'</small></span>'+
+        '<b>$U '+(it.q*it.p).toLocaleString('es-UY')+'</b><span class="x" data-k="'+k+'">✕</span>';
+      row.querySelector('.x').addEventListener('click', function(){ delete cart[k]; renderProds(); renderCart(); });
+      body.appendChild(row);
+    });
+    document.getElementById('count').textContent = count;
+    document.getElementById('cartTotal').textContent = '$U ' + total.toLocaleString('es-UY');
+    var wa = document.getElementById('waSend');
+    if (keys.length){
+      var lines = keys.map(function(k){ var it = cart[k]; return '• '+it.q+' '+it.u+(it.q>1?'s':'')+' de '+it.n; });
+      var msg = encodeURIComponent('Hola! Pedido desde la web:\n'+lines.join('\n')+'\nTotal estimado: $U '+total.toLocaleString('es-UY')+'\nObra: [dirección]');
+      wa.href = 'https://wa.me/59899000004?text='+msg;
+      wa.classList.remove('dis');
+    } else wa.classList.add('dis');
+  }
+})();
+</script>
+</body>
+</html>

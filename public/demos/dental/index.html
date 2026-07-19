@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clínica Dental Sonrisa — Odontología en Colonia</title>
+<meta name="description" content="Implantes, ortodoncia y estética dental en Colonia. Agendá tu turno por WhatsApp en un minuto.">
+<meta name="theme-color" content="#0d9488">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🦷</text></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Dentist","name":"Clínica Dental Sonrisa","address":{"@type":"PostalAddress","addressRegion":"Colonia","addressCountry":"UY"},"telephone":"+59899000001"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --teal:#0d9488; --teal-d:#0f766e; --ink:#134e4a; --bg:#f8fafc; --line:#e2e8f0; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',system-ui,sans-serif; color:#1e293b; background:var(--bg); line-height:1.65; }
+  h1,h2,h3 { font-family:'Fraunces',serif; color:var(--ink); letter-spacing:-.01em; }
+  header { position:sticky; top:0; z-index:20; background:rgba(255,255,255,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding:14px 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .brand { font-weight:800; font-size:1.1rem; color:var(--teal-d); display:flex; align-items:center; gap:8px; }
+  nav a { color:#475569; text-decoration:none; margin-left:20px; font-size:.9rem; }
+  nav a:hover { color:var(--teal); }
+  .cta { background:var(--teal); color:#fff !important; padding:.6em 1.3em; border-radius:99px; font-weight:600; }
+  .cta:hover { background:var(--teal-d); }
+  .hero { display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:center; max-width:1100px; margin:auto; padding:70px 5vw; }
+  .hero h1 { font-size:clamp(2rem,4.5vw,3.2rem); line-height:1.1; margin-bottom:.5em; }
+  .hero h1 em { color:var(--teal); font-style:normal; }
+  .hero p { color:#475569; font-size:1.08rem; margin-bottom:1.6em; max-width:46ch; }
+  .hero img { width:100%; border-radius:22px; box-shadow:0 24px 60px rgba(13,148,136,.25); aspect-ratio:4/3; object-fit:cover; }
+  .badges { display:flex; gap:14px; margin-top:26px; flex-wrap:wrap; }
+  .badge { background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 16px; font-size:.82rem; color:#475569; display:flex; gap:8px; align-items:center; }
+  .wa-btn { display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; font-weight:700; padding:.9em 1.8em; border-radius:99px; text-decoration:none; box-shadow:0 10px 26px rgba(37,211,102,.35); transition:transform .15s; }
+  .wa-btn:hover { transform:translateY(-2px); }
+  section { padding:70px 5vw; }
+  .wrap { max-width:1100px; margin:auto; }
+  .kicker { text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; font-weight:800; color:var(--teal); }
+  h2 { font-size:clamp(1.6rem,3vw,2.2rem); margin:.3em 0 1.2em; }
+  .grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:26px; transition:transform .2s, box-shadow .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:0 18px 40px rgba(15,118,110,.12); }
+  .card .ic { font-size:1.9rem; }
+  .card h3 { margin:.5em 0 .3em; font-size:1.15rem; }
+  .card p { color:#64748b; font-size:.92rem; }
+  .price { margin-top:14px; font-weight:800; color:var(--teal-d); }
+  .strip { background:linear-gradient(120deg,var(--teal-d),var(--teal)); color:#fff; }
+  .strip .wrap { display:flex; gap:6vw; justify-content:center; flex-wrap:wrap; text-align:center; }
+  .strip b { font-size:2.1rem; font-family:'Fraunces',serif; display:block; }
+  .strip span { opacity:.85; font-size:.85rem; }
+  .t-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .t-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px; font-style:italic; color:#475569; }
+  .t-card b { display:block; margin-top:12px; font-style:normal; color:var(--ink); }
+  .stars { color:#f59e0b; letter-spacing:2px; }
+  details { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 20px; margin-bottom:10px; }
+  summary { font-weight:700; cursor:pointer; color:var(--ink); }
+  details p { margin-top:8px; color:#64748b; font-size:.92rem; }
+  .turno { background:#fff; border:1px solid var(--line); border-radius:22px; padding:36px; display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center; }
+  .turno h2 { margin-bottom:.4em; }
+  .steps { display:flex; flex-direction:column; gap:12px; margin:18px 0; }
+  .step { display:flex; gap:12px; align-items:flex-start; font-size:.92rem; color:#475569; }
+  .step b { display:flex; width:26px; height:26px; border-radius:50%; background:var(--teal); color:#fff; align-items:center; justify-content:center; font-size:.8rem; flex-shrink:0; }
+  .map { border-radius:18px; background:linear-gradient(140deg,#ccfbf1,#e0f2fe); min-height:260px; display:flex; align-items:center; justify-content:center; color:var(--teal-d); font-weight:700; flex-direction:column; gap:6px; border:1px solid var(--line); }
+  footer { background:var(--ink); color:rgba(255,255,255,.75); text-align:center; padding:28px 5vw; font-size:.85rem; }
+  footer a { color:#5eead4; text-decoration:none; }
+  .wsp-float { position:fixed; right:20px; bottom:20px; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; font-size:1.6rem; box-shadow:0 10px 26px rgba(0,0,0,.25); z-index:30; text-decoration:none; }
+  .demo-tag { position:fixed; left:14px; bottom:14px; background:#0f172a; color:#fff; font-size:.7rem; padding:6px 12px; border-radius:99px; z-index:30; opacity:.85; }
+  .rv { opacity:0; transform:translateY(24px); transition:.7s cubic-bezier(.22,1,.36,1); }
+  .rv.in { opacity:1; transform:none; }
+  @media (max-width:820px){ .hero,.turno{grid-template-columns:1fr} nav a:not(.cta){display:none} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">🦷 Clínica Dental <span style="color:var(--teal)">Sonrisa</span></div>
+  <nav>
+    <a href="#tratamientos">Tratamientos</a>
+    <a href="#opiniones">Opiniones</a>
+    <a href="#faq">Preguntas</a>
+    <a class="cta" href="#turno">Pedir turno</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <span class="kicker">Odontología integral · Colonia</span>
+    <h1>Tu mejor <em>sonrisa</em> empieza con un turno de 1 minuto</h1>
+    <p>Implantes, ortodoncia y estética dental con tecnología de última generación y financiación en cuotas. Sin esperas telefónicas: agendás por WhatsApp y te confirmamos al instante.</p>
+    <a class="wa-btn" href="https://wa.me/59899000001?text=Hola%2C%20quiero%20agendar%20un%20turno%20en%20Cl%C3%ADnica%20Sonrisa" target="_blank" rel="noopener">💬 Agendar por WhatsApp</a>
+    <div class="badges">
+      <div class="badge">✅ Primera consulta sin costo</div>
+      <div class="badge">💳 Hasta 12 cuotas</div>
+      <div class="badge">⭐ 4.9 en Google (180 reseñas)</div>
+    </div>
+  </div>
+  <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=900" alt="Consultorio de Clínica Dental Sonrisa">
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <div><b>+2.500</b><span>pacientes atendidos</span></div>
+    <div><b>15 años</b><span>de trayectoria</span></div>
+    <div><b>98%</b><span>de tratamientos exitosos</span></div>
+    <div><b>24 hs</b><span>respuesta de urgencias</span></div>
+  </div>
+</section>
+
+<section id="tratamientos">
+  <div class="wrap">
+    <span class="kicker">Tratamientos</span>
+    <h2>Especialidades de la clínica</h2>
+    <div class="grid3">
+      <div class="card rv"><div class="ic">🦷</div><h3>Implantes dentales</h3><p>Recuperá tu sonrisa completa con implantes de titanio y corona de porcelana, en 2 a 3 sesiones.</p><div class="price">Desde USD 650 · en cuotas</div></div>
+      <div class="card rv"><div class="ic">😁</div><h3>Ortodoncia</h3><p>Brackets tradicionales o alineadores invisibles con control mensual y plan de pago fijo.</p><div class="price">Cuota mensual desde $U 2.900</div></div>
+      <div class="card rv"><div class="ic">✨</div><h3>Estética dental</h3><p>Blanqueamiento profesional, carillas y diseño de sonrisa con simulación previa digital.</p><div class="price">Blanqueamiento desde $U 6.500</div></div>
+      <div class="card rv"><div class="ic">🧒</div><h3>Odontopediatría</h3><p>Atención especializada para niños en un ambiente pensado para que pierdan el miedo.</p><div class="price">Consulta $U 1.200</div></div>
+      <div class="card rv"><div class="ic">🚑</div><h3>Urgencias</h3><p>Dolor agudo, traumatismos o infecciones: respuesta el mismo día por WhatsApp.</p><div class="price">Prioridad inmediata</div></div>
+      <div class="card rv"><div class="ic">🪥</div><h3>Prevención e higiene</h3><p>Limpieza profunda, fluorización y control anual con recordatorio automático.</p><div class="price">Plan familiar disponible</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="opiniones" style="background:#fff">
+  <div class="wrap">
+    <span class="kicker">Opiniones reales</span>
+    <h2>Lo que dicen nuestros pacientes</h2>
+    <div class="t-grid">
+      <div class="t-card rv"><span class="stars">★★★★★</span><p>"Me hicieron dos implantes y no sentí ni el postoperatorio. La financiación me salvó."</p><b>— Graciela M., Colonia</b></div>
+      <div class="t-card rv"><span class="stars">★★★★★</span><p>"Pedí turno un domingo por WhatsApp y el lunes a las 9 ya estaba sentada en el sillón."</p><b>— Valentina R., Miguelete</b></div>
+      <div class="t-card rv"><span class="stars">★★★★★</span><p>"Mi hijo dejó de tenerle miedo al dentista. Eso no tiene precio."</p><b>— Marcos T., Rosario</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap" style="max-width:760px">
+    <span class="kicker">Preguntas frecuentes</span>
+    <h2>Antes de tu primera visita</h2>
+    <details class="rv"><summary>¿La primera consulta tiene costo?</summary><p>No. La evaluación inicial con diagnóstico y presupuesto es totalmente gratuita y sin compromiso.</p></details>
+    <details class="rv"><summary>¿Trabajan con sociedades médicas?</summary><p>Trabajamos con las principales emergencias y sociedades del departamento. Consultanos por la tuya.</p></details>
+    <details class="rv"><summary>¿Puedo pagar en cuotas?</summary><p>Sí: todos los tratamientos mayores se pueden financiar hasta en 12 cuotas, con tarjeta o pago directo.</p></details>
+    <details class="rv"><summary>¿Atienden urgencias?</summary><p>Sí, escribinos por WhatsApp y coordinamos la atención en el día.</p></details>
+  </div>
+</section>
+
+<section id="turno" style="background:#fff">
+  <div class="wrap turno">
+    <div>
+      <span class="kicker">Turnos</span>
+      <h2>Agendá en 3 pasos</h2>
+      <div class="steps">
+        <div class="step"><b>1</b><span>Tocá el botón de WhatsApp — el mensaje ya sale escrito.</span></div>
+        <div class="step"><b>2</b><span>Elegí el horario que te propongamos (mañana o tarde).</span></div>
+        <div class="step"><b>3</b><span>Recibí la confirmación y el recordatorio automático 24 hs antes.</span></div>
+      </div>
+      <a class="wa-btn" href="https://wa.me/59899000001?text=Hola%2C%20quiero%20agendar%20un%20turno%20en%20Cl%C3%ADnica%20Sonrisa" target="_blank" rel="noopener">💬 Pedir turno ahora</a>
+    </div>
+    <div class="map">📍<span>Av. Artigas 1234, Colonia del Sacramento</span><span style="font-weight:400;font-size:.85rem">Lun a Vie 9–19 · Sáb 9–13</span></div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Clínica Dental Sonrisa · Colonia, Uruguay — Sitio demo por <a href="https://stonydev.com" target="_blank" rel="noopener">StonyDev</a>
+</footer>
+
+<a class="wsp-float" href="https://wa.me/59899000001?text=Hola%2C%20quiero%20agendar%20un%20turno" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<div class="demo-tag">DEMO · stonydev.com</div>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e,i){ if(e.isIntersecting){ e.target.style.transitionDelay=(e.target.dataset.d||0)+'ms'; e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el,i){ el.dataset.d=(i%3)*90; io.observe(el); });
+})();
+</script>
+</body>
+</html>

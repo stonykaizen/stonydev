@@ -9,6 +9,7 @@ export interface Project {
   features: string[];
   techStack: string[];
   duration: string;
+  demoUrl?: string;
 }
 
 export interface Service {
