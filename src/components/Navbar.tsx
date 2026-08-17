@@ -35,15 +35,16 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between rounded-full border border-white/10 bg-zinc-950/75 px-6 py-3 backdrop-blur-md shadow-lg shadow-black/20">
           {/* Logo & Brand */}
-          <div 
-            onClick={() => scrollToSection('hero')} 
+          <button
+            onClick={() => scrollToSection('hero')}
+            aria-label="Ir al inicio"
             className="nav-item flex cursor-pointer items-center gap-2 text-white transition-colors hover:text-blue-400"
           >
             <div className="w-8 h-8 glass flex items-center justify-center font-bold text-blue-500 rounded-lg text-sm">S</div>
             <span className="font-sans text-lg font-bold tracking-tight">
               stonydev<span className="text-blue-500 text-opacity-80">.com</span>
             </span>
-          </div>
+          </button>
 
           {/* Nav Items (Desktop) */}
           <div className="hidden md:flex items-center gap-6">

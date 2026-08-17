@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { PROJECTS } from '../data';
-import { Project } from '../types';
+import { PROJECTS, CATEGORY_LABELS, GOAL_FILTERS } from '../data';
+import { Project, ProjectGoal } from '../types';
 import { ExternalLink, Hourglass, Layers, X, ArrowRight, Check, TrendingUp, MessageCircle } from 'lucide-react';
 import { waLink, prefersReducedMotion } from '../config';
 
@@ -14,9 +14,53 @@ export default function Projects() {
   // Elemento que tenía el foco antes de abrir el modal, para devolvérselo al cerrar.
   const lastFocusedElement = useRef<HTMLElement | null>(null);
 
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'fullstack' | 'ecommerce' | 'frontend' | 'design'>('all');
+  const [selectedGoal, setSelectedGoal] = useState<ProjectGoal | 'all'>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [previewLoaded, setPreviewLoaded] = useState(false);
+
+  // Custom modal open/close animations using GSAP
+  const openModal = (proj: Project) => {
+    lastFocusedElement.current = document.activeElement as HTMLElement | null;
+    setPreviewLoaded(false);
+    setSelectedProject(proj);
+    if (prefersReducedMotion()) return;
+    // Let state update then animate (using a safe timeout or immediate execution)
+    setTimeout(() => {
+      gsap.fromTo('.modal-backdrop',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power1.out' }
+      );
+      gsap.fromTo('.modal-content',
+        { scale: 0.9, y: 50, opacity: 0 },
+        { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.2)' }
+      );
+    }, 10);
+  };
+
+  const closeModal = () => {
+    if (prefersReducedMotion()) {
+      setSelectedProject(null);
+      lastFocusedElement.current?.focus();
+      return;
+    }
+    gsap.to('.modal-content', {
+      scale: 0.9,
+      y: 30,
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        gsap.to('.modal-backdrop', {
+          opacity: 0,
+          duration: 0.2,
+          onComplete: () => {
+            setSelectedProject(null);
+            lastFocusedElement.current?.focus();
+          }
+        });
+      }
+    });
+  };
 
   // Close on Escape, trap focus inside the dialog + lock body scroll while open
   useEffect(() => {
@@ -50,16 +94,15 @@ export default function Projects() {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', onKey);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject]);
 
   // Filter projects based on state
   const filteredProjects = PROJECTS.filter((proj) => {
-    if (selectedCategory === 'all') return true;
-    return proj.category === selectedCategory;
+    if (selectedGoal === 'all') return true;
+    return proj.goal === selectedGoal;
   });
 
-  // Re-run animation when the category changes
+  // Re-run animation when the filter changes
   useEffect(() => {
     if (!gridContainer.current || prefersReducedMotion()) return;
 
@@ -77,7 +120,7 @@ export default function Projects() {
         overwrite: 'auto',
       }
     );
-  }, [selectedCategory]);
+  }, [selectedGoal]);
 
   useGSAP(() => {
     if (prefersReducedMotion()) return;
@@ -93,58 +136,6 @@ export default function Projects() {
       ease: 'power3.out',
     });
   }, { scope: container });
-
-  // Custom modal open/close animations using GSAP
-  const openModal = (proj: Project) => {
-    lastFocusedElement.current = document.activeElement as HTMLElement | null;
-    setPreviewLoaded(false);
-    setSelectedProject(proj);
-    if (prefersReducedMotion()) return;
-    // Let state update then animate (using a safe timeout or immediate execution)
-    setTimeout(() => {
-      gsap.fromTo('.modal-backdrop', 
-        { opacity: 0 }, 
-        { opacity: 1, duration: 0.3, ease: 'power1.out' }
-      );
-      gsap.fromTo('.modal-content', 
-        { scale: 0.9, y: 50, opacity: 0 }, 
-        { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.2)' }
-      );
-    }, 10);
-  };
-
-  const closeModal = () => {
-    if (prefersReducedMotion()) {
-      setSelectedProject(null);
-      lastFocusedElement.current?.focus();
-      return;
-    }
-    gsap.to('.modal-content', {
-      scale: 0.9,
-      y: 30,
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power2.in',
-      onComplete: () => {
-        gsap.to('.modal-backdrop', {
-          opacity: 0,
-          duration: 0.2,
-          onComplete: () => {
-            setSelectedProject(null);
-            lastFocusedElement.current?.focus();
-          }
-        });
-      }
-    });
-  };
-
-  const categories: { id: typeof selectedCategory; label: string }[] = [
-    { id: 'all', label: 'Todos' },
-    { id: 'frontend', label: 'Websites & PWA' },
-    { id: 'ecommerce', label: 'E-Commerce' },
-    { id: 'fullstack', label: 'Full-stack / SaaS' },
-    { id: 'design', label: 'Interactivo & UI' },
-  ];
 
   return (
     <section
@@ -170,19 +161,19 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Category Filters */}
+        {/* Filtros por objetivo de negocio */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {categories.map((cat) => (
+          {GOAL_FILTERS.map((filter) => (
             <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
+              key={filter.id}
+              onClick={() => setSelectedGoal(filter.id)}
               className={`rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300 border ${
-                selectedCategory === cat.id
+                selectedGoal === filter.id
                   ? 'bg-white text-black border-white font-bold shadow-lg shadow-blue-500/10'
                   : 'bg-white/[0.03] text-zinc-400 border-white/5 hover:text-white hover:border-white/10 hover:bg-white/[0.08]'
               }`}
             >
-              {cat.label}
+              {filter.label}
             </button>
           ))}
         </div>
@@ -245,7 +236,7 @@ export default function Projects() {
               {/* Text content */}
               <div className="p-6">
                 <span className="text-[10px] font-bold tracking-wider text-blue-400 uppercase">
-                  {proj.category === 'ecommerce' ? 'Comercio Electrónico' : proj.category === 'fullstack' ? 'Software SaaS' : proj.category === 'frontend' ? 'Desarrollo Frontend' : 'Interactivo / UI'}
+                  {CATEGORY_LABELS[proj.category]}
                 </span>
                 <h3 className="mt-1.5 font-sans text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
                   {proj.title}
@@ -265,6 +256,8 @@ export default function Projects() {
 
         {/* Project Detailed Modal */}
         {selectedProject && (
+          // El click en el fondo es un atajo extra: Esc y el botón Cerrar cubren teclado.
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
             className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 md:p-6 backdrop-blur-md"
             onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
@@ -333,7 +326,7 @@ export default function Projects() {
                         </a>
                         <div className="pointer-events-none absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-black/70 border border-white/10 px-3 py-1 backdrop-blur-md">
                           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                          <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-300">Demo en vivo</span>
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-300">Demo en vivo</span>
                         </div>
                       </div>
                       {/* Mobile: static image linking to demo */}
@@ -357,16 +350,16 @@ export default function Projects() {
                 <div className="md:col-span-7 p-6 md:p-8 md:max-h-[85vh] md:overflow-y-auto">
                   {/* Category + meta chips */}
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-blue-300">
-                      {selectedProject.category === 'ecommerce' ? 'Comercio Electrónico' : selectedProject.category === 'fullstack' ? 'Software SaaS' : selectedProject.category === 'frontend' ? 'Website' : 'Interactivo / UI'}
+                    <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-blue-300">
+                      {CATEGORY_LABELS[selectedProject.category]}
                     </span>
-                    <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-zinc-400">
+                    <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
                       <Hourglass className="h-3 w-3" /> Entrega en {selectedProject.duration}
                     </span>
-                    <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-zinc-400">
+                    <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
                       <Layers className="h-3 w-3" /> {selectedProject.techStack.length} tecnologías
                     </span>
-                    <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-emerald-300">
+                    <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-300">
                       Concepto de ejemplo
                     </span>
                   </div>

@@ -1,8 +1,15 @@
+export type ProjectCategory = 'frontend' | 'fullstack' | 'ecommerce' | 'design';
+
+// Objetivo de negocio del proyecto — es lo que filtra el visitante PyME,
+// que piensa en "quiero reservas" antes que en "quiero un fullstack".
+export type ProjectGoal = 'reservas' | 'catalogo' | 'leads';
+
 export interface Project {
   id: string;
   title: string;
   description: string;
-  category: 'frontend' | 'fullstack' | 'ecommerce' | 'design';
+  category: ProjectCategory;
+  goal: ProjectGoal;
   tags: string[];
   image: string;
   details: string;

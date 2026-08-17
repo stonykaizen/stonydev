@@ -24,8 +24,8 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
   // Track previous and current price for GSAP count-up animation
   const countObj = useRef({ value: 0 });
 
-  // Selections state
-  const saved = useRef(loadSaved()).current;
+  // Selections state (restauradas de sessionStorage si el visitante recargó)
+  const [saved] = useState(loadSaved);
   const [projectType, setProjectType] = useState<string>(saved.projectType ?? 'corporativo');
   const [designLevel, setDesignLevel] = useState<string>(saved.designLevel ?? 'premium');
   const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>(saved.integrations ?? ['auth', 'pagos']);
@@ -214,15 +214,26 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                     ? designLevel === option.id
                     : selectedIntegrations.includes(option.id);
 
+                const selectOption = () => {
+                  if (currentStep === 0) setProjectType(option.id);
+                  else if (currentStep === 1) setDesignLevel(option.id);
+                  else toggleIntegration(option.id);
+                };
+
                 return (
                   <div
                     key={option.id}
-                    onClick={() => {
-                      if (currentStep === 0) setProjectType(option.id);
-                      else if (currentStep === 1) setDesignLevel(option.id);
-                      else toggleIntegration(option.id);
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isSelected}
+                    onClick={selectOption}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectOption();
+                      }
                     }}
-                    className={`group relative cursor-pointer flex flex-col justify-between rounded-2xl border p-5 transition-all duration-300 ${
+                    className={`group relative cursor-pointer flex flex-col justify-between rounded-2xl border p-5 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-blue-400 ${
                       isSelected
                         ? 'bg-blue-500/10 border-blue-400/80 shadow-lg shadow-blue-500/10'
                         : 'bg-black/40 border-white/5 hover:border-white/15 hover:bg-white/[0.03]'
@@ -337,7 +348,7 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                   $0
                 </span>
 
-                <span className="block text-[9px] text-zinc-500 mt-1">Sujeto a variación por alcances</span>
+                <span className="block text-[10px] text-zinc-500 mt-1">Referencia en USD · cotización formal también en UYU · sujeto a alcances</span>
               </div>
 
               {/* Envío directo de la cotización por WhatsApp */}

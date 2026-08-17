@@ -6,6 +6,17 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
+    build: {
+      rollupOptions: {
+        output: {
+          // Vendors estables en chunks propios: mejor caché entre deploys.
+          manualChunks: {
+            react: ['react', 'react-dom', 'react-dom/client'],
+            gsap: ['gsap', '@gsap/react'],
+          },
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

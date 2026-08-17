@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useRef, useState, ChangeEvent, FormEvent } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Mail, MapPin, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
@@ -16,11 +16,15 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
   const [validationError, setValidationError] = useState('');
 
   // Precarga el detalle armado en el cotizador (estado compartido vía App).
-  useEffect(() => {
+  // Patrón "ajustar estado durante el render": evita el re-render en cascada
+  // de un setState dentro de useEffect.
+  const [lastQuote, setLastQuote] = useState(quoteMessage);
+  if (quoteMessage !== lastQuote) {
+    setLastQuote(quoteMessage);
     if (quoteMessage) {
       setFormData((prev) => ({ ...prev, message: quoteMessage }));
     }
-  }, [quoteMessage]);
+  }
 
   // Scroll Trigger reveal for elements
   useGSAP(() => {

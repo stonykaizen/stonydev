@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { ArrowRight, Play, CheckCircle } from 'lucide-react';
 import { prefersReducedMotion, scrollToId } from '../config';
@@ -49,9 +50,10 @@ export default function Hero() {
     }, '-=0.4');
 
     // 2. Infinite ambient floating animation
+    const floatTweens: gsap.core.Tween[] = [];
     floatingCards.current.forEach((card, index) => {
       if (!card) return;
-      gsap.to(card, {
+      floatTweens.push(gsap.to(card, {
         y: `+=${15 + index * 5}`,
         x: `+=${10 - index * 6}`,
         rotation: `+=${2 - index * 3}`,
@@ -59,7 +61,15 @@ export default function Hero() {
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
-      });
+      }));
+    });
+
+    // Pausar los loops infinitos cuando el hero sale del viewport (ahorra CPU/batería)
+    ScrollTrigger.create({
+      trigger: container.current,
+      start: 'top bottom',
+      end: 'bottom top',
+      onToggle: (self) => floatTweens.forEach((t) => (self.isActive ? t.play() : t.pause())),
     });
   }, { scope: container });
 
@@ -90,7 +100,7 @@ export default function Hero() {
 
     const handleMouseLeave = () => {
       // Return cards to original positions
-      floatingCards.current.forEach((card, i) => {
+      floatingCards.current.forEach((card) => {
         if (!card) return;
         gsap.to(card, {
           x: 0,
@@ -219,7 +229,7 @@ export default function Hero() {
             </div>
             <div className="flex items-center justify-between border-t border-white/5 pt-3">
               <div className="flex flex-col gap-1">
-                <span className="text-[8px] text-slate-500 font-medium uppercase tracking-widest">Interactive Preview</span>
+                <span className="text-[10px] text-slate-500 font-medium uppercase tracking-widest">Interactive Preview</span>
                 <div className="flex gap-0.5 items-end">
                   <div className="h-5 w-1 bg-blue-500 rounded-full"></div>
                   <div className="h-7 w-1 bg-blue-400 rounded-full"></div>
@@ -229,7 +239,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="text-right">
-                <span className="block text-[8px] text-slate-500 uppercase">Active Skill</span>
+                <span className="block text-[10px] text-slate-500 uppercase">Active Skill</span>
                 <span className="block text-[10px] font-bold">GSAP Motion</span>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { TECH_STACK } from '../data';
 import { ShieldCheck, Info } from 'lucide-react';
@@ -11,18 +12,18 @@ export default function TechStack() {
   const bubbleContainer = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const bars = gsap.utils.toArray('.tech-progress-bar');
+    const bars = gsap.utils.toArray<HTMLElement>('.tech-progress-bar');
 
     // Con movimiento reducido: barras directamente en su valor final, sin tweens.
     if (prefersReducedMotion()) {
-      bars.forEach((bar: any) => {
+      bars.forEach((bar) => {
         bar.style.width = bar.getAttribute('data-level') + '%';
       });
       return;
     }
 
     // ScrollTrigger to animate skills progress bars filling up
-    bars.forEach((bar: any) => {
+    bars.forEach((bar) => {
       const targetWidth = bar.getAttribute('data-level') + '%';
       gsap.fromTo(bar, 
         { width: '0%' },
@@ -53,8 +54,8 @@ export default function TechStack() {
     });
 
     // Floating animation for interactive bubbles on the right
-    const bubbles = gsap.utils.toArray('.tech-bubble');
-    bubbles.forEach((bubble: any, index: number) => {
+    const bubbles = gsap.utils.toArray<HTMLElement>('.tech-bubble');
+    const bubbleTweens = bubbles.map((bubble, index) =>
       gsap.to(bubble, {
         y: `+=${10 + (index % 3) * 5}`,
         x: `+=${5 - (index % 2) * 8}`,
@@ -62,7 +63,15 @@ export default function TechStack() {
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
-      });
+      })
+    );
+
+    // Pausar los loops cuando la sección no está visible
+    ScrollTrigger.create({
+      trigger: container.current,
+      start: 'top bottom',
+      end: 'bottom top',
+      onToggle: (self) => bubbleTweens.forEach((t) => (self.isActive ? t.play() : t.pause())),
     });
   }, { scope: container });
 
@@ -98,7 +107,7 @@ export default function TechStack() {
       });
     };
 
-    const listeners: { element: HTMLElement; move: any; leave: any }[] = [];
+    const listeners: { element: HTMLElement; move: (e: MouseEvent) => void; leave: () => void }[] = [];
 
     bubbles.forEach((b) => {
       const el = b as HTMLElement;
@@ -208,7 +217,7 @@ export default function TechStack() {
                   </div>
                   <div>
                     <span className="block text-xs font-bold leading-tight">{tech.name}</span>
-                    <span className="block text-[9px] text-zinc-500 leading-none">
+                    <span className="block text-[10px] text-zinc-500 leading-none">
                       {tech.category === 'frontend' ? 'Frontend' : tech.category === 'backend' ? 'Backend' : 'Herramienta'}
                     </span>
                   </div>

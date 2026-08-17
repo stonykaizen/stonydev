@@ -13,11 +13,19 @@ WebP locales) · 4.1–4.3, 4.5 · 5.1–5.3, 5.6, 5.7 · 6.1, 6.4, 6.5 · 7.2 (
 (vercel.json) · 9.1, 9.2, 9.4. Toda comunicación deriva a WhatsApp +598 92 375 881
 (`src/config.ts`).
 
-**Pendiente**: 2.5 parcial (precios UYU aclarados en FAQ, falta en cotizador), 2.8 (multi-idioma),
-2.9 (analytics), 3.5 (code-splitting), 3.6 (pausar animaciones fuera de viewport), 3.7 (favicon
-png/apple-touch), 4.4 (rutas por servicio), 4.6 (blog), 5.4/5.5 (tipografías mínimas y contraste),
-6.2 (filtros por nicho), 6.3 (barras %), 7.1 (ESLint/Prettier), 7.3 parcial, 7.5 parcial, 7.6 ✅,
-7.8 (ErrorBoundary), 7.9 ✅, 8.3 (redirecciones dominio), 8.4 (monitoreo), 9.3, 9.5.
+**Tercer lote implementado**: 2.5 ✅ (nota USD/UYU en el cotizador), 3.5 ✅ (chunks react/gsap),
+3.6 ✅ (loops pausados fuera de viewport), 3.7 ✅ (favicon PNG + apple-touch-icon), 5.4 ✅ (piso
+tipográfico 10px), 6.2 ✅ (filtros por objetivo de negocio: Reservas/Catálogo/Leads), 7.1 ✅
+(ESLint 9 + typescript-eslint + react-hooks + jsx-a11y en `npm run lint`; arregló refs en render,
+elementos no accesibles por teclado y setState en efecto), 7.3 ✅ (CATEGORY_LABELS/GOAL_FILTERS
+centralizados), 7.8 ✅ (ErrorBoundary con fallback a WhatsApp). Además: se instalaron
+@types/react/@types/react-dom que faltaban (React tipaba como `any`) y el cotizador es ahora
+operable por teclado.
+
+**Pendiente**: 2.8 (multi-idioma), 2.9 (analytics — requiere elegir proveedor/ID), 4.4 (rutas por
+servicio), 4.6 (blog), 5.5 (revisión fina de contraste), 6.3 (reemplazar barras % por métricas
+reales de los socios), 8.3 (redirecciones de dominio — se configura en el hosting), 8.4
+(monitoreo externo), 9.3, 9.5 (detalles menores de demos), y activar `strict` en tsconfig.
 
 ---
 
