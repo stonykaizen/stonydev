@@ -188,14 +188,14 @@ export default function Hero() {
           <div className="flex flex-col flex-wrap justify-center gap-4 sm:flex-row lg:justify-start">
             <button
               onClick={() => scrollToId('calculadora')}
-              className="hero-btn group flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-sans text-sm font-bold text-black shadow-lg shadow-blue-500/10 transition-all hover:bg-blue-50 hover:scale-[1.02]"
+              className="hero-btn group flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-sans text-sm font-bold text-black shadow-lg shadow-blue-500/10 transition-colors hover:bg-blue-50"
             >
               <span>Cotizar Proyecto</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
             <button
               onClick={() => scrollToId('proyectos')}
-              className="hero-btn flex items-center justify-center gap-2 rounded-full glass px-6 py-3.5 font-sans text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+              className="hero-btn flex items-center justify-center gap-2 rounded-full glass px-6 py-3.5 font-sans text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
             >
               <Play className="h-4 w-4 fill-white text-white" />
               <span>Ver Proyectos</span>

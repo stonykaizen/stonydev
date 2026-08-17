@@ -29,7 +29,8 @@ export default function App() {
 
         gsap.to(toTopBtn, {
           scrollTrigger: {
-            trigger: 'body',
+            // Referencia directa: el selector 'body' no resuelve dentro del scope del contenedor
+            trigger: document.body,
             start: 'top -400',
             end: 'bottom bottom',
             toggleActions: 'play none none reverse',

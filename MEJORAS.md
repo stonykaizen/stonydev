@@ -3,6 +3,24 @@
 > Revisión profunda del código (v2.4) realizada el 2026-08-17.
 > Prioridades: 🔴 Crítica (pierde clientes o está roto) · 🟠 Alta · 🟡 Media · 🟢 Baja.
 
+## 🔍 Segunda auditoría (2026-08-17, sobre producción)
+
+Revisión funcional automatizada con navegador (desktop + móvil) sobre el build desplegado.
+**Verificado OK**: cotizador (precio reactivo y envío por WhatsApp con desglose), formulario
+(validación + envío por WhatsApp con datos), modal con demo en vivo y focus correcto, menú
+móvil, botón volver-arriba, FAQ, sin overflow horizontal, sin requests rotos.
+**Bugs encontrados y corregidos**:
+1. 🔴 **CTAs del hero invisibles** ("Cotizar Proyecto" / "Ver Proyectos"): `transition-all`
+   (CSS) rompía el `gsap.from()` del timeline — GSAP capturaba como destino el valor ya
+   transicionado a 0 y los botones quedaban en opacity 0 para siempre. Bug preexistente de la
+   plantilla original (la web vieja también lo tenía). Fix: `transition-colors`.
+2. 🟠 Títulos de sección tapados por el navbar fijo al navegar por anclas — fix:
+   `scroll-margin-top` global en `section[id]`.
+3. 🟡 La animación del panel de éxito del formulario apuntaba a un nodo aún no montado
+   (warning GSAP, aparecía sin animar) — movida a un efecto sobre `isSent`.
+4. 🟢 Warning "Element not found: body" del ScrollTrigger del volver-arriba (selector no
+   resolvía dentro del scope) — fix: referencia directa a `document.body`.
+
 ## ✅ Estado de implementación (2026-08-17)
 
 **Implementado** — Top 10 completo más un segundo lote:

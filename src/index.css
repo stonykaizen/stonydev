@@ -7,6 +7,11 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
+/* Las secciones ancladas dejan espacio para el navbar fijo al navegar */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
 /* Base style resets and customizations */
 body {
   font-family: var(--font-sans);

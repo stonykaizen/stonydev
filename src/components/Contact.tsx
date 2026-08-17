@@ -1,4 +1,4 @@
-import { useRef, useState, ChangeEvent, FormEvent } from 'react';
+import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Mail, MapPin, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
@@ -77,14 +77,19 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
 
     setValidationError('');
     setIsSent(true);
-    if (!prefersReducedMotion()) {
+  };
+
+  // El pop de éxito se anima recién cuando React ya montó el panel
+  // (animarlo desde el handler apuntaba a un nodo aún inexistente).
+  useEffect(() => {
+    if (isSent && !prefersReducedMotion()) {
       gsap.fromTo(
         '.success-popup',
         { scale: 0.8, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' }
       );
     }
-  };
+  }, [isSent]);
 
   const handleReset = () => {
     setFormData({ name: '', email: '', company: '', message: '' });
