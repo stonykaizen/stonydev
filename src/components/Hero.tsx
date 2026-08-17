@@ -179,12 +179,12 @@ export default function Hero() {
               <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Socios</span>
             </div>
             <div className="p-4 glass flex flex-col gap-1">
-              <span className="text-2xl font-bold text-white">50+</span>
-              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Proyectos</span>
+              <span className="text-2xl font-bold text-white">06</span>
+              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Demos en vivo</span>
             </div>
             <div className="p-4 glass flex flex-col gap-1">
-              <span className="text-2xl font-bold text-white">100%</span>
-              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Calidad</span>
+              <span className="text-2xl font-bold text-white">&lt;24h</span>
+              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Respuesta</span>
             </div>
           </div>
 
@@ -249,7 +249,7 @@ export default function Hero() {
               </div>
               <div>
                 <span className="block text-[10px] text-zinc-500 uppercase font-bold tracking-wider">Carga Optimizada</span>
-                <span className="font-sans text-sm font-extrabold text-white">0.3s Total LCP</span>
+                <span className="font-sans text-sm font-extrabold text-white">PageSpeed 95+</span>
               </div>
             </div>
           </div>

@@ -2,12 +2,14 @@ import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { CALCULATOR_STEPS } from '../data';
-import * as Icons from 'lucide-react';
+import { Check, ArrowLeft, ArrowRight, MessageCircle } from 'lucide-react';
+import DynamicIcon from './DynamicIcon';
+import { waLink } from '../config';
 
-export default function BudgetCalculator() {
+export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (message: string) => void }) {
   const container = useRef<HTMLDivElement>(null);
   const priceDisplayRef = useRef<HTMLSpanElement>(null);
-  
+
   // Track previous and current price for GSAP count-up animation
   const countObj = useRef({ value: 0 });
 
@@ -18,9 +20,6 @@ export default function BudgetCalculator() {
 
   // Active calculator step tab
   const [currentStep, setCurrentStep] = useState<number>(0);
-
-  // Success state for sending budget
-  const [budgetSent, setBudgetSent] = useState(false);
 
   // Calculate price dynamically
   const calculateTotal = (): { total: number; breakDown: { label: string; cost: number }[] } => {
@@ -97,35 +96,24 @@ export default function BudgetCalculator() {
     }
   };
 
-  // Helper to dynamically render Lucide icons
-  const renderIcon = (name: string, className: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const IconComponent = (Icons as any)[name];
-    if (IconComponent) {
-      return <IconComponent className={className} />;
-    }
-    return <Icons.HelpCircle className={className} />;
+  // Arma el detalle de la cotización como texto legible.
+  const buildQuoteMessage = (): string => {
+    const lines = [
+      '¡Hola StonyDev! Armé una cotización con la calculadora de la web:',
+      ...breakDown.map((item) => `• ${item.label}: $${item.cost} USD`),
+      `Total estimado: $${total} USD`,
+      '',
+      'Quiero avanzar con una cotización formal.',
+    ];
+    return lines.join('\n');
   };
 
+  // Toda cotización sale por WhatsApp; además queda precargada en el formulario
+  // de contacto por si el visitante prefiere completar sus datos.
   const handleSendBudget = () => {
-    setBudgetSent(true);
-    setTimeout(() => {
-      setBudgetSent(false);
-      // Scroll to contact form and fill details automatically
-      const element = document.getElementById('contacto');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        // Set brief prefilled message on textarea
-        const textarea = document.getElementById('contact-message') as HTMLTextAreaElement;
-        if (textarea) {
-          const typeName = CALCULATOR_STEPS[0].options.find(o => o.id === projectType)?.label;
-          const designName = CALCULATOR_STEPS[1].options.find(o => o.id === designLevel)?.label;
-          textarea.value = `¡Hola StonyDev! He usado la calculadora de presupuesto interactiva y deseo solicitar una cotización formal:\n- Proyecto: ${typeName}\n- Nivel de Diseño: ${designName}\n- Presupuesto estimado: $${total} USD.`;
-          // Force input event to trigger any animation listeners if present
-          textarea.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-      }
-    }, 1800);
+    const message = buildQuoteMessage();
+    onQuoteReady?.(message);
+    window.open(waLink(message), '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -148,16 +136,17 @@ export default function BudgetCalculator() {
             Cotizador de Presupuestos
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            Define los requerimientos para tu plataforma y obtén un estimado al instante. Transparencia total, sin costes ocultos.
+            Define los requerimientos para tu plataforma, obtén un estimado al instante y envíalo
+            por WhatsApp en un toque. Transparencia total, sin costes ocultos.
           </p>
         </div>
 
         {/* Dynamic Calculator Box Grid */}
         <div className="grid gap-8 lg:grid-cols-12">
-          
+
           {/* Left / Steps Side (8 Cols) */}
           <div className="lg:col-span-8 flex flex-col justify-between rounded-3xl glass p-6 md:p-8 min-h-[480px] border-blue-500/10">
-            
+
             {/* Steps Nav Indicators */}
             <div className="flex items-center justify-between border-b border-white/5 pb-6 mb-6 overflow-x-auto gap-4">
               {CALCULATOR_STEPS.map((step, index) => (
@@ -220,13 +209,13 @@ export default function BudgetCalculator() {
                         <div className={`flex h-9 w-9 items-center justify-center rounded-xl transition-colors ${
                           isSelected ? 'bg-blue-400 text-black' : 'bg-white/5 text-zinc-400 group-hover:text-white group-hover:bg-white/10'
                         }`}>
-                          {renderIcon(option.icon, 'h-4.5 w-4.5')}
+                          <DynamicIcon name={option.icon} className="h-4.5 w-4.5" />
                         </div>
                         {/* Selector indicator bubble */}
                         <div className={`h-4 w-4 rounded-full border flex items-center justify-center ${
                           isSelected ? 'border-blue-400 bg-blue-400 text-black' : 'border-zinc-700'
                         }`}>
-                          {isSelected && <Icons.Check className="h-3 w-3 stroke-[3]" />}
+                          {isSelected && <Check className="h-3 w-3 stroke-[3]" aria-hidden="true" />}
                         </div>
                       </div>
 
@@ -258,11 +247,11 @@ export default function BudgetCalculator() {
                 onClick={() => setCurrentStep((prev) => prev - 1)}
                 className="flex items-center gap-1.5 text-xs font-bold text-zinc-400 transition-colors hover:text-white disabled:opacity-30 disabled:pointer-events-none"
               >
-                <Icons.ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 <span>Anterior</span>
               </button>
 
-              <span className="text-[10px] text-zinc-600 font-mono">
+              <span className="text-[10px] text-zinc-500 font-mono">
                 PASO {currentStep + 1} DE {CALCULATOR_STEPS.length}
               </span>
 
@@ -272,18 +261,15 @@ export default function BudgetCalculator() {
                   className="flex items-center gap-1.5 text-xs font-bold text-blue-400 transition-colors hover:text-blue-300"
                 >
                   <span>Siguiente</span>
-                  <Icons.ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
               ) : (
                 <button
-                  onClick={() => {
-                    const element = document.getElementById('contacto');
-                    if (element) element.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="flex items-center gap-1.5 text-xs font-bold text-white transition-colors hover:text-blue-300"
+                  onClick={handleSendBudget}
+                  className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 transition-colors hover:text-emerald-300"
                 >
-                  <span>Verificar Presupuesto</span>
-                  <Icons.ArrowRight className="h-4 w-4" />
+                  <span>Enviar por WhatsApp</span>
+                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
                 </button>
               )}
             </div>
@@ -292,7 +278,7 @@ export default function BudgetCalculator() {
 
           {/* Right / Sticky Total summary Side (4 Cols) */}
           <div className="lg:col-span-4 flex flex-col justify-between rounded-3xl glass bg-gradient-to-b from-black/80 to-black/40 p-6 shadow-xl relative overflow-hidden border-blue-500/10">
-            
+
             {/* Subtle glow border effect */}
             <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500" />
 
@@ -314,12 +300,12 @@ export default function BudgetCalculator() {
 
             {/* Large Price Meter */}
             <div className="mt-8 pt-6 border-t border-white/10">
-              
+
               <div className="text-center p-4 bg-white/[0.02] rounded-2xl border border-white/5 relative">
                 <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inversión Estimada</span>
-                
+
                 {/* Rolling Price counter targeting with GSAP */}
-                <span 
+                <span
                   ref={priceDisplayRef}
                   className="block text-4xl font-black text-blue-400 mt-2 font-sans tracking-tight"
                 >
@@ -329,30 +315,18 @@ export default function BudgetCalculator() {
                 <span className="block text-[9px] text-zinc-500 mt-1">Sujeto a variación por alcances</span>
               </div>
 
-              {/* Call to action button to submit budget details to contacts */}
+              {/* Envío directo de la cotización por WhatsApp */}
               <button
                 onClick={handleSendBudget}
-                disabled={budgetSent}
-                className="mt-6 w-full rounded-full bg-white px-5 py-3.5 font-sans text-xs font-bold text-black transition-all hover:bg-blue-500 hover:text-white active:scale-95 flex items-center justify-center gap-2"
+                className="mt-6 w-full rounded-full bg-[#25D366] px-5 py-3.5 font-sans text-xs font-bold text-white transition-all hover:bg-[#1ebe5b] active:scale-95 flex items-center justify-center gap-2"
               >
-                {budgetSent ? (
-                  <>
-                    <Icons.Loader2 className="h-4 w-4 animate-spin text-zinc-950" />
-                    <span>Transfiriendo datos...</span>
-                  </>
-                ) : (
-                  <>
-                    <Icons.Send className="h-4 w-4" />
-                    <span>Enviar esta Cotización</span>
-                  </>
-                )}
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                <span>Enviar Cotización por WhatsApp</span>
               </button>
 
-              {budgetSent && (
-                <div className="mt-3 text-center text-xs text-blue-400 font-medium animate-pulse">
-                  ¡Datos listos! Redirigiendo al formulario...
-                </div>
-              )}
+              <p className="mt-3 text-center text-[11px] text-zinc-500">
+                Se abre WhatsApp con el desglose completo, listo para enviar.
+              </p>
             </div>
 
           </div>

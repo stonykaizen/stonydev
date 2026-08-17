@@ -1,12 +1,9 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { SERVICES } from '../data';
-import * as Icons from 'lucide-react';
-
-// Register ScrollTrigger safely
-gsap.registerPlugin(ScrollTrigger);
+import { Check, ArrowUpRight } from 'lucide-react';
+import DynamicIcon from './DynamicIcon';
 
 export default function Services() {
   const container = useRef<HTMLDivElement>(null);
@@ -43,16 +40,6 @@ export default function Services() {
       });
     }
   }, { scope: container });
-
-  // Helper to dynamically render Lucide icons by name
-  const renderIcon = (name: string, className: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const IconComponent = (Icons as any)[name];
-    if (IconComponent) {
-      return <IconComponent className={className} />;
-    }
-    return <Icons.HelpCircle className={className} />;
-  };
 
   return (
     <section
@@ -92,7 +79,7 @@ export default function Services() {
               <div>
                 {/* Icon wrapper with glow on hover */}
                 <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 text-zinc-300 transition-all duration-300 group-hover:bg-blue-500/20 group-hover:text-blue-400 group-hover:scale-110">
-                  {renderIcon(service.icon, 'h-6 w-6')}
+                  <DynamicIcon name={service.icon} className="h-6 w-6" />
                 </div>
 
                 {/* Service Title */}
@@ -109,7 +96,7 @@ export default function Services() {
                 <ul className="mt-6 flex flex-col gap-2.5">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-xs text-slate-400">
-                      <Icons.Check className="h-3.5 w-3.5 mt-0.5 shrink-0 text-blue-400" />
+                      <Check className="h-3.5 w-3.5 mt-0.5 shrink-0 text-blue-400" aria-hidden="true" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -141,7 +128,7 @@ export default function Services() {
             className="group shrink-0 flex items-center gap-2 rounded-full bg-white px-5 py-3 font-sans text-xs font-bold text-black transition-all hover:bg-blue-500 hover:text-white hover:scale-[1.03]"
           >
             <span>Probar Cotizador en Vivo</span>
-            <Icons.ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
           </button>
         </div>
 

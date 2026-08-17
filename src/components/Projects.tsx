@@ -3,21 +3,48 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { PROJECTS } from '../data';
 import { Project } from '../types';
-import { ExternalLink, Hourglass, Layers, X, ArrowRight, Check, TrendingUp, Globe } from 'lucide-react';
+import { ExternalLink, Hourglass, Layers, X, ArrowRight, Check, TrendingUp, MessageCircle } from 'lucide-react';
+import { waLink } from '../config';
 
 export default function Projects() {
   const container = useRef<HTMLDivElement>(null);
   const gridContainer = useRef<HTMLDivElement>(null);
-  
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  // Elemento que tenía el foco antes de abrir el modal, para devolvérselo al cerrar.
+  const lastFocusedElement = useRef<HTMLElement | null>(null);
+
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'fullstack' | 'ecommerce' | 'frontend' | 'design'>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [previewLoaded, setPreviewLoaded] = useState(false);
 
-  // Close on Escape + lock body scroll while the modal is open
+  // Close on Escape, trap focus inside the dialog + lock body scroll while open
   useEffect(() => {
     if (!selectedProject) return;
     document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
+    closeButtonRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        return;
+      }
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusables = modalRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
@@ -68,6 +95,7 @@ export default function Projects() {
 
   // Custom modal open/close animations using GSAP
   const openModal = (proj: Project) => {
+    lastFocusedElement.current = document.activeElement as HTMLElement | null;
     setPreviewLoaded(false);
     setSelectedProject(proj);
     // Let state update then animate (using a safe timeout or immediate execution)
@@ -96,6 +124,7 @@ export default function Projects() {
           duration: 0.2,
           onComplete: () => {
             setSelectedProject(null);
+            lastFocusedElement.current?.focus();
           }
         });
       }
@@ -159,8 +188,17 @@ export default function Projects() {
           {filteredProjects.map((proj) => (
             <div
               key={proj.id}
+              role="button"
+              tabIndex={0}
+              aria-label={`Ver detalles de ${proj.title}`}
               onClick={() => openModal(proj)}
-              className="project-card group relative cursor-pointer overflow-hidden rounded-2xl glass transition-all hover:border-blue-500/30"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  openModal(proj);
+                }
+              }}
+              className="project-card group relative cursor-pointer overflow-hidden rounded-2xl glass transition-all hover:border-blue-500/30 focus-visible:outline-2 focus-visible:outline-blue-400"
             >
               {/* Aspect ratio container for preview image */}
               <div className="relative h-64 overflow-hidden md:h-72">
@@ -168,7 +206,10 @@ export default function Projects() {
                 <img
                   src={proj.image}
                   alt={proj.title}
-                  referrerPolicy="no-referrer"
+                  width={800}
+                  height={533}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Visual shade overlay */}
@@ -214,15 +255,23 @@ export default function Projects() {
             className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 md:p-6 backdrop-blur-md"
             onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
           >
-            <div className="modal-content relative w-full max-w-5xl overflow-hidden rounded-2xl glass bg-zinc-950/95 shadow-2xl">
+            <div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-modal-title"
+              className="modal-content relative w-full max-w-5xl overflow-hidden rounded-2xl glass bg-zinc-950/95 shadow-2xl"
+            >
 
               {/* Close Button */}
               <button
+                ref={closeButtonRef}
                 onClick={closeModal}
                 title="Cerrar (Esc)"
+                aria-label="Cerrar detalle del proyecto"
                 className="absolute top-3.5 right-3.5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/80 text-zinc-400 transition-colors hover:text-white border border-white/10"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </button>
 
               <div className="grid md:grid-cols-12 max-h-[88vh] md:max-h-[85vh] overflow-y-auto md:overflow-hidden">
@@ -275,7 +324,7 @@ export default function Projects() {
                       </div>
                       {/* Mobile: static image linking to demo */}
                       <a href={selectedProject.demoUrl} target="_blank" rel="noopener noreferrer" className="relative block h-44 md:hidden">
-                        <img src={selectedProject.image} alt={selectedProject.title} referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                        <img src={selectedProject.image} alt={selectedProject.title} className="h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
                         <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold text-black">
                           <ExternalLink className="h-3 w-3" /> Ver demo
@@ -284,7 +333,7 @@ export default function Projects() {
                     </>
                   ) : (
                     <div className="relative h-44 md:h-full md:flex-1">
-                      <img src={selectedProject.image} alt={selectedProject.title} referrerPolicy="no-referrer" className="h-full w-full object-cover" />
+                      <img src={selectedProject.image} alt={selectedProject.title} className="h-full w-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-zinc-950 via-transparent to-transparent" />
                     </div>
                   )}
@@ -305,7 +354,7 @@ export default function Projects() {
                     </span>
                   </div>
 
-                  <h3 className="mt-3 font-sans text-2xl md:text-[1.7rem] leading-tight font-black text-white">
+                  <h3 id="project-modal-title" className="mt-3 font-sans text-2xl md:text-[1.7rem] leading-tight font-black text-white">
                     {selectedProject.title}
                   </h3>
                   <p className="mt-2 text-sm text-slate-400">{selectedProject.description}</p>
@@ -352,23 +401,22 @@ export default function Projects() {
 
                   {/* Actions footer */}
                   <div className="mt-7 flex flex-col sm:flex-row gap-3 border-t border-white/5 pt-5">
-                    <button
-                      onClick={() => {
-                        closeModal();
-                        document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 font-sans text-xs font-bold text-zinc-950 transition-all hover:bg-blue-500 hover:text-white"
+                    <a
+                      href={waLink(`¡Hola StonyDev! Vi el proyecto "${selectedProject.title}" en su web y quiero algo así para mi negocio.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 font-sans text-xs font-bold text-white transition-all hover:bg-[#1ebe5b]"
                     >
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
                       Quiero uno para mi negocio
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </button>
+                    </a>
                     <a
                       href={selectedProject.demoUrl ?? 'https://stonydev.com'}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex flex-1 items-center justify-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-3 font-sans text-xs font-bold text-blue-300 hover:bg-blue-500/20 hover:text-white transition-colors"
                     >
-                      <Globe className="h-4 w-4" />
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
                       Ver demo en vivo
                     </a>
                   </div>

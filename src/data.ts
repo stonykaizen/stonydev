@@ -66,7 +66,7 @@ export const PROJECTS: Project[] = [
     description: 'Sitio para clínica odontológica orientado a tratamientos de ticket alto (implantes, ortodoncia) captados por SEO local, sin pauta.',
     category: 'frontend',
     tags: ['SEO Local', 'WhatsApp', 'React', 'Ticket Alto'],
-    image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800',
+    image: '/projects/dental.webp',
     details: 'Por qué este nicho: un solo implante o tratamiento de ortodoncia captado por Google paga el sitio completo. La demanda ya existe ("dentista cerca de mí") — no hay que crearla con publicidad, solo capturarla con SEO local y convertirla con reserva inmediata por WhatsApp.',
     features: [
       'Landing por tratamiento (implantes, ortodoncia, blanqueamiento) para posicionar cada búsqueda',
@@ -84,7 +84,7 @@ export const PROJECTS: Project[] = [
     description: 'Motor de reservas propio para complejo turístico: cada reserva directa ahorra el 15-25% que se llevan Booking y Airbnb.',
     category: 'fullstack',
     tags: ['Booking Engine', 'Node.js', 'MercadoPago', 'Cero Comisión'],
-    image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&q=80&w=800',
+    image: '/projects/cabanas.webp',
     details: 'Por qué este nicho: los complejos ya pagan hasta un cuarto de su facturación en comisiones de portales. Un motor de reservas propio se amortiza en pocas reservas y el huésped que ya conoce el lugar reserva directo — retorno inmediato sin gastar un peso en publicidad.',
     features: [
       'Calendario de disponibilidad en tiempo real con señas por MercadoPago',
@@ -102,7 +102,7 @@ export const PROJECTS: Project[] = [
     description: 'Agenda self-service con recordatorios automáticos: menos huecos, menos ausencias y clientes que vuelven todos los meses.',
     category: 'design',
     tags: ['Agenda Online', 'PWA', 'Recurrencia', 'Recordatorios'],
-    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=80&w=800',
+    image: '/projects/barberia.webp',
     details: 'Por qué este nicho: el cliente de barbería vuelve cada 3-4 semanas — el valor está en la recurrencia, no en captar tráfico nuevo. Con agenda online y recordatorios automáticos se reducen las ausencias y se llenan los huecos, todo con la clientela que ya existe: inversión publicitaria cero.',
     features: [
       'Reserva de turno en 3 toques desde el celular (PWA instalable)',
@@ -120,7 +120,7 @@ export const PROJECTS: Project[] = [
     description: 'Catálogo online para clientes de obra que repiten pedido todas las semanas: ticket alto y recurrente, sin un peso de pauta.',
     category: 'ecommerce',
     tags: ['B2B', 'Catálogo', 'WhatsApp', 'Pedidos Recurrentes'],
-    image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800',
+    image: '/projects/corralon.webp',
     details: 'Por qué este nicho: el corralón ya tiene la clientela — constructores que piden todas las semanas por teléfono. Digitalizar el pedido (catálogo + carrito que se envía por WhatsApp) baja la fricción, aumenta el ticket promedio y fideliza al cliente de obra sin necesidad de captar tráfico pago.',
     features: [
       'Catálogo con precios por volumen y stock visible',
@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
     description: 'Sitio institucional para estudio jurídico: una sola consulta captada por Google puede pagar el sitio varias veces.',
     category: 'frontend',
     tags: ['SEO Local', 'Leads', 'Autoridad', 'Ticket Alto'],
-    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800',
+    image: '/projects/juridico.webp',
     details: 'Por qué este nicho: los servicios jurídicos tienen el lead más caro del mercado publicitario — pero quien busca "abogado laboral" en Google ya necesita uno ahora. Un sitio con autoridad, casos de éxito y consulta directa captura esa demanda orgánica sin competir en subastas de anuncios.',
     features: [
       'Página por área de práctica (laboral, civil, familia) para SEO específico',
@@ -156,7 +156,7 @@ export const PROJECTS: Project[] = [
     description: 'Plataforma con historial de mascotas y recordatorios de vacunas: cada aviso automático es una consulta que vuelve sola.',
     category: 'fullstack',
     tags: ['Recordatorios', 'CRM', 'Recurrencia', 'WhatsApp'],
-    image: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80&w=800',
+    image: '/projects/veterinaria.webp',
     details: 'Por qué este nicho: cada mascota necesita vacunas y controles todos los años, pero la mayoría de los dueños simplemente se olvida. Un recordatorio automático por WhatsApp en la fecha justa trae la visita sin ningún costo de captación — ingresos recurrentes activados por software, no por publicidad.',
     features: [
       'Ficha e historial clínico digital por mascota',

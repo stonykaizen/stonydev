@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Code2, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
+import { waLink, WA_DEFAULT_MESSAGE } from '../config';
 
 export default function Navbar() {
   const container = useRef<HTMLDivElement>(null);
@@ -87,31 +88,36 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Contact Button */}
+          {/* WhatsApp Button */}
           <div className="hidden md:block">
-            <button
-              onClick={() => scrollToSection('contacto')}
-              className="nav-item group flex items-center gap-1.5 rounded-full bg-white px-4 py-2 font-sans text-xs font-semibold text-zinc-950 transition-all hover:bg-blue-500 hover:text-white"
+            <a
+              href={waLink(WA_DEFAULT_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-item group flex items-center gap-1.5 rounded-full bg-[#25D366] px-4 py-2 font-sans text-xs font-semibold text-white transition-all hover:bg-[#1ebe5b]"
             >
+              <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Trabajemos juntos</span>
-              <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
+            </a>
           </div>
 
           {/* Menu button (Mobile) */}
           <div className="flex md:hidden items-center gap-4">
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
               className="text-zinc-400 hover:text-white focus:outline-none"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
 
         {/* Mobile menu expanded */}
         {isOpen && (
-          <div className="mt-2 rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl backdrop-blur-md md:hidden">
+          <div id="mobile-menu" className="mt-2 rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl backdrop-blur-md md:hidden">
             <div className="flex flex-col gap-4">
               <button
                 onClick={() => scrollToSection('servicios')}
@@ -149,13 +155,16 @@ export default function Navbar() {
               >
                 Contacto
               </button>
-              <button
-                onClick={() => scrollToSection('contacto')}
-                className="mt-2 flex items-center justify-center gap-2 rounded-full bg-white py-3 font-sans text-sm font-semibold text-zinc-950 hover:bg-blue-500 hover:text-white transition-all"
+              <a
+                href={waLink(WA_DEFAULT_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 font-sans text-sm font-semibold text-white hover:bg-[#1ebe5b] transition-all"
               >
-                <span>Contacto Directo</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </button>
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                <span>WhatsApp Directo</span>
+              </a>
             </div>
           </div>
         )}

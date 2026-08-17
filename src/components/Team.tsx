@@ -1,10 +1,7 @@
 import { useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Palette, Workflow, Database, Rocket, type LucideIcon } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface Partner {
   name: string;

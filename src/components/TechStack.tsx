@@ -1,11 +1,9 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { TECH_STACK } from '../data';
-import * as Icons from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { ShieldCheck, Info } from 'lucide-react';
+import DynamicIcon from './DynamicIcon';
 
 export default function TechStack() {
   const container = useRef<HTMLDivElement>(null);
@@ -109,15 +107,6 @@ export default function TechStack() {
     };
   }, []);
 
-  const renderIcon = (name: string, className: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const IconComponent = (Icons as any)[name];
-    if (IconComponent) {
-      return <IconComponent className={className} />;
-    }
-    return <Icons.Cpu className={className} />;
-  };
-
   return (
     <section
       id="tecnologias"
@@ -137,7 +126,7 @@ export default function TechStack() {
             Tecnologías & Dominio
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            Domino herramientas punteras que permiten crear arquitecturas robustas y escalables con una interactividad sobresaliente.
+            Dominamos herramientas punteras que permiten crear arquitecturas robustas y escalables con una interactividad sobresaliente.
           </p>
         </div>
 
@@ -147,7 +136,7 @@ export default function TechStack() {
           {/* Column 1: Skill Bars */}
           <div className="lg:col-span-6 tech-list-trigger flex flex-col gap-6">
             <h3 className="font-sans text-lg font-bold text-white mb-2 flex items-center gap-2">
-              <Icons.ShieldCheck className="text-blue-400 h-5 w-5" />
+              <ShieldCheck className="text-blue-400 h-5 w-5" aria-hidden="true" />
               <span>Habilidades Clave & Fluidez</span>
             </h3>
 
@@ -204,7 +193,7 @@ export default function TechStack() {
                     className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5"
                     style={{ color: tech.color }}
                   >
-                    {renderIcon(tech.iconName, 'h-4 w-4')}
+                    <DynamicIcon name={tech.iconName} className="h-4 w-4" />
                   </div>
                   <div>
                     <span className="block text-xs font-bold leading-tight">{tech.name}</span>
@@ -220,7 +209,7 @@ export default function TechStack() {
             </div>
 
             <div className="mt-6 hidden lg:block text-center text-xs text-zinc-500 italic flex items-center gap-1">
-              <Icons.Info className="h-3.5 w-3.5 text-zinc-600" />
+              <Info className="h-3.5 w-3.5 text-zinc-600" aria-hidden="true" />
               <span>Pasa el cursor sobre las tarjetas para interactuar magnéticamente</span>
             </div>
           </div>
