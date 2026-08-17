@@ -3,8 +3,23 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { PROJECTS, CATEGORY_LABELS, GOAL_FILTERS } from '../data';
 import { Project, ProjectGoal } from '../types';
-import { ExternalLink, Hourglass, Layers, X, ArrowRight, Check, TrendingUp, MessageCircle } from 'lucide-react';
+import {
+  ExternalLink,
+  Hourglass,
+  Layers,
+  X,
+  ArrowRight,
+  Check,
+  TrendingUp,
+  MessageCircle,
+} from 'lucide-react';
 import { waLink, prefersReducedMotion } from '../config';
+
+// Factor de escala del preview de demos en el modal: el iframe se renderiza a
+// tamaño real (1/PREVIEW_SCALE del contenedor) y se reduce visualmente, así la
+// demo se ve como en un navegador de escritorio en miniatura.
+const PREVIEW_SCALE = 0.35;
+const PREVIEW_SIZE = `${Math.round(10000 / PREVIEW_SCALE) / 100}%`;
 
 export default function Projects() {
   const container = useRef<HTMLDivElement>(null);
@@ -26,11 +41,13 @@ export default function Projects() {
     if (prefersReducedMotion()) return;
     // Let state update then animate (using a safe timeout or immediate execution)
     setTimeout(() => {
-      gsap.fromTo('.modal-backdrop',
+      gsap.fromTo(
+        '.modal-backdrop',
         { opacity: 0 },
         { opacity: 1, duration: 0.3, ease: 'power1.out' }
       );
-      gsap.fromTo('.modal-content',
+      gsap.fromTo(
+        '.modal-content',
         { scale: 0.9, y: 50, opacity: 0 },
         { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.2)' }
       );
@@ -56,9 +73,9 @@ export default function Projects() {
           onComplete: () => {
             setSelectedProject(null);
             lastFocusedElement.current?.focus();
-          }
+          },
         });
-      }
+      },
     });
   };
 
@@ -122,20 +139,23 @@ export default function Projects() {
     );
   }, [selectedGoal]);
 
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
-    // ScrollTrigger entrance for the section header
-    gsap.from('.projects-header', {
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 85%',
-      },
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-    });
-  }, { scope: container });
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      // ScrollTrigger entrance for the section header
+      gsap.from('.projects-header', {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 85%',
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      });
+    },
+    { scope: container }
+  );
 
   return (
     <section
@@ -150,14 +170,17 @@ export default function Projects() {
         <div className="projects-header text-center mb-12">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-blue-400 shadow-blue-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">NICHOS DE ALTO RETORNO</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              NICHOS DE ALTO RETORNO
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
             Proyectos que se pagan solos
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            Conceptos de ejemplo en nichos donde la web genera retorno con mínima inversión publicitaria:
-            negocios de ticket alto o clientela recurrente, donde el SEO local y WhatsApp convierten la demanda que ya existe.
+            Conceptos de ejemplo en nichos donde la web genera retorno con mínima inversión
+            publicitaria: negocios de ticket alto o clientela recurrente, donde el SEO local y
+            WhatsApp convierten la demanda que ya existe.
           </p>
         </div>
 
@@ -179,10 +202,7 @@ export default function Projects() {
         </div>
 
         {/* Projects Grid */}
-        <div 
-          ref={gridContainer}
-          className="grid gap-6 md:grid-cols-2"
-        >
+        <div ref={gridContainer} className="grid gap-6 md:grid-cols-2">
           {filteredProjects.map((proj) => (
             <div
               key={proj.id}
@@ -223,8 +243,8 @@ export default function Projects() {
                 {/* Tags positioned absolute in corners */}
                 <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
                   {proj.tags.slice(0, 2).map((tag, idx) => (
-                    <span 
-                      key={idx} 
+                    <span
+                      key={idx}
                       className="rounded-md bg-black/80 px-2.5 py-1 text-[10px] font-bold text-zinc-300 border border-white/10 backdrop-blur-md"
                     >
                       {tag}
@@ -241,9 +261,7 @@ export default function Projects() {
                 <h3 className="mt-1.5 font-sans text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
                   {proj.title}
                 </h3>
-                <p className="mt-2 text-sm text-slate-400 line-clamp-2">
-                  {proj.description}
-                </p>
+                <p className="mt-2 text-sm text-slate-400 line-clamp-2">{proj.description}</p>
 
                 <div className="mt-4 flex items-center gap-1.5 text-xs font-bold text-blue-400">
                   <span>Ver detalles del proyecto</span>
@@ -260,7 +278,9 @@ export default function Projects() {
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
             className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 md:p-6 backdrop-blur-md"
-            onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closeModal();
+            }}
           >
             <div
               ref={modalRef}
@@ -269,7 +289,6 @@ export default function Projects() {
               aria-labelledby="project-modal-title"
               className="modal-content relative w-full max-w-5xl overflow-hidden rounded-2xl glass bg-zinc-950/95 shadow-2xl"
             >
-
               {/* Close Button */}
               <button
                 ref={closeButtonRef}
@@ -282,7 +301,6 @@ export default function Projects() {
               </button>
 
               <div className="grid md:grid-cols-12 max-h-[88vh] md:max-h-[85vh] overflow-y-auto md:overflow-hidden">
-
                 {/* Left: Live demo preview (desktop) / image (mobile) */}
                 <div className="md:col-span-5 relative bg-[#030303] md:max-h-[85vh] flex flex-col border-b md:border-b-0 md:border-r border-white/5">
                   {/* Browser chrome bar */}
@@ -302,7 +320,9 @@ export default function Projects() {
                         {!previewLoaded && (
                           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#030303]">
                             <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500/30 border-t-blue-400" />
-                            <span className="text-[10px] uppercase tracking-widest text-zinc-500">Cargando demo en vivo…</span>
+                            <span className="text-[10px] uppercase tracking-widest text-zinc-500">
+                              Cargando demo en vivo…
+                            </span>
                           </div>
                         )}
                         <iframe
@@ -310,7 +330,11 @@ export default function Projects() {
                           title={`Demo — ${selectedProject.title}`}
                           onLoad={() => setPreviewLoaded(true)}
                           className="absolute top-0 left-0 origin-top-left border-0"
-                          style={{ width: '285%', height: '285%', transform: 'scale(0.351)' }}
+                          style={{
+                            width: PREVIEW_SIZE,
+                            height: PREVIEW_SIZE,
+                            transform: `scale(${PREVIEW_SCALE})`,
+                          }}
                         />
                         {/* Click-through overlay to open the real demo */}
                         <a
@@ -326,12 +350,23 @@ export default function Projects() {
                         </a>
                         <div className="pointer-events-none absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-black/70 border border-white/10 px-3 py-1 backdrop-blur-md">
                           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-300">Demo en vivo</span>
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-300">
+                            Demo en vivo
+                          </span>
                         </div>
                       </div>
                       {/* Mobile: static image linking to demo */}
-                      <a href={selectedProject.demoUrl} target="_blank" rel="noopener noreferrer" className="relative block h-44 md:hidden">
-                        <img src={selectedProject.image} alt={selectedProject.title} className="h-full w-full object-cover" />
+                      <a
+                        href={selectedProject.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative block h-44 md:hidden"
+                      >
+                        <img
+                          src={selectedProject.image}
+                          alt={selectedProject.title}
+                          className="h-full w-full object-cover"
+                        />
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
                         <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold text-black">
                           <ExternalLink className="h-3 w-3" /> Ver demo
@@ -340,7 +375,11 @@ export default function Projects() {
                     </>
                   ) : (
                     <div className="relative h-44 md:h-full md:flex-1">
-                      <img src={selectedProject.image} alt={selectedProject.title} className="h-full w-full object-cover" />
+                      <img
+                        src={selectedProject.image}
+                        alt={selectedProject.title}
+                        className="h-full w-full object-cover"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-zinc-950 via-transparent to-transparent" />
                     </div>
                   )}
@@ -364,7 +403,10 @@ export default function Projects() {
                     </span>
                   </div>
 
-                  <h3 id="project-modal-title" className="mt-3 font-sans text-2xl md:text-[1.7rem] leading-tight font-black text-white">
+                  <h3
+                    id="project-modal-title"
+                    className="mt-3 font-sans text-2xl md:text-[1.7rem] leading-tight font-black text-white"
+                  >
                     {selectedProject.title}
                   </h3>
                   <p className="mt-2 text-sm text-slate-400">{selectedProject.description}</p>
@@ -375,19 +417,29 @@ export default function Projects() {
                       <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
                         <TrendingUp className="h-4 w-4" />
                       </span>
-                      <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">Por qué este nicho rinde</h4>
+                      <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-300">
+                        Por qué este nicho rinde
+                      </h4>
                     </div>
                     <p className="mt-2.5 text-[13px] leading-relaxed text-emerald-50/80">
-                      {(() => { const t = selectedProject.details.replace(/^Por qué este nicho:\s*/i, ''); return t.charAt(0).toUpperCase() + t.slice(1); })()}
+                      {(() => {
+                        const t = selectedProject.details.replace(/^Por qué este nicho:\s*/i, '');
+                        return t.charAt(0).toUpperCase() + t.slice(1);
+                      })()}
                     </p>
                   </div>
 
                   {/* Features grid */}
                   <div className="mt-6">
-                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">Qué incluye</h4>
+                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">
+                      Qué incluye
+                    </h4>
                     <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
                       {selectedProject.features.map((feat, index) => (
-                        <li key={index} className="flex items-start gap-2.5 rounded-lg border border-white/5 bg-white/[0.03] p-3 text-xs leading-relaxed text-zinc-300">
+                        <li
+                          key={index}
+                          className="flex items-start gap-2.5 rounded-lg border border-white/5 bg-white/[0.03] p-3 text-xs leading-relaxed text-zinc-300"
+                        >
                           <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
                             <Check className="h-2.5 w-2.5" strokeWidth={3.5} />
                           </span>
@@ -399,10 +451,15 @@ export default function Projects() {
 
                   {/* Tech stack */}
                   <div className="mt-6">
-                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">Stack tecnológico</h4>
+                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">
+                      Stack tecnológico
+                    </h4>
                     <div className="mt-2.5 flex flex-wrap gap-1.5">
                       {selectedProject.techStack.map((tech, index) => (
-                        <span key={index} className="rounded-md bg-white/5 px-2.5 py-1 font-mono text-[10px] font-medium text-zinc-300 border border-white/5">
+                        <span
+                          key={index}
+                          className="rounded-md bg-white/5 px-2.5 py-1 font-mono text-[10px] font-medium text-zinc-300 border border-white/5"
+                        >
                           {tech}
                         </span>
                       ))}
@@ -412,7 +469,9 @@ export default function Projects() {
                   {/* Actions footer */}
                   <div className="mt-7 flex flex-col sm:flex-row gap-3 border-t border-white/5 pt-5">
                     <a
-                      href={waLink(`¡Hola StonyDev! Vi el proyecto "${selectedProject.title}" en su web y quiero algo así para mi negocio.`)}
+                      href={waLink(
+                        `¡Hola StonyDev! Vi el proyecto "${selectedProject.title}" en su web y quiero algo así para mi negocio.`
+                      )}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 font-sans text-xs font-bold text-white transition-all hover:bg-[#1ebe5b]"
@@ -432,11 +491,9 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         )}
-
       </div>
     </section>
   );

@@ -1,10 +1,10 @@
 /* Las fuentes se cargan desde index.html con preconnect (no bloquean el primer render). */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 /* Base style resets and customizations */
@@ -14,7 +14,11 @@ body {
   color: #ffffff;
 }
 
-h1, h2, h3, h4, .font-sans-display {
+h1,
+h2,
+h3,
+h4,
+.font-sans-display {
   font-family: var(--font-display);
 }
 
@@ -63,11 +67,12 @@ h1, h2, h3, h4, .font-sans-display {
    transiciones) quedan prácticamente instantáneas. Las de GSAP se saltean
    desde los componentes con prefersReducedMotion(). */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
-

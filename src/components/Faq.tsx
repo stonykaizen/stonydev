@@ -46,20 +46,23 @@ export default function Faq() {
   const container = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
-    gsap.from('.faq-element', {
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 85%',
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.7,
-      stagger: 0.06,
-      ease: 'power3.out',
-    });
-  }, { scope: container });
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.from('.faq-element', {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 85%',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.06,
+        ease: 'power3.out',
+      });
+    },
+    { scope: container }
+  );
 
   return (
     <section
@@ -76,7 +79,9 @@ export default function Faq() {
         <div className="faq-element text-center mb-14">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-blue-400 shadow-blue-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">PREGUNTAS FRECUENTES</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              PREGUNTAS FRECUENTES
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
             Lo que todos preguntan
@@ -95,7 +100,9 @@ export default function Faq() {
                   aria-controls={`faq-panel-${index}`}
                   className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-white/[0.03]"
                 >
-                  <span className="font-sans text-sm md:text-base font-bold text-white">{faq.q}</span>
+                  <span className="font-sans text-sm md:text-base font-bold text-white">
+                    {faq.q}
+                  </span>
                   <ChevronDown
                     className={`h-4 w-4 shrink-0 text-blue-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
                     aria-hidden="true"

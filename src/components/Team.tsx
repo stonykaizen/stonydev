@@ -10,8 +10,8 @@ interface Partner {
   description: string;
   icon: LucideIcon;
   initials: string;
-  accent: string;       // tailwind color name for tints
-  ring: string;         // avatar gradient
+  accent: string; // tailwind color name for tints
+  ring: string; // avatar gradient
   tags: string[];
 }
 
@@ -93,38 +93,41 @@ const ACCENT = {
 export default function Team() {
   const container = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
-    gsap.from('.team-header', {
-      scrollTrigger: {
-        trigger: '.team-header',
-        start: 'top 90%',
-        toggleActions: 'play none none reverse',
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
-
-    const cards = container.current?.querySelectorAll('.team-card');
-    if (cards) {
-      cards.forEach((card, i) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 88%',
-            toggleActions: 'play none none reverse',
-          },
-          y: 50,
-          opacity: 0,
-          duration: 0.7,
-          delay: (i % 4) * 0.08,
-          ease: 'power2.out',
-        });
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.from('.team-header', {
+        scrollTrigger: {
+          trigger: '.team-header',
+          start: 'top 90%',
+          toggleActions: 'play none none reverse',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
       });
-    }
-  }, { scope: container });
+
+      const cards = container.current?.querySelectorAll('.team-card');
+      if (cards) {
+        cards.forEach((card, i) => {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none reverse',
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.7,
+            delay: (i % 4) * 0.08,
+            ease: 'power2.out',
+          });
+        });
+      }
+    },
+    { scope: container }
+  );
 
   return (
     <section
@@ -141,7 +144,9 @@ export default function Team() {
         <div className="team-header text-center mb-16">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-purple-400 shadow-purple-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">El Estudio</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              El Estudio
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-gradient">
             Cuatro socios, un solo estándar
@@ -167,10 +172,14 @@ export default function Team() {
 
                 {/* Avatar + role icon */}
                 <div className="mb-6 flex items-center justify-between">
-                  <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr ${partner.ring} font-sans text-sm font-extrabold text-white shadow-lg`}>
+                  <div
+                    className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr ${partner.ring} font-sans text-sm font-extrabold text-white shadow-lg`}
+                  >
                     {partner.initials}
                   </div>
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 transition-all duration-300 group-hover:scale-110 ${accent.text}`}>
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 transition-all duration-300 group-hover:scale-110 ${accent.text}`}
+                  >
                     <Icon className="h-5 w-5" />
                   </div>
                 </div>
@@ -209,8 +218,8 @@ export default function Team() {
               Un estudio, cuatro especialidades que trabajan como una
             </h4>
             <p className="text-sm text-slate-400 mt-1 max-w-xl">
-              Diseño, datos, backend y fullstack bajo el mismo techo: sin intermediarios,
-              sin traducciones perdidas entre equipos, con responsabilidad directa de cada socio.
+              Diseño, datos, backend y fullstack bajo el mismo techo: sin intermediarios, sin
+              traducciones perdidas entre equipos, con responsabilidad directa de cada socio.
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-3">

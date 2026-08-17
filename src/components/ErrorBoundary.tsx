@@ -41,15 +41,21 @@ export default class ErrorBoundary extends Component<Props, State> {
           textAlign: 'center',
         }}
       >
-        <span style={{ fontSize: '48px' }} aria-hidden="true">⚡</span>
-        <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#fff' }}>Algo salió mal al cargar la página</h1>
+        <span style={{ fontSize: '48px' }} aria-hidden="true">
+          ⚡
+        </span>
+        <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#fff' }}>
+          Algo salió mal al cargar la página
+        </h1>
         <p style={{ maxWidth: '440px', fontSize: '14px', color: '#94a3b8', lineHeight: 1.6 }}>
-          Recargá la página para intentarlo de nuevo. Si el problema sigue, escribinos
-          directo y te respondemos igual:
+          Recargá la página para intentarlo de nuevo. Si el problema sigue, escribinos directo y te
+          respondemos igual:
         </p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <a
-            href={waLink('¡Hola StonyDev! Les escribo desde la web (tuve un problema para cargarla).')}
+            href={waLink(
+              '¡Hola StonyDev! Les escribo desde la web (tuve un problema para cargarla).'
+            )}
             style={{
               background: '#25D366',
               color: '#fff',

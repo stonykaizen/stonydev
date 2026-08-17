@@ -11,69 +11,73 @@ export default function TechStack() {
   const container = useRef<HTMLDivElement>(null);
   const bubbleContainer = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const bars = gsap.utils.toArray<HTMLElement>('.tech-progress-bar');
+  useGSAP(
+    () => {
+      const bars = gsap.utils.toArray<HTMLElement>('.tech-progress-bar');
 
-    // Con movimiento reducido: barras directamente en su valor final, sin tweens.
-    if (prefersReducedMotion()) {
+      // Con movimiento reducido: barras directamente en su valor final, sin tweens.
+      if (prefersReducedMotion()) {
+        bars.forEach((bar) => {
+          bar.style.width = bar.getAttribute('data-level') + '%';
+        });
+        return;
+      }
+
+      // ScrollTrigger to animate skills progress bars filling up
       bars.forEach((bar) => {
-        bar.style.width = bar.getAttribute('data-level') + '%';
-      });
-      return;
-    }
-
-    // ScrollTrigger to animate skills progress bars filling up
-    bars.forEach((bar) => {
-      const targetWidth = bar.getAttribute('data-level') + '%';
-      gsap.fromTo(bar, 
-        { width: '0%' },
-        {
-          width: targetWidth,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: bar,
-            start: 'top 90%',
-            toggleActions: 'play none none reverse',
+        const targetWidth = bar.getAttribute('data-level') + '%';
+        gsap.fromTo(
+          bar,
+          { width: '0%' },
+          {
+            width: targetWidth,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: bar,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
           }
-        }
+        );
+      });
+
+      // Stagger slide-in of left side
+      gsap.from('.tech-list-item', {
+        scrollTrigger: {
+          trigger: '.tech-list-trigger',
+          start: 'top 85%',
+        },
+        x: -40,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.05,
+        ease: 'power2.out',
+      });
+
+      // Floating animation for interactive bubbles on the right
+      const bubbles = gsap.utils.toArray<HTMLElement>('.tech-bubble');
+      const bubbleTweens = bubbles.map((bubble, index) =>
+        gsap.to(bubble, {
+          y: `+=${10 + (index % 3) * 5}`,
+          x: `+=${5 - (index % 2) * 8}`,
+          duration: 2.5 + (index % 3) * 0.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        })
       );
-    });
 
-    // Stagger slide-in of left side
-    gsap.from('.tech-list-item', {
-      scrollTrigger: {
-        trigger: '.tech-list-trigger',
-        start: 'top 85%',
-      },
-      x: -40,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.05,
-      ease: 'power2.out',
-    });
-
-    // Floating animation for interactive bubbles on the right
-    const bubbles = gsap.utils.toArray<HTMLElement>('.tech-bubble');
-    const bubbleTweens = bubbles.map((bubble, index) =>
-      gsap.to(bubble, {
-        y: `+=${10 + (index % 3) * 5}`,
-        x: `+=${5 - (index % 2) * 8}`,
-        duration: 2.5 + (index % 3) * 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-      })
-    );
-
-    // Pausar los loops cuando la sección no está visible
-    ScrollTrigger.create({
-      trigger: container.current,
-      start: 'top bottom',
-      end: 'bottom top',
-      onToggle: (self) => bubbleTweens.forEach((t) => (self.isActive ? t.play() : t.pause())),
-    });
-  }, { scope: container });
+      // Pausar los loops cuando la sección no está visible
+      ScrollTrigger.create({
+        trigger: container.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        onToggle: (self) => bubbleTweens.forEach((t) => (self.isActive ? t.play() : t.pause())),
+      });
+    },
+    { scope: container }
+  );
 
   // Magnetic hover effect for technology elements
   useEffect(() => {
@@ -107,13 +111,14 @@ export default function TechStack() {
       });
     };
 
-    const listeners: { element: HTMLElement; move: (e: MouseEvent) => void; leave: () => void }[] = [];
+    const listeners: { element: HTMLElement; move: (e: MouseEvent) => void; leave: () => void }[] =
+      [];
 
     bubbles.forEach((b) => {
       const el = b as HTMLElement;
       const moveHandler = (e: MouseEvent) => handleMouseMove(e, el);
       const leaveHandler = () => handleMouseLeave(el);
-      
+
       el.addEventListener('mousemove', moveHandler);
       el.addEventListener('mouseleave', leaveHandler);
       listeners.push({ element: el, move: moveHandler, leave: leaveHandler });
@@ -140,19 +145,21 @@ export default function TechStack() {
         <div className="text-center mb-16">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-blue-400 shadow-blue-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">EXPERIENCIA TÉCNICA</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              EXPERIENCIA TÉCNICA
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
             Tecnologías & Dominio
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            Dominamos herramientas punteras que permiten crear arquitecturas robustas y escalables con una interactividad sobresaliente.
+            Dominamos herramientas punteras que permiten crear arquitecturas robustas y escalables
+            con una interactividad sobresaliente.
           </p>
         </div>
 
         {/* Two Column Layout */}
         <div className="grid gap-12 lg:grid-cols-12 items-center">
-          
           {/* Column 1: Skill Bars */}
           <div className="lg:col-span-6 tech-list-trigger flex flex-col gap-6">
             <h3 className="font-sans text-lg font-bold text-white mb-2 flex items-center gap-2">
@@ -172,10 +179,14 @@ export default function TechStack() {
                   </div>
                   {/* Nivel cualitativo en lugar de un % autoasignado sin referencia */}
                   <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
-                    {tech.level >= 92 ? 'Especialidad' : tech.level >= 85 ? 'Uso diario' : 'Producción'}
+                    {tech.level >= 92
+                      ? 'Especialidad'
+                      : tech.level >= 85
+                        ? 'Uso diario'
+                        : 'Producción'}
                   </span>
                 </div>
-                
+
                 {/* Background bar container */}
                 <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                   {/* GSAP targets this class and reads data-level */}
@@ -192,11 +203,13 @@ export default function TechStack() {
           {/* Column 2: Interactive Bubble Field */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center">
             <div className="text-center mb-6 lg:hidden">
-              <span className="text-xs text-zinc-500 italic">Prueba a pasar el cursor por encima de los elementos:</span>
+              <span className="text-xs text-zinc-500 italic">
+                Prueba a pasar el cursor por encima de los elementos:
+              </span>
             </div>
 
             {/* Bubble Grid Box */}
-            <div 
+            <div
               ref={bubbleContainer}
               className="relative w-full max-w-[480px] h-[360px] rounded-3xl glass p-6 flex flex-wrap gap-4 items-center justify-center overflow-hidden border-blue-500/10"
             >
@@ -209,10 +222,10 @@ export default function TechStack() {
                   className="tech-bubble cursor-pointer flex items-center gap-2.5 rounded-2xl glass bg-black/60 px-4 py-3 text-white shadow-lg transition-colors hover:border-blue-500/50"
                   style={{
                     // Slightly stagger initial positions offset
-                    transform: `translate(${idx % 2 === 0 ? '5px' : '-5px'}, ${idx % 3 === 0 ? '-3px' : '4px'})`
+                    transform: `translate(${idx % 2 === 0 ? '5px' : '-5px'}, ${idx % 3 === 0 ? '-3px' : '4px'})`,
                   }}
                 >
-                  <div 
+                  <div
                     className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5"
                     style={{ color: tech.color }}
                   >
@@ -221,7 +234,11 @@ export default function TechStack() {
                   <div>
                     <span className="block text-xs font-bold leading-tight">{tech.name}</span>
                     <span className="block text-[10px] text-zinc-400 leading-none">
-                      {tech.category === 'frontend' ? 'Frontend' : tech.category === 'backend' ? 'Backend' : 'Herramienta'}
+                      {tech.category === 'frontend'
+                        ? 'Frontend'
+                        : tech.category === 'backend'
+                          ? 'Backend'
+                          : 'Herramienta'}
                     </span>
                   </div>
                 </div>
@@ -236,9 +253,7 @@ export default function TechStack() {
               <span>Pasa el cursor sobre las tarjetas para interactuar magnéticamente</span>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );

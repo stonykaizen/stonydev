@@ -52,37 +52,40 @@ const STEPS = [
 export default function Process() {
   const container = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
 
-    gsap.from('.process-header', {
-      scrollTrigger: {
-        trigger: '.process-header',
-        start: 'top 90%',
-        toggleActions: 'play none none reverse',
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
-
-    const cards = container.current?.querySelectorAll('.process-card');
-    cards?.forEach((card, i) => {
-      gsap.from(card, {
+      gsap.from('.process-header', {
         scrollTrigger: {
-          trigger: card,
-          start: 'top 88%',
+          trigger: '.process-header',
+          start: 'top 90%',
           toggleActions: 'play none none reverse',
         },
-        y: 40,
+        y: 30,
         opacity: 0,
-        duration: 0.7,
-        delay: (i % 3) * 0.08,
+        duration: 0.8,
         ease: 'power2.out',
       });
-    });
-  }, { scope: container });
+
+      const cards = container.current?.querySelectorAll('.process-card');
+      cards?.forEach((card, i) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            toggleActions: 'play none none reverse',
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          delay: (i % 3) * 0.08,
+          ease: 'power2.out',
+        });
+      });
+    },
+    { scope: container }
+  );
 
   return (
     <section
@@ -97,13 +100,16 @@ export default function Process() {
         <div className="process-header text-center mb-16">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-emerald-400 shadow-emerald-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">CÓMO TRABAJAMOS</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              CÓMO TRABAJAMOS
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
             De la idea al lanzamiento
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
-            Un proceso claro y sin vueltas: sabés en qué etapa está tu proyecto, qué sigue y cuándo se entrega.
+            Un proceso claro y sin vueltas: sabés en qué etapa está tu proyecto, qué sigue y cuándo
+            se entrega.
           </p>
         </div>
 
@@ -140,9 +146,12 @@ export default function Process() {
         {/* CTA strip */}
         <div className="process-card mt-16 rounded-2xl glass p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border-emerald-500/10">
           <div className="text-center md:text-left">
-            <h4 className="font-sans text-lg md:text-xl font-bold text-white">El primer paso toma dos minutos</h4>
+            <h4 className="font-sans text-lg md:text-xl font-bold text-white">
+              El primer paso toma dos minutos
+            </h4>
             <p className="text-sm text-slate-400 mt-1 max-w-xl">
-              Contanos tu idea por WhatsApp y en menos de 48 horas tenés una propuesta con precio y plazos.
+              Contanos tu idea por WhatsApp y en menos de 48 horas tenés una propuesta con precio y
+              plazos.
             </p>
           </div>
           <a

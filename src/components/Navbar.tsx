@@ -9,17 +9,20 @@ export default function Navbar() {
   const container = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
-    // Elegant entry animation for the navbar
-    gsap.from('.nav-item', {
-      y: -20,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.05,
-      ease: 'power3.out',
-    });
-  }, { scope: container });
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      // Elegant entry animation for the navbar
+      gsap.from('.nav-item', {
+        y: -20,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.05,
+        ease: 'power3.out',
+      });
+    },
+    { scope: container }
+  );
 
   const scrollToSection = (id: string) => {
     setIsOpen(false);
@@ -27,11 +30,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      id="navbar"
-      ref={container}
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-3 md:px-8"
-    >
+    <nav id="navbar" ref={container} className="fixed top-0 left-0 right-0 z-50 px-4 py-3 md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-center justify-between rounded-full border border-white/10 bg-zinc-950/75 px-6 py-3 backdrop-blur-md shadow-lg shadow-black/20">
           {/* Logo & Brand */}
@@ -40,7 +39,9 @@ export default function Navbar() {
             aria-label="Ir al inicio"
             className="nav-item flex cursor-pointer items-center gap-2 text-white transition-colors hover:text-blue-400"
           >
-            <div className="w-8 h-8 glass flex items-center justify-center font-bold text-blue-500 rounded-lg text-sm">S</div>
+            <div className="w-8 h-8 glass flex items-center justify-center font-bold text-blue-500 rounded-lg text-sm">
+              S
+            </div>
             <span className="font-sans text-lg font-bold tracking-tight">
               stonydev<span className="text-blue-500 text-opacity-80">.com</span>
             </span>
@@ -48,8 +49,8 @@ export default function Navbar() {
 
           {/* Nav Items (Desktop) */}
           <div className="hidden md:flex items-center gap-6">
-            <button 
-              onClick={() => scrollToSection('servicios')} 
+            <button
+              onClick={() => scrollToSection('servicios')}
               className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
             >
               Servicios
@@ -78,14 +79,14 @@ export default function Navbar() {
             >
               Tecnologías
             </button>
-            <button 
-              onClick={() => scrollToSection('calculadora')} 
+            <button
+              onClick={() => scrollToSection('calculadora')}
               className="nav-item cursor-pointer font-sans text-sm text-blue-400 font-semibold transition-colors hover:text-blue-300"
             >
               Cotizador
             </button>
-            <button 
-              onClick={() => scrollToSection('contacto')} 
+            <button
+              onClick={() => scrollToSection('contacto')}
               className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
             >
               Contacto
@@ -114,14 +115,21 @@ export default function Navbar() {
               aria-controls="mobile-menu"
               className="text-zinc-400 hover:text-white focus:outline-none"
             >
-              {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
+              {isOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile menu expanded */}
         {isOpen && (
-          <div id="mobile-menu" className="mt-2 rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl backdrop-blur-md md:hidden">
+          <div
+            id="mobile-menu"
+            className="mt-2 rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl backdrop-blur-md md:hidden"
+          >
             <div className="flex flex-col gap-4">
               <button
                 onClick={() => scrollToSection('servicios')}

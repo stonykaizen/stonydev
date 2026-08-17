@@ -17,10 +17,14 @@ export const WA_DEFAULT_MESSAGE =
 
 // El visitante pidió reducir el movimiento a nivel de sistema operativo.
 export function prefersReducedMotion(): boolean {
-  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return (
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 }
 
 // Scroll a una sección respetando la preferencia de movimiento.
 export function scrollToId(id: string): void {
-  document.getElementById(id)?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  document
+    .getElementById(id)
+    ?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
 }

@@ -19,27 +19,30 @@ export default function App() {
   // Mensaje armado por el cotizador que precarga el formulario de contacto.
   const [quoteMessage, setQuoteMessage] = useState('');
 
-  useGSAP(() => {
-    // Show back-to-top button based on scroll position
-    const toTopBtn = document.querySelector('.back-to-top');
-    if (toTopBtn) {
-      // autoAlpha maneja opacity + visibility: oculto de verdad (tampoco enfocable por teclado)
-      gsap.set(toTopBtn, { autoAlpha: 0, scale: 0.8, pointerEvents: 'none' });
+  useGSAP(
+    () => {
+      // Show back-to-top button based on scroll position
+      const toTopBtn = document.querySelector('.back-to-top');
+      if (toTopBtn) {
+        // autoAlpha maneja opacity + visibility: oculto de verdad (tampoco enfocable por teclado)
+        gsap.set(toTopBtn, { autoAlpha: 0, scale: 0.8, pointerEvents: 'none' });
 
-      gsap.to(toTopBtn, {
-        scrollTrigger: {
-          trigger: 'body',
-          start: 'top -400',
-          end: 'bottom bottom',
-          toggleActions: 'play none none reverse',
-        },
-        autoAlpha: 1,
-        scale: 1,
-        pointerEvents: 'all',
-        duration: 0.3,
-      });
-    }
-  }, { scope: container });
+        gsap.to(toTopBtn, {
+          scrollTrigger: {
+            trigger: 'body',
+            start: 'top -400',
+            end: 'bottom bottom',
+            toggleActions: 'play none none reverse',
+          },
+          autoAlpha: 1,
+          scale: 1,
+          pointerEvents: 'all',
+          duration: 0.3,
+        });
+      }
+    },
+    { scope: container }
+  );
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

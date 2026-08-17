@@ -10,7 +10,7 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
     name: '',
     email: '',
     company: '',
-    message: ''
+    message: '',
   });
   const [isSent, setIsSent] = useState(false);
   const [validationError, setValidationError] = useState('');
@@ -27,26 +27,29 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
   }
 
   // Scroll Trigger reveal for elements
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
-    gsap.from('.contact-element', {
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 85%',
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power3.out',
-    });
-  }, { scope: container });
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.from('.contact-element', {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 85%',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+    },
+    { scope: container }
+  );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [id.replace('contact-', '')]: value
+      [id.replace('contact-', '')]: value,
     }));
     if (validationError) {
       setValidationError('');
@@ -75,7 +78,8 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
     setValidationError('');
     setIsSent(true);
     if (!prefersReducedMotion()) {
-      gsap.fromTo('.success-popup',
+      gsap.fromTo(
+        '.success-popup',
         { scale: 0.8, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' }
       );
@@ -102,7 +106,9 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
         <div className="contact-element text-center mb-16">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-blue-400 shadow-blue-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">INICIEMOS TU PROYECTO</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              INICIEMOS TU PROYECTO
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
             Cuéntanos tu idea
@@ -114,14 +120,14 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
         </div>
 
         <div className="grid gap-12 lg:grid-cols-12 items-start">
-
           {/* Column 1: Contact Details (5 Cols) */}
           <div className="lg:col-span-5 flex flex-col gap-8">
             <div className="contact-element">
-              <h3 className="font-sans text-xl font-bold text-white mb-6">Información de Contacto</h3>
+              <h3 className="font-sans text-xl font-bold text-white mb-6">
+                Información de Contacto
+              </h3>
 
               <div className="flex flex-col gap-6">
-
                 {/* WhatsApp — canal principal */}
                 <a
                   href={waLink('¡Hola StonyDev! Quiero hacerles una consulta sobre un proyecto.')}
@@ -133,8 +139,12 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
                     <MessageCircle className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div>
-                    <span className="block text-xs text-slate-400 font-bold uppercase tracking-wider">WhatsApp — Respuesta Rápida</span>
-                    <span className="text-sm font-semibold text-white group-hover:text-emerald-300 transition-colors">{SITE.whatsappDisplay}</span>
+                    <span className="block text-xs text-slate-400 font-bold uppercase tracking-wider">
+                      WhatsApp — Respuesta Rápida
+                    </span>
+                    <span className="text-sm font-semibold text-white group-hover:text-emerald-300 transition-colors">
+                      {SITE.whatsappDisplay}
+                    </span>
                   </div>
                 </a>
 
@@ -147,8 +157,12 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
                     <Mail className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div>
-                    <span className="block text-xs text-slate-400 font-bold uppercase tracking-wider">Correo Electrónico</span>
-                    <span className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">{SITE.email}</span>
+                    <span className="block text-xs text-slate-400 font-bold uppercase tracking-wider">
+                      Correo Electrónico
+                    </span>
+                    <span className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">
+                      {SITE.email}
+                    </span>
                   </div>
                 </a>
 
@@ -158,11 +172,14 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
                     <MapPin className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div>
-                    <span className="block text-xs text-slate-400 font-bold uppercase tracking-wider">Ubicación</span>
-                    <span className="text-sm font-semibold text-white">Uruguay · Remoto / Cobertura Global</span>
+                    <span className="block text-xs text-slate-400 font-bold uppercase tracking-wider">
+                      Ubicación
+                    </span>
+                    <span className="text-sm font-semibold text-white">
+                      Uruguay · Remoto / Cobertura Global
+                    </span>
                   </div>
                 </div>
-
               </div>
             </div>
 
@@ -192,7 +209,9 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 mb-6">
                   <CheckCircle2 className="h-10 w-10" aria-hidden="true" />
                 </div>
-                <h3 className="font-sans text-2xl font-bold text-white">¡Abrimos WhatsApp con tu mensaje!</h3>
+                <h3 className="font-sans text-2xl font-bold text-white">
+                  ¡Abrimos WhatsApp con tu mensaje!
+                </h3>
                 <p className="mt-2 text-sm text-slate-400 max-w-sm">
                   Solo falta que toques &ldquo;Enviar&rdquo; en WhatsApp y lo recibimos al instante.
                   Si no se abrió, escribinos directo al {SITE.whatsappDisplay}.
@@ -207,7 +226,6 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
             ) : (
               /* Standard Form */
               <form onSubmit={handleSubmit} className="contact-element flex flex-col gap-6">
-
                 {validationError && (
                   <div className="flex items-center gap-2 rounded-xl bg-red-500/10 border border-red-500/20 p-4 text-xs text-red-400">
                     <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -288,11 +306,9 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
                 <p className="text-center text-[11px] text-zinc-400 -mt-2">
                   Se abre WhatsApp con tu mensaje listo — sin formularios que caen en spam.
                 </p>
-
               </form>
             )}
           </div>
-
         </div>
 
         {/* Footer */}
@@ -309,7 +325,6 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
             WhatsApp {SITE.whatsappDisplay}
           </a>
         </div>
-
       </div>
     </section>
   );

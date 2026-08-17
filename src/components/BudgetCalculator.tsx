@@ -17,7 +17,11 @@ function loadSaved(): { projectType?: string; designLevel?: string; integrations
   }
 }
 
-export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (message: string) => void }) {
+export default function BudgetCalculator({
+  onQuoteReady,
+}: {
+  onQuoteReady?: (message: string) => void;
+}) {
   const container = useRef<HTMLDivElement>(null);
   const priceDisplayRef = useRef<HTMLSpanElement>(null);
 
@@ -28,7 +32,9 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
   const [saved] = useState(loadSaved);
   const [projectType, setProjectType] = useState<string>(saved.projectType ?? 'corporativo');
   const [designLevel, setDesignLevel] = useState<string>(saved.designLevel ?? 'premium');
-  const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>(saved.integrations ?? ['auth', 'pagos']);
+  const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>(
+    saved.integrations ?? ['auth', 'pagos']
+  );
 
   // Active calculator step tab
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -93,24 +99,27 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
         if (priceDisplayRef.current) {
           priceDisplayRef.current.innerText = `$${Math.round(countObj.current.value)}`;
         }
-      }
+      },
     });
   }, [total]);
 
   // Section intro animations
-  useGSAP(() => {
-    if (prefersReducedMotion()) return;
-    gsap.from('.calc-header', {
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 85%',
-      },
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-    });
-  }, { scope: container });
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.from('.calc-header', {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 85%',
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      });
+    },
+    { scope: container }
+  );
 
   // Toggle selection for checkboxes (integrations)
   const toggleIntegration = (id: string) => {
@@ -155,7 +164,9 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
         <div className="calc-header text-center mb-16">
           <div className="mx-auto mb-3 flex max-w-fit items-center gap-2 rounded-full glass px-3 py-1">
             <div className="nav-dot animate-pulse bg-blue-400 shadow-blue-400" />
-            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">HERRAMIENTA INTERACTIVA</span>
+            <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+              HERRAMIENTA INTERACTIVA
+            </span>
           </div>
           <h2 className="mt-3 font-sans text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl text-gradient">
             Cotizador de Presupuestos
@@ -168,10 +179,8 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
 
         {/* Dynamic Calculator Box Grid */}
         <div className="grid gap-8 lg:grid-cols-12">
-
           {/* Left / Steps Side (8 Cols) */}
           <div className="lg:col-span-8 flex flex-col justify-between rounded-3xl glass p-6 md:p-8 min-h-[480px] border-blue-500/10">
-
             {/* Steps Nav Indicators */}
             <div className="flex items-center justify-between border-b border-white/5 pb-6 mb-6 overflow-x-auto gap-4">
               {CALCULATOR_STEPS.map((step, index) => (
@@ -184,12 +193,20 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                       : 'border-transparent text-zinc-500 hover:text-zinc-300'
                   }`}
                 >
-                  <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
-                    currentStep === index ? 'bg-blue-400 text-black' : 'bg-white/5 text-zinc-500'
-                  }`}>
+                  <span
+                    className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
+                      currentStep === index ? 'bg-blue-400 text-black' : 'bg-white/5 text-zinc-500'
+                    }`}
+                  >
                     {index + 1}
                   </span>
-                  <span>{step.id === 'tipo' ? 'Tipo' : step.id === 'diseno' ? 'Diseño' : 'Integraciones'}</span>
+                  <span>
+                    {step.id === 'tipo'
+                      ? 'Tipo'
+                      : step.id === 'diseno'
+                        ? 'Diseño'
+                        : 'Integraciones'}
+                  </span>
                 </button>
               ))}
             </div>
@@ -211,8 +228,8 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                   currentStep === 0
                     ? projectType === option.id
                     : currentStep === 1
-                    ? designLevel === option.id
-                    : selectedIntegrations.includes(option.id);
+                      ? designLevel === option.id
+                      : selectedIntegrations.includes(option.id);
 
                 const selectOption = () => {
                   if (currentStep === 0) setProjectType(option.id);
@@ -242,16 +259,26 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                     <div>
                       {/* Option Header with icon */}
                       <div className="flex items-center justify-between mb-4">
-                        <div className={`flex h-9 w-9 items-center justify-center rounded-xl transition-colors ${
-                          isSelected ? 'bg-blue-400 text-black' : 'bg-white/5 text-zinc-400 group-hover:text-white group-hover:bg-white/10'
-                        }`}>
+                        <div
+                          className={`flex h-9 w-9 items-center justify-center rounded-xl transition-colors ${
+                            isSelected
+                              ? 'bg-blue-400 text-black'
+                              : 'bg-white/5 text-zinc-400 group-hover:text-white group-hover:bg-white/10'
+                          }`}
+                        >
                           <DynamicIcon name={option.icon} className="h-4.5 w-4.5" />
                         </div>
                         {/* Selector indicator bubble */}
-                        <div className={`h-4 w-4 rounded-full border flex items-center justify-center ${
-                          isSelected ? 'border-blue-400 bg-blue-400 text-black' : 'border-zinc-700'
-                        }`}>
-                          {isSelected && <Check className="h-3 w-3 stroke-[3]" aria-hidden="true" />}
+                        <div
+                          className={`h-4 w-4 rounded-full border flex items-center justify-center ${
+                            isSelected
+                              ? 'border-blue-400 bg-blue-400 text-black'
+                              : 'border-zinc-700'
+                          }`}
+                        >
+                          {isSelected && (
+                            <Check className="h-3 w-3 stroke-[3]" aria-hidden="true" />
+                          )}
                         </div>
                       </div>
 
@@ -267,7 +294,9 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                     {/* Cost indication */}
                     <div className="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
                       <span className="text-zinc-500">Valor de referencia</span>
-                      <span className={`font-sans font-extrabold ${isSelected ? 'text-blue-400' : 'text-zinc-300'}`}>
+                      <span
+                        className={`font-sans font-extrabold ${isSelected ? 'text-blue-400' : 'text-zinc-300'}`}
+                      >
                         {option.cost === 0 ? 'Sin recargo' : `+ $${option.cost} USD`}
                       </span>
                     </div>
@@ -309,12 +338,10 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                 </button>
               )}
             </div>
-
           </div>
 
           {/* Right / Sticky Total summary Side (4 Cols) */}
           <div className="lg:col-span-4 flex flex-col justify-between rounded-3xl glass bg-gradient-to-b from-black/80 to-black/40 p-6 shadow-xl relative overflow-hidden border-blue-500/10">
-
             {/* Subtle glow border effect */}
             <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500" />
 
@@ -326,7 +353,10 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
               {/* Selected List BreakDown */}
               <div className="flex flex-col gap-4">
                 {breakDown.map((item, index) => (
-                  <div key={index} className="flex justify-between text-xs border-b border-white/5 pb-2">
+                  <div
+                    key={index}
+                    className="flex justify-between text-xs border-b border-white/5 pb-2"
+                  >
                     <span className="text-slate-400 font-medium">{item.label}</span>
                     <span className="text-white font-mono">${item.cost} USD</span>
                   </div>
@@ -336,9 +366,10 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
 
             {/* Large Price Meter */}
             <div className="mt-8 pt-6 border-t border-white/10">
-
               <div className="text-center p-4 bg-white/[0.02] rounded-2xl border border-white/5 relative">
-                <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Inversión Estimada</span>
+                <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                  Inversión Estimada
+                </span>
 
                 {/* Rolling Price counter targeting with GSAP */}
                 <span
@@ -348,7 +379,9 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                   $0
                 </span>
 
-                <span className="block text-[10px] text-zinc-400 mt-1">Referencia en USD · cotización formal también en UYU · sujeto a alcances</span>
+                <span className="block text-[10px] text-zinc-400 mt-1">
+                  Referencia en USD · cotización formal también en UYU · sujeto a alcances
+                </span>
               </div>
 
               {/* Envío directo de la cotización por WhatsApp */}
@@ -364,11 +397,8 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                 Se abre WhatsApp con el desglose completo, listo para enviar.
               </p>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </section>
   );
