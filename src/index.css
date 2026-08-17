@@ -59,3 +59,15 @@ h1, h2, h3, h4, .font-sans-display {
   box-shadow: 0 0 12px #3b82f6;
 }
 
+/* Con movimiento reducido activo, las animaciones CSS (pulse, ping, spin,
+   transiciones) quedan prácticamente instantáneas. Las de GSAP se saltean
+   desde los componentes con prefersReducedMotion(). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

@@ -4,11 +4,13 @@ import { useGSAP } from '@gsap/react';
 import { SERVICES } from '../data';
 import { Check, ArrowUpRight } from 'lucide-react';
 import DynamicIcon from './DynamicIcon';
+import { prefersReducedMotion, scrollToId } from '../config';
 
 export default function Services() {
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
     // Animate the section header
     gsap.from('.services-header', {
       scrollTrigger: {
@@ -121,10 +123,7 @@ export default function Services() {
             <p className="text-sm text-slate-400 mt-1 max-w-xl">Usa nuestro cotizador de presupuestos interactivo para armar un paquete personalizado que encaje a la perfección con tu idea.</p>
           </div>
           <button
-            onClick={() => {
-              const element = document.getElementById('calculadora');
-              if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={() => scrollToId('calculadora')}
             className="group shrink-0 flex items-center gap-2 rounded-full bg-white px-5 py-3 font-sans text-xs font-bold text-black transition-all hover:bg-blue-500 hover:text-white hover:scale-[1.03]"
           >
             <span>Probar Cotizador en Vivo</span>

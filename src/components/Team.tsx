@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Palette, Workflow, Database, Rocket, type LucideIcon } from 'lucide-react';
+import { prefersReducedMotion } from '../config';
 
 interface Partner {
   name: string;
@@ -93,6 +94,7 @@ export default function Team() {
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
     gsap.from('.team-header', {
       scrollTrigger: {
         trigger: '.team-header',

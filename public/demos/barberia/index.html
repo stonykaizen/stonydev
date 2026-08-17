@@ -219,7 +219,7 @@
     if (state.barbero && state.servicio && state.hora){
       r.innerHTML = '<b>'+state.servicio+'</b> con <b>'+state.barbero+'</b> · <b>'+state.dia+' '+state.hora+'</b> · $U '+state.precio;
       var msg = encodeURIComponent('Hola! Quiero reservar '+state.servicio+' con '+state.barbero+' el '+state.dia.toLowerCase()+' a las '+state.hora+'. (Reserva web)');
-      btn.href = 'https://wa.me/59899000003?text='+msg;
+      btn.href = 'https://wa.me/59892375881?text='+msg;
       btn.classList.remove('dis');
     } else {
       var falta = [];
@@ -232,5 +232,12 @@
   }
 })();
 </script>
+
+<!-- Banner StonyDev: atribución de la demo y CTA de captación -->
+<div style="height:56px"></div>
+<div style="position:fixed;bottom:0;left:0;right:0;z-index:999;background:#0a0a0a;color:#e2e8f0;font-family:Inter,system-ui,sans-serif;font-size:13px;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12)">
+  <span>✦ Demo conceptual desarrollada por <a href="https://stonydev.com" style="color:#60a5fa;font-weight:700;text-decoration:none">StonyDev</a></span>
+  <a href="https://wa.me/59892375881?text=%C2%A1Hola%20StonyDev%21%20Vi%20la%20demo%20de%20la%20barber%C3%ADa%20con%20agenda%20online%20y%20quiero%20una%20web%20as%C3%AD%20para%20mi%20negocio." target="_blank" rel="noopener" style="background:#25D366;color:#fff;font-weight:700;text-decoration:none;padding:6px 14px;border-radius:99px;white-space:nowrap">Quiero una web así</a>
+</div>
 </body>
 </html>

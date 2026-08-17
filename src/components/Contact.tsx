@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Mail, MapPin, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
-import { SITE, waLink } from '../config';
+import { SITE, waLink, prefersReducedMotion } from '../config';
 
 export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }) {
   const container = useRef<HTMLDivElement>(null);
@@ -24,6 +24,7 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
 
   // Scroll Trigger reveal for elements
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
     gsap.from('.contact-element', {
       scrollTrigger: {
         trigger: container.current,
@@ -69,10 +70,12 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
 
     setValidationError('');
     setIsSent(true);
-    gsap.fromTo('.success-popup',
-      { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' }
-    );
+    if (!prefersReducedMotion()) {
+      gsap.fromTo('.success-popup',
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' }
+      );
+    }
   };
 
   const handleReset = () => {

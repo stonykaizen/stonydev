@@ -3,6 +3,22 @@
 > Revisión profunda del código (v2.4) realizada el 2026-08-17.
 > Prioridades: 🔴 Crítica (pierde clientes o está roto) · 🟠 Alta · 🟡 Media · 🟢 Baja.
 
+## ✅ Estado de implementación (2026-08-17)
+
+**Implementado** — Top 10 completo más un segundo lote:
+1.1–1.8 (contacto por WhatsApp, cotizador arreglado, links muertos fuera, voz plural, métricas,
+ScrollTrigger centralizado, back-to-top accesible) · 2.1, 2.2, 2.3 (sección Proceso), 2.4 (FAQ
+con schema), 2.6, 2.7 (banner en demos) · 3.1–3.4 (bundle −67%, deps limpias, fuentes, imágenes
+WebP locales) · 4.1–4.3, 4.5 · 5.1–5.3, 5.6, 5.7 · 6.1, 6.4, 6.5 · 7.2 (CI), 7.4, 7.7 · 8.1, 8.2
+(vercel.json) · 9.1, 9.2, 9.4. Toda comunicación deriva a WhatsApp +598 92 375 881
+(`src/config.ts`).
+
+**Pendiente**: 2.5 parcial (precios UYU aclarados en FAQ, falta en cotizador), 2.8 (multi-idioma),
+2.9 (analytics), 3.5 (code-splitting), 3.6 (pausar animaciones fuera de viewport), 3.7 (favicon
+png/apple-touch), 4.4 (rutas por servicio), 4.6 (blog), 5.4/5.5 (tipografías mínimas y contraste),
+6.2 (filtros por nicho), 6.3 (barras %), 7.1 (ESLint/Prettier), 7.3 parcial, 7.5 parcial, 7.6 ✅,
+7.8 (ErrorBoundary), 7.9 ✅, 8.3 (redirecciones dominio), 8.4 (monitoreo), 9.3, 9.5.
+
 ---
 
 ## 1. Bugs funcionales (lo que está roto hoy)

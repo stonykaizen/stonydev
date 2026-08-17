@@ -4,7 +4,18 @@ import { useGSAP } from '@gsap/react';
 import { CALCULATOR_STEPS } from '../data';
 import { Check, ArrowLeft, ArrowRight, MessageCircle } from 'lucide-react';
 import DynamicIcon from './DynamicIcon';
-import { waLink } from '../config';
+import { waLink, prefersReducedMotion } from '../config';
+
+// Restaura las selecciones del cotizador si el visitante recarga la página.
+const STORAGE_KEY = 'stonydev-cotizador';
+
+function loadSaved(): { projectType?: string; designLevel?: string; integrations?: string[] } {
+  try {
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? '{}');
+  } catch {
+    return {};
+  }
+}
 
 export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (message: string) => void }) {
   const container = useRef<HTMLDivElement>(null);
@@ -14,12 +25,20 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
   const countObj = useRef({ value: 0 });
 
   // Selections state
-  const [projectType, setProjectType] = useState<string>('corporativo'); // Default 'Sitio Web Corporativo'
-  const [designLevel, setDesignLevel] = useState<string>('premium'); // Default 'Premium e Interactivo'
-  const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>(['auth', 'pagos']); // Default integrations
+  const saved = useRef(loadSaved()).current;
+  const [projectType, setProjectType] = useState<string>(saved.projectType ?? 'corporativo');
+  const [designLevel, setDesignLevel] = useState<string>(saved.designLevel ?? 'premium');
+  const [selectedIntegrations, setSelectedIntegrations] = useState<string[]>(saved.integrations ?? ['auth', 'pagos']);
 
   // Active calculator step tab
   const [currentStep, setCurrentStep] = useState<number>(0);
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ projectType, designLevel, integrations: selectedIntegrations })
+    );
+  }, [projectType, designLevel, selectedIntegrations]);
 
   // Calculate price dynamically
   const calculateTotal = (): { total: number; breakDown: { label: string; cost: number }[] } => {
@@ -61,6 +80,11 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
 
   // GSAP Count-Up Animation whenever total price changes
   useEffect(() => {
+    if (prefersReducedMotion()) {
+      countObj.current.value = total;
+      if (priceDisplayRef.current) priceDisplayRef.current.innerText = `$${total}`;
+      return;
+    }
     gsap.to(countObj.current, {
       value: total,
       duration: 0.8,
@@ -75,6 +99,7 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
 
   // Section intro animations
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
     gsap.from('.calc-header', {
       scrollTrigger: {
         trigger: container.current,

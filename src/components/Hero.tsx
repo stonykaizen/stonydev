@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Sparkles, ArrowRight, Play, CheckCircle } from 'lucide-react';
+import { ArrowRight, Play, CheckCircle } from 'lucide-react';
+import { prefersReducedMotion, scrollToId } from '../config';
 
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
@@ -9,6 +10,8 @@ export default function Hero() {
   const floatingCards = useRef<HTMLDivElement[]>([]);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
+
     // 1. Text reveals
     const tl = gsap.timeline();
     tl.from('.hero-badge', {
@@ -62,6 +65,7 @@ export default function Hero() {
 
   // 3. Mouse parallax effect on floating elements
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const handleMouseMove = (e: MouseEvent) => {
       if (!interactiveArea.current) return;
       const rect = interactiveArea.current.getBoundingClientRect();
@@ -114,13 +118,6 @@ export default function Hero() {
     };
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section
       id="hero"
@@ -157,14 +154,14 @@ export default function Hero() {
 
           <div className="flex flex-col flex-wrap justify-center gap-4 sm:flex-row lg:justify-start">
             <button
-              onClick={() => scrollToSection('calculadora')}
+              onClick={() => scrollToId('calculadora')}
               className="hero-btn group flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-sans text-sm font-bold text-black shadow-lg shadow-blue-500/10 transition-all hover:bg-blue-50 hover:scale-[1.02]"
             >
               <span>Cotizar Proyecto</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
             <button
-              onClick={() => scrollToSection('proyectos')}
+              onClick={() => scrollToId('proyectos')}
               className="hero-btn flex items-center justify-center gap-2 rounded-full glass px-6 py-3.5 font-sans text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10"
             >
               <Play className="h-4 w-4 fill-white text-white" />
@@ -193,7 +190,7 @@ export default function Hero() {
         {/* Right Side: Interactive GSAP Canvas / Parallax Playground */}
         <div 
           ref={interactiveArea}
-          className="relative flex h-[440px] w-full items-center justify-center lg:h-[500px] lg:w-1/2 perspective-[1000px] select-none z-10"
+          className="relative hidden lg:flex h-[500px] w-full items-center justify-center lg:w-1/2 perspective-[1000px] select-none z-10"
         >
           {/* Central glow */}
           <div className="absolute h-64 w-64 rounded-full bg-gradient-to-tr from-blue-500/10 to-purple-500/10 blur-3xl" />

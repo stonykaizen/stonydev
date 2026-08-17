@@ -3,13 +3,14 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Menu, X, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
-import { waLink, WA_DEFAULT_MESSAGE } from '../config';
+import { waLink, WA_DEFAULT_MESSAGE, prefersReducedMotion, scrollToId } from '../config';
 
 export default function Navbar() {
   const container = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
     // Elegant entry animation for the navbar
     gsap.from('.nav-item', {
       y: -20,
@@ -22,11 +23,7 @@ export default function Navbar() {
 
   const scrollToSection = (id: string) => {
     setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      // Use GSAP's native scrolling or standard smooth scroll
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToId(id);
   };
 
   return (
@@ -61,6 +58,12 @@ export default function Navbar() {
               className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
             >
               Equipo
+            </button>
+            <button
+              onClick={() => scrollToSection('proceso')}
+              className="nav-item cursor-pointer font-sans text-sm text-zinc-400 transition-colors hover:text-white"
+            >
+              Proceso
             </button>
             <button
               onClick={() => scrollToSection('proyectos')}
@@ -130,6 +133,12 @@ export default function Navbar() {
                 className="text-left font-sans text-base font-medium text-zinc-300 hover:text-blue-400"
               >
                 Equipo
+              </button>
+              <button
+                onClick={() => scrollToSection('proceso')}
+                className="text-left font-sans text-base font-medium text-zinc-300 hover:text-blue-400"
+              >
+                Proceso
               </button>
               <button
                 onClick={() => scrollToSection('proyectos')}

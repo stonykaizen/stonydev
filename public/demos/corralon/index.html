@@ -215,11 +215,18 @@
     if (keys.length){
       var lines = keys.map(function(k){ var it = cart[k]; return '• '+it.q+' '+it.u+(it.q>1?'s':'')+' de '+it.n; });
       var msg = encodeURIComponent('Hola! Pedido desde la web:\n'+lines.join('\n')+'\nTotal estimado: $U '+total.toLocaleString('es-UY')+'\nObra: [dirección]');
-      wa.href = 'https://wa.me/59899000004?text='+msg;
+      wa.href = 'https://wa.me/59892375881?text='+msg;
       wa.classList.remove('dis');
     } else wa.classList.add('dis');
   }
 })();
 </script>
+
+<!-- Banner StonyDev: atribución de la demo y CTA de captación -->
+<div style="height:56px"></div>
+<div style="position:fixed;bottom:0;left:0;right:0;z-index:999;background:#0a0a0a;color:#e2e8f0;font-family:Inter,system-ui,sans-serif;font-size:13px;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12)">
+  <span>✦ Demo conceptual desarrollada por <a href="https://stonydev.com" style="color:#60a5fa;font-weight:700;text-decoration:none">StonyDev</a></span>
+  <a href="https://wa.me/59892375881?text=%C2%A1Hola%20StonyDev%21%20Vi%20la%20demo%20de%20el%20corral%C3%B3n%20con%20cat%C3%A1logo%20B2B%20y%20quiero%20una%20web%20as%C3%AD%20para%20mi%20negocio." target="_blank" rel="noopener" style="background:#25D366;color:#fff;font-weight:700;text-decoration:none;padding:6px 14px;border-radius:99px;white-space:nowrap">Quiero una web así</a>
+</div>
 </body>
 </html>

@@ -4,14 +4,24 @@ import { useGSAP } from '@gsap/react';
 import { TECH_STACK } from '../data';
 import { ShieldCheck, Info } from 'lucide-react';
 import DynamicIcon from './DynamicIcon';
+import { prefersReducedMotion } from '../config';
 
 export default function TechStack() {
   const container = useRef<HTMLDivElement>(null);
   const bubbleContainer = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // ScrollTrigger to animate skills progress bars filling up
     const bars = gsap.utils.toArray('.tech-progress-bar');
+
+    // Con movimiento reducido: barras directamente en su valor final, sin tweens.
+    if (prefersReducedMotion()) {
+      bars.forEach((bar: any) => {
+        bar.style.width = bar.getAttribute('data-level') + '%';
+      });
+      return;
+    }
+
+    // ScrollTrigger to animate skills progress bars filling up
     bars.forEach((bar: any) => {
       const targetWidth = bar.getAttribute('data-level') + '%';
       gsap.fromTo(bar, 
@@ -58,6 +68,7 @@ export default function TechStack() {
 
   // Magnetic hover effect for technology elements
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const bubbles = bubbleContainer.current?.querySelectorAll('.tech-bubble');
     if (!bubbles) return;
 

@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { PROJECTS } from '../data';
 import { Project } from '../types';
 import { ExternalLink, Hourglass, Layers, X, ArrowRight, Check, TrendingUp, MessageCircle } from 'lucide-react';
-import { waLink } from '../config';
+import { waLink, prefersReducedMotion } from '../config';
 
 export default function Projects() {
   const container = useRef<HTMLDivElement>(null);
@@ -61,8 +61,8 @@ export default function Projects() {
 
   // Re-run animation when the category changes
   useEffect(() => {
-    if (!gridContainer.current) return;
-    
+    if (!gridContainer.current || prefersReducedMotion()) return;
+
     // Clear and do fresh stagger
     gsap.fromTo(
       gridContainer.current.querySelectorAll('.project-card'),
@@ -80,6 +80,7 @@ export default function Projects() {
   }, [selectedCategory]);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
     // ScrollTrigger entrance for the section header
     gsap.from('.projects-header', {
       scrollTrigger: {
@@ -98,6 +99,7 @@ export default function Projects() {
     lastFocusedElement.current = document.activeElement as HTMLElement | null;
     setPreviewLoaded(false);
     setSelectedProject(proj);
+    if (prefersReducedMotion()) return;
     // Let state update then animate (using a safe timeout or immediate execution)
     setTimeout(() => {
       gsap.fromTo('.modal-backdrop', 
@@ -112,6 +114,11 @@ export default function Projects() {
   };
 
   const closeModal = () => {
+    if (prefersReducedMotion()) {
+      setSelectedProject(null);
+      lastFocusedElement.current?.focus();
+      return;
+    }
     gsap.to('.modal-content', {
       scale: 0.9,
       y: 30,
@@ -214,6 +221,13 @@ export default function Projects() {
                 />
                 {/* Visual shade overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/40 to-transparent" />
+
+                {/* Etiqueta de honestidad: es un concepto con demo navegable, no un cliente real */}
+                <div className="absolute top-4 right-4">
+                  <span className="rounded-md bg-emerald-400/90 px-2.5 py-1 text-[10px] font-bold text-black">
+                    Concepto · Demo en vivo
+                  </span>
+                </div>
 
                 {/* Tags positioned absolute in corners */}
                 <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
@@ -351,6 +365,9 @@ export default function Projects() {
                     </span>
                     <span className="flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-zinc-400">
                       <Layers className="h-3 w-3" /> {selectedProject.techStack.length} tecnologías
+                    </span>
+                    <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-emerald-300">
+                      Concepto de ejemplo
                     </span>
                   </div>
 

@@ -1,6 +1,5 @@
 {
   "name": "StonyDev - Desarrollo Web Profesional",
-  "description": "Portafolio digital interactivo de StonyDev (stonydev.com). Desarrollo de aplicaciones web premium a medida con animaciones de alto impacto y rendimiento óptimo.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "description": "Sitio del estudio StonyDev (stonydev.com). Desarrollo de aplicaciones web premium a medida con animaciones de alto impacto y rendimiento óptimo.",
+  "requestFramePermissions": []
 }

@@ -3,7 +3,9 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Team from './components/Team';
+import Process from './components/Process';
 import Projects from './components/Projects';
+import Faq from './components/Faq';
 import TechStack from './components/TechStack';
 import BudgetCalculator from './components/BudgetCalculator';
 import Contact from './components/Contact';
@@ -83,16 +85,22 @@ export default function App() {
         {/* 3. El Estudio / Socios */}
         <Team />
 
-        {/* 4. Case Studies / Showcase */}
+        {/* 4. Proceso de trabajo */}
+        <Process />
+
+        {/* 5. Case Studies / Showcase */}
         <Projects />
 
-        {/* 5. Tech Stack / Experiencia */}
+        {/* 6. Tech Stack / Experiencia */}
         <TechStack />
 
-        {/* 6. Custom Quote Calculator */}
+        {/* 7. Custom Quote Calculator */}
         <BudgetCalculator onQuoteReady={setQuoteMessage} />
 
-        {/* 7. Form / Contact */}
+        {/* 8. Preguntas frecuentes */}
+        <Faq />
+
+        {/* 9. Form / Contact */}
         <Contact quoteMessage={quoteMessage} />
       </main>
     </div>
