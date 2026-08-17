@@ -22,10 +22,16 @@ centralizados), 7.8 ✅ (ErrorBoundary con fallback a WhatsApp). Además: se ins
 @types/react/@types/react-dom que faltaban (React tipaba como `any`) y el cotizador es ahora
 operable por teclado.
 
-**Pendiente**: 2.8 (multi-idioma), 2.9 (analytics — requiere elegir proveedor/ID), 4.4 (rutas por
-servicio), 4.6 (blog), 5.5 (revisión fina de contraste), 6.3 (reemplazar barras % por métricas
-reales de los socios), 8.3 (redirecciones de dominio — se configura en el hosting), 8.4
-(monitoreo externo), 9.3, 9.5 (detalles menores de demos), y activar `strict` en tsconfig.
+**Cuarto lote implementado**: `strict: true` en tsconfig ✅ (pasa sin errores), 5.5 ✅ (pase de
+contraste en textos pequeños zinc/slate-500 → 400), 6.3 ✅ (los % autoasignados ahora son niveles
+cualitativos: Especialidad / Uso diario / Producción), 9.3 ✅ (las 12 imágenes de las demos
+self-hosted en WebP — ya no dependen de Unsplash), manifest PWA con iconos ✅.
+
+**Pendiente (requiere decisión o acceso externo)**: 2.8 (multi-idioma), 2.9 (analytics — falta
+elegir proveedor/ID; el equipo de Vercel del dueño existe pero sin proyectos aún), 4.4 (rutas
+por servicio — implica prerender o migrar a Astro/Next), 4.6 (blog), 8.3 (redirecciones de
+dominio — hosting), 8.4 (monitoreo externo), 9.5 (refactor menor del iframe de demos), y el
+despliegue del sitio (no hay proyecto en Vercel todavía).
 
 ---
 

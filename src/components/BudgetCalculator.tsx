@@ -287,7 +287,7 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                 <span>Anterior</span>
               </button>
 
-              <span className="text-[10px] text-zinc-500 font-mono">
+              <span className="text-[10px] text-zinc-400 font-mono">
                 PASO {currentStep + 1} DE {CALCULATOR_STEPS.length}
               </span>
 
@@ -338,7 +338,7 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
             <div className="mt-8 pt-6 border-t border-white/10">
 
               <div className="text-center p-4 bg-white/[0.02] rounded-2xl border border-white/5 relative">
-                <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">Inversión Estimada</span>
+                <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Inversión Estimada</span>
 
                 {/* Rolling Price counter targeting with GSAP */}
                 <span
@@ -348,7 +348,7 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                   $0
                 </span>
 
-                <span className="block text-[10px] text-zinc-500 mt-1">Referencia en USD · cotización formal también en UYU · sujeto a alcances</span>
+                <span className="block text-[10px] text-zinc-400 mt-1">Referencia en USD · cotización formal también en UYU · sujeto a alcances</span>
               </div>
 
               {/* Envío directo de la cotización por WhatsApp */}
@@ -360,7 +360,7 @@ export default function BudgetCalculator({ onQuoteReady }: { onQuoteReady?: (mes
                 <span>Enviar Cotización por WhatsApp</span>
               </button>
 
-              <p className="mt-3 text-center text-[11px] text-zinc-500">
+              <p className="mt-3 text-center text-[11px] text-zinc-400">
                 Se abre WhatsApp con el desglose completo, listo para enviar.
               </p>
             </div>

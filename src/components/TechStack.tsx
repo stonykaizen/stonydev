@@ -164,13 +164,16 @@ export default function TechStack() {
               <div key={tech.name} className="tech-list-item flex flex-col gap-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <div className="flex items-center gap-2 text-zinc-300">
-                    <span 
-                      className="h-2.5 w-2.5 rounded-full" 
+                    <span
+                      className="h-2.5 w-2.5 rounded-full"
                       style={{ backgroundColor: tech.color }}
                     />
                     <span className="font-bold">{tech.name}</span>
                   </div>
-                  <span className="font-mono text-zinc-500">{tech.level}%</span>
+                  {/* Nivel cualitativo en lugar de un % autoasignado sin referencia */}
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                    {tech.level >= 92 ? 'Especialidad' : tech.level >= 85 ? 'Uso diario' : 'Producción'}
+                  </span>
                 </div>
                 
                 {/* Background bar container */}
@@ -217,7 +220,7 @@ export default function TechStack() {
                   </div>
                   <div>
                     <span className="block text-xs font-bold leading-tight">{tech.name}</span>
-                    <span className="block text-[10px] text-zinc-500 leading-none">
+                    <span className="block text-[10px] text-zinc-400 leading-none">
                       {tech.category === 'frontend' ? 'Frontend' : tech.category === 'backend' ? 'Backend' : 'Herramienta'}
                     </span>
                   </div>

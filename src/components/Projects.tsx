@@ -290,7 +290,7 @@ export default function Projects() {
                     <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
                     <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
                     <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
-                    <div className="ml-2 flex-1 truncate rounded-md bg-black/40 border border-white/5 px-3 py-1 font-mono text-[10px] text-zinc-500">
+                    <div className="ml-2 flex-1 truncate rounded-md bg-black/40 border border-white/5 px-3 py-1 font-mono text-[10px] text-zinc-400">
                       stonydev.com{selectedProject.demoUrl ?? ''}
                     </div>
                   </div>

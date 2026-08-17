@@ -1,0 +1,13 @@
+{
+  "name": "StonyDev — Estudio de Desarrollo Web",
+  "short_name": "StonyDev",
+  "description": "Estudio de desarrollo web de cuatro socios: UX/UI, datos, backend y fullstack con automatizaciones. Uruguay.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#030303",
+  "theme_color": "#030303",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

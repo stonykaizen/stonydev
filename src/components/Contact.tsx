@@ -285,7 +285,7 @@ export default function Contact({ quoteMessage = '' }: { quoteMessage?: string }
                   <MessageCircle className="h-4 w-4" aria-hidden="true" />
                   <span>Enviar por WhatsApp</span>
                 </button>
-                <p className="text-center text-[11px] text-zinc-500 -mt-2">
+                <p className="text-center text-[11px] text-zinc-400 -mt-2">
                   Se abre WhatsApp con tu mensaje listo — sin formularios que caen en spam.
                 </p>
 

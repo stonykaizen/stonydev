@@ -183,15 +183,15 @@ export default function Hero() {
           <div className="hero-desc mt-12 grid grid-cols-3 gap-6 border-t border-white/5 pt-8 text-left max-w-md mx-auto lg:mx-0">
             <div className="p-4 glass flex flex-col gap-1">
               <span className="text-2xl font-bold text-white">04</span>
-              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Socios</span>
+              <span className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Socios</span>
             </div>
             <div className="p-4 glass flex flex-col gap-1">
               <span className="text-2xl font-bold text-white">06</span>
-              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Demos en vivo</span>
+              <span className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Demos en vivo</span>
             </div>
             <div className="p-4 glass flex flex-col gap-1">
               <span className="text-2xl font-bold text-white">&lt;24h</span>
-              <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Respuesta</span>
+              <span className="text-[10px] uppercase text-slate-400 font-bold tracking-wider">Respuesta</span>
             </div>
           </div>
 
@@ -255,7 +255,7 @@ export default function Hero() {
                 <CheckCircle className="h-4 w-4" />
               </div>
               <div>
-                <span className="block text-[10px] text-zinc-500 uppercase font-bold tracking-wider">Carga Optimizada</span>
+                <span className="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Carga Optimizada</span>
                 <span className="font-sans text-sm font-extrabold text-white">PageSpeed 95+</span>
               </div>
             </div>
